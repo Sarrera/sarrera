@@ -33,12 +33,18 @@ All runtime secrets and deployment variables are centralized in the `.env` file 
 
 ---
 
-### LiteLLM Gateway & RBAC
+### Initial Platform Administrator (Bootstrapped via Docker Compose)
+
+These credentials configure the primary administrator account across all frontend and backend services on initial startup:
 
 | Variable | Default Value | Description |
 | :--- | :--- | :--- |
-| `LITELLM_MASTER_KEY` | `sk-master-platform-key-change-me` | The master API key used to administrate the proxy, generate virtual keys, create teams, and access `/ui`. |
-| `STORE_MODEL_IN_DB` | `True` | Instructs LiteLLM to persist model schemas and teams in PostgreSQL. |
+| `ADMIN_USERNAME` | `admin` | Administrator username used for LiteLLM Proxy UI (`/admin/litellm/` or `:4000/ui`). |
+| `ADMIN_EMAIL` | `admin@sarrera.local` | Initial admin email automatically seeded into Open WebUI on first boot (`WEBUI_ADMIN_EMAIL`). |
+| `ADMIN_PASSWORD` | `sk-master-platform-key-change-me` | Root administrative password used for Open WebUI (`WEBUI_ADMIN_PASSWORD`), LiteLLM UI (`UI_PASSWORD`), and Sarrera Portal. |
+| `ADMIN_NAME` | `Platform Administrator` | Display name assigned to the initial admin user in Open WebUI. |
+| `LITELLM_MASTER_KEY` | `sk-master-platform-key-change-me` | Root cryptographic master key (must start with `sk-`) used for administrative API endpoints, virtual key issuance, tier creation, and Sarrera Portal `/admin` login. |
+| `STORE_MODEL_IN_DB` | `True` | Instructs LiteLLM to persist model schemas, teams, and virtual keys in PostgreSQL. |
 
 ---
 

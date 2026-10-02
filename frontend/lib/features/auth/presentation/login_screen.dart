@@ -313,8 +313,16 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   ),
                   const SizedBox(height: 12),
                   const Text(
-                    'Full platform control: Tune subscription tiers, onboard engineering staff, and register dynamic GPU/CPU nodes.',
+                    'Full platform control: Tune subscription tiers, onboard engineering staff, and register dynamic GPU/CPU nodes. Configured via ADMIN_PASSWORD / LITELLM_MASTER_KEY in your .env.',
                     style: TextStyle(fontSize: 12, color: AppTheme.textMuted),
+                  ),
+                  const SizedBox(height: 16),
+                  OutlinedButton.icon(
+                    onPressed: () {
+                      _adminKeyController.text = 'sk-master-platform-key-change-me';
+                    },
+                    icon: const Icon(Icons.key, size: 14, color: AppTheme.accent),
+                    label: const Text('Fill Default Admin Key (.env default)', style: TextStyle(fontSize: 12)),
                   ),
                   const SizedBox(height: 24),
                   SizedBox(

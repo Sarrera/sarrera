@@ -33,13 +33,15 @@ services:
 
 ### 2. `litellm` (Service: `ai-gateway`)
 - **Image**: `ghcr.io/berriai/litellm:main-latest`
-- **Command**: `--config /app/config.yaml --port 4000 --detailed_debug`
+- **Command**: `["--config", "/app/config.yaml", "--port", "4000"]`
 - **Environment**:
   - `DATABASE_URL`: `postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/litellm`
-  - `LITELLM_MASTER_KEY`: Administrative token for managing keys, teams, and models.
   - `STORE_MODEL_IN_DB`: `True`
+  - `LITELLM_MASTER_KEY`: Root administrative secret (`sk-...`) for managing keys, teams, and Sarrera Portal `/admin` auth.
+  - `UI_USERNAME`: `${ADMIN_USERNAME:-admin}` (Administrator username for the LiteLLM proxy UI).
+  - `UI_PASSWORD`: `${ADMIN_PASSWORD:-sk-master-platform-key-change-me}` (Administrator password for the LiteLLM proxy UI).
   - `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, `LANGFUSE_HOST`: Observability callback targets.
-  - `GPU_PREMIUM_URL`, `GPU_ENTRY_URL`, `CPU_CLUSTER_URL`: Dynamic upstream node IPs.
+  - `GPU_PREMIUM_HOST`, `GPU_ENTRY_HOST`, `CPU_CLUSTER_HOST`: Dynamic upstream node hosts.
 - **Volumes**:
   - `./config/litellm-config.yaml:/app/config.yaml:ro`
 - **Depends On**:
@@ -53,14 +55,18 @@ services:
   - S3 configuration (`LANGFUSE_S3_EVENT_UPLOAD_BUCKET`, `LANGFUSE_S3_EVENT_UPLOAD_ENDPOINT`, etc.)
 - **Depends On**:
   - `postgres` (condition: `service_healthy`)
-  - `minio` (condition: `service_healthy`)
+  - `minio` (condition: `service_started`)
 
 ### 4. `open-webui` (Service: `ai-webui`)
 - **Image**: `ghcr.io/open-webui/open-webui:main`
 - **Environment**:
   - `OPENAI_API_BASE_URL`: `http://litellm:4000/v1`
   - `OPENAI_API_KEY`: `${LITELLM_MASTER_KEY}`
-  - `WEBUI_AUTH`: `True`
+  - `WEBUI_SECRET_KEY`: `${OPENWEBUI_SECRET_KEY}`
+  - `WEBUI_ADMIN_EMAIL`: `${ADMIN_EMAIL:-admin@sarrera.local}` (Auto-provisions the primary admin user on first launch).
+  - `WEBUI_ADMIN_PASSWORD`: `${ADMIN_PASSWORD:-sk-master-platform-key-change-me}` (Admin password for chat UI login).
+  - `WEBUI_ADMIN_NAME`: `${ADMIN_NAME:-Platform Administrator}`
+  - `ENABLE_LDAP`: `${ENABLE_LDAP:-false}`
 - **Volumes**:
   - `openwebui_data:/app/backend/data`
 
