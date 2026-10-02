@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sarrera - Edge Gateway & Service Portal</title>
+  <link rel="icon" href="/assets/sarrera-icon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090a0f;
+      --card-bg: #12131c;
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-hover-border: rgba(99, 102, 241, 0.4);
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      --primary: #6366f1;
+      --primary-hover: #4f46e5;
+      --accent: #06b6d4;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --code-bg: #161722;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 85% 25%, rgba(6, 182, 212, 0.10) 0%, transparent 35%),
+        radial-gradient(circle at 50% 80%, rgba(16, 185, 129, 0.08) 0%, transparent 40%);
+      background-attachment: fixed;
+    }
+
+    header {
+      padding: 3rem 2rem 1.5rem;
+      max-width: 1280px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .brand img {
+      width: 56px;
+      height: 56px;
+      filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.6));
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, #ffffff 40%, #a5b4fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .tagline {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 720px;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .status-ribbon {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .badge.tls {
+      color: #a7f3d0;
+      border-color: rgba(16, 185, 129, 0.3);
+      background: rgba(16, 185, 129, 0.1);
+    }
+    .badge.tls .badge-dot { background: var(--success); box-shadow: 0 0 8px var(--success); }
+
+    .badge.shield {
+      color: #c7d2fe;
+      border-color: rgba(99, 102, 241, 0.3);
+      background: rgba(99, 102, 241, 0.1);
+    }
+    .badge.shield .badge-dot { background: var(--primary); box-shadow: 0 0 8px var(--primary); }
+
+    .badge.acme {
+      color: #fed7aa;
+      border-color: rgba(245, 158, 11, 0.3);
+      background: rgba(245, 158, 11, 0.1);
+    }
+    .badge.acme .badge-dot { background: var(--warning); box-shadow: 0 0 8px var(--warning); }
+
+    main {
+      flex: 1;
+      max-width: 1280px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 0 2rem 3rem;
+    }
+
+    .section-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      letter-spacing: -0.01em;
+    }
+
+    /* GRID FOR SERVICES */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      border-color: var(--card-hover-border);
+      transform: translateY(-3px);
+      box-shadow: 0 14px 30px -8px rgba(0, 0, 0, 0.6);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .card-info h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+    }
+
+    .card-role {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+    }
+
+    .card-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 1.25rem;
+    }
+
+    .card-meta {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+      padding: 0.6rem 0.8rem;
+      font-size: 0.78rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: #cbd5e1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 0.6rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      padding: 0.65rem 1.1rem;
+      background: var(--primary);
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.88rem;
+      border-radius: 8px;
+      transition: background 0.2s ease;
+      flex: 1;
+      text-align: center;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text);
+      border: 1px solid var(--card-border);
+      flex: 0 0 auto;
+      padding: 0.65rem 0.9rem;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    /* CERTIFICATE MANAGEMENT SECTION */
+    .cert-box {
+      background: var(--card-bg);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 14px;
+      padding: 1.75rem;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 0 35px -10px rgba(16, 185, 129, 0.08);
+    }
+
+    .cert-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .cert-title {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #34d399;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 0.5rem;
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.45rem 0.85rem;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .tab-btn.active {
+      background: rgba(99, 102, 241, 0.15);
+      color: #a5b4fc;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    pre {
+      background: var(--code-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      color: #e2e8f0;
+      overflow-x: auto;
+      line-height: 1.5;
+    }
+
+    /* ARCHITECTURE CALLOUT */
+    .arch-callout {
+      background: rgba(99, 102, 241, 0.06);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .arch-icon {
+      font-size: 2.2rem;
+      flex-shrink: 0;
+    }
+
+    .arch-text h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      color: #c7d2fe;
+    }
+
+    .arch-text p {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    footer {
+      border-top: 1px solid var(--card-border);
+      padding: 2rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-top: auto;
+    }
+
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <img src="/assets/sarrera-icon.svg" alt="Sarrera Logo" />
+      <h1>Sarrera Central Gateway</h1>
+    </div>
+    <p class="tagline">
+      Enterprise AI Inference Hub, Role-Based Access Control, Token Quotas, and Zero-Latency Auditing.
+    </p>
+
+    <div class="status-ribbon">
+      <div class="badge tls">
+        <span class="badge-dot"></span>
+        TLS Edge Reverse Proxy: Active (Caddy v2)
+      </div>
+      <div class="badge shield">
+        <span class="badge-dot"></span>
+        Single Internet Point: Only Port 443 / 80 Exposed
+      </div>
+      <div class="badge acme">
+        <span class="badge-dot"></span>
+        Automated Certificate Lifecycle: Enabled
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ARCHITECTURE CALLOUT -->
+    <div class="arch-callout">
+      <div class="arch-icon">🛡️</div>
+      <div class="arch-text">
+        <h4>Centralized Security Perimeter (Single Internet Exposure)</h4>
+        <p>
+          Only Caddy is exposed to the internet (ports 80 and 443). All internal application containers (LiteLLM, Langfuse, Open WebUI, PostgreSQL, MinIO) operate strictly within internal Docker bridge networks and are never directly addressable from outside networks.
+        </p>
+      </div>
+    </div>
+
+    <!-- CERTIFICATE MANAGEMENT SPOTLIGHT -->
+    <div class="cert-box">
+      <div class="cert-header">
+        <div class="cert-title">
+          <span>🔒</span> Centralized TLS Certificate Management (Caddy)
+        </div>
+        <span class="badge tls">Terminated at Edge</span>
+      </div>
+      <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.25rem; line-height: 1.5;">
+        Caddy handles all SSL/TLS handshakes, HTTP-to-HTTPS redirects, and security headers centrally for every service. Select a tab below to inspect the configuration examples for each deployment environment:
+      </p>
+
+      <div class="tabs">
+        <button class="tab-btn active" onclick="showTab('acme-letsencrypt')">1. Automated Public ACME (Let's Encrypt / ZeroSSL)</button>
+        <button class="tab-btn" onclick="showTab('custom-cert')">2. Custom Enterprise Wildcard Certificate</button>
+        <button class="tab-btn" onclick="showTab('internal-ca')">3. Internal Self-Signed CA (Dev/Test)</button>
+        <button class="tab-btn" onclick="showTab('dns-challenge')">4. DNS-01 Challenge (Air-Gapped / Intranet)</button>
+      </div>
+
+      <!-- Tab 1: Automated ACME -->
+      <div id="acme-letsencrypt" class="tab-content active">
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">
+          <b>Production (Public Domain):</b> Caddy automatically contacts Let's Encrypt or ZeroSSL, issues the certificate, solves HTTP-01 or TLS-ALPN-01 challenges, and renews automatically without downtime.
+        </p>
+        <pre><code># config/Caddyfile - Production Setup with Let's Encrypt
+ai.yourcompany.com {
+    # Provide admin email for renewal alerts; Caddy automates ACME certificate issuance
+    tls admin@yourcompany.com
+
+    # Central HSTS and Security Headers
+    header {
+        Strict-Transport-Security "max-age=31536000; includeSubDomains"
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "SAMEORIGIN"
+    }
+
+    # All microservice routing is protected under this single certificate
+    handle /v1/* { reverse_proxy litellm:4000 }
+    handle /chat/* { reverse_proxy open-webui:8080 }
+}</code></pre>
+      </div>
+
+      <!-- Tab 2: Custom Enterprise Cert -->
+      <div id="custom-cert" class="tab-content">
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">
+          <b>Corporate Infrastructure:</b> Use existing company certificates (.crt / .pem and .key) issued by an internal corporate PKI or commercial CA.
+        </p>
+        <pre><code># config/Caddyfile - Custom Corporate Wildcard Certificates
+*.ai.yourcompany.com, ai.yourcompany.com {
+    # Mount certificate files into Caddy container and specify absolute paths
+    tls /etc/caddy/certs/corporate-bundle.pem /etc/caddy/certs/corporate-private.key
+
+    # Reverse proxy definitions...
+}</code></pre>
+      </div>
+
+      <!-- Tab 3: Internal CA -->
+      <div id="internal-ca" class="tab-content">
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">
+          <b>Local Development:</b> Caddy initializes an embedded, private local Certificate Authority with automatic renewal (Current Active Mode).
+        </p>
+        <pre><code># config/Caddyfile - Local Development (Current Active Mode)
+{$DOMAIN:localhost} {
+    tls internal
+
+    # All traffic routed internally via Caddy...
+}</code></pre>
+      </div>
+
+      <!-- Tab 4: DNS-01 Challenge -->
+      <div id="dns-challenge" class="tab-content">
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">
+          <b>Private / Intranet:</b> Issue valid public certificates for internal domain names without opening port 80 to the internet using Cloudflare or AWS Route53 DNS-01 validation.
+        </p>
+        <pre><code># config/Caddyfile - DNS-01 ACME Challenge
+ai.internal.corp {
+    tls {
+        dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+    }
+}</code></pre>
+      </div>
+    </div>
+
+    <!-- SERVICES AND REGISTRIES DIRECTORY -->
+    <div class="section-title">
+      <span>🚀</span> Service Directory & Administrative Consoles
+    </div>
+
+    <div class="grid">
+
+      <!-- 1. Open WebUI -->
+      <div class="card">
+        <div>
+          <div class="card-header">
+            <div class="card-icon" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">💬</div>
+            <div class="card-info">
+              <h3>Open WebUI Portal</h3>
+              <div class="card-role">User Chat & Model Playground</div>
+            </div>
+          </div>
+          <div class="card-desc">
+            Interactive enterprise conversational AI portal, document retrieval (RAG), user management, and Active Directory LDAP integration.
+          </div>
+          <div class="card-meta">
+            <span>Route: <code id="route-chat">chat.localhost</code></span>
+            <span>Target: <code>open-webui:8080</code></span>
+          </div>
+        </div>
+        <div class="card-actions">
+          <a id="link-chat" href="https://chat.localhost" class="btn">Launch Chat Portal</a>
+          <a href="/chat" class="btn btn-secondary" title="Fallback Subpath Route">/chat</a>
+        </div>
+      </div>
+
+      <!-- 2. LiteLLM Proxy Dashboard -->
+      <div class="card">
+        <div>
+          <div class="card-header">
+            <div class="card-icon" style="background: rgba(99, 102, 241, 0.1); color: #6366f1;">🛡️</div>
+            <div class="card-info">
+              <h3>LiteLLM Admin Console</h3>
+              <div class="card-role">Governance, Tiers & Quotas</div>
+            </div>
+          </div>
+          <div class="card-desc">
+            Manage Subscription Tiers (<code>tier-basic</code>, <code>tier-premium</code>), issue Virtual API Keys, monitor token spend, and configure upstream routing.
+          </div>
+          <div class="card-meta">
+            <span>Route: <code id="route-gateway">gateway.localhost/ui/</code></span>
+            <span>Target: <code>litellm:4000</code></span>
+          </div>
+        </div>
+        <div class="card-actions">
+          <a id="link-gateway" href="https://gateway.localhost/ui/" class="btn">Open LiteLLM Admin</a>
+          <a href="/admin/litellm/ui/" class="btn btn-secondary" title="Fallback Subpath Route">/ui</a>
+        </div>
+      </div>
+
+      <!-- 3. Langfuse Observability -->
+      <div class="card">
+        <div>
+          <div class="card-header">
+            <div class="card-icon" style="background: rgba(6, 182, 212, 0.1); color: #06b6d4;">📊</div>
+            <div class="card-info">
+              <h3>Langfuse Observability</h3>
+              <div class="card-role">Telemetry & Audit Traces</div>
+            </div>
+          </div>
+          <div class="card-desc">
+            Zero-latency asynchronous tracing, full prompt compliance auditing, TTFT latency tracking, and departmental cost chargeback attribution.
+          </div>
+          <div class="card-meta">
+            <span>Route: <code id="route-audit">audit.localhost</code></span>
+            <span>Target: <code>langfuse:3000</code></span>
+          </div>
+        </div>
+        <div class="card-actions">
+          <a id="link-audit" href="https://audit.localhost" class="btn">Open Langfuse Console</a>
+          <a href="/admin/audit/" class="btn btn-secondary" title="Fallback Subpath Route">/audit</a>
+        </div>
+      </div>
+
+      <!-- 4. Documentation Portal -->
+      <div class="card">
+        <div>
+          <div class="card-header">
+            <div class="card-icon" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b;">📚</div>
+            <div class="card-info">
+              <h3>Documentation & GitHub Pages</h3>
+              <div class="card-role">Operational Runbooks & Guides</div>
+            </div>
+          </div>
+          <div class="card-desc">
+            Complete technical documentation suite: architecture blueprints, VS Code Continue guides, RBAC tier manuals, and troubleshooting runbooks.
+          </div>
+          <div class="card-meta">
+            <span>Route: <code>/docs/</code></span>
+            <span>Target: <code>Static Docsify / Markdown</code></span>
+          </div>
+        </div>
+        <div class="card-actions">
+          <a href="/docs/" class="btn">View Documentation Portal</a>
+        </div>
+      </div>
+
+      <!-- 5. MinIO S3 Console -->
+      <div class="card">
+        <div>
+          <div class="card-header">
+            <div class="card-icon" style="background: rgba(239, 68, 68, 0.1); color: #ef4444;">🗄️</div>
+            <div class="card-info">
+              <h3>MinIO S3 Storage Console</h3>
+              <div class="card-role">Audit Trace Blob Storage</div>
+            </div>
+          </div>
+          <div class="card-desc">
+            Manage high-performance S3 object storage buckets where raw Langfuse trace payloads, completions, and conversation blobs are stored.
+          </div>
+          <div class="card-meta">
+            <span>Route: <code id="route-storage">storage.localhost</code></span>
+            <span>Target: <code>minio:9001</code></span>
+          </div>
+        </div>
+        <div class="card-actions">
+          <a id="link-storage" href="https://storage.localhost" class="btn">Open MinIO Console</a>
+          <a href="/admin/storage/" class="btn btn-secondary" title="Fallback Subpath Route">/storage</a>
+        </div>
+      </div>
+
+      <!-- 6. Inference API Gateway -->
+      <div class="card">
+        <div>
+          <div class="card-header">
+            <div class="card-icon" style="background: rgba(168, 85, 247, 0.1); color: #a855f7;">⚡</div>
+            <div class="card-info">
+              <h3>OpenAI-Compatible API</h3>
+              <div class="card-role">IDE & Client Gateway Endpoint</div>
+            </div>
+          </div>
+          <div class="card-desc">
+            Unified <code>/v1/chat/completions</code> endpoint consumed by VS Code Continue, Cline, Roo Code, and enterprise SDK integrations.
+          </div>
+          <div class="card-meta">
+            <span>Route: <code>/v1/models</code></span>
+            <span>Target: <code>litellm:4000/v1</code></span>
+          </div>
+        </div>
+        <div class="card-actions">
+          <a href="/v1/models" target="_blank" class="btn btn-secondary" style="flex: 1;">Inspect /v1/models JSON</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- API QUICK REFERENCE -->
+    <div class="cert-box" style="border-color: var(--card-border);">
+      <div class="section-title" style="margin-bottom: 0.75rem; color: #f3f4f6;">
+        <span>💻</span> Quick Developer Consumption (cURL Example)
+      </div>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+        IDEs and scripts connect directly through Caddy's single HTTPS port. Use your virtual API key:
+      </p>
+      <pre><code>curl -k -X POST https://localhost/v1/chat/completions \
+  -H "Authorization: Bearer sk-your-tier-key-here" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "basic-coder",
+    "messages": [{"role": "user", "content": "Write a Python script to check GPU VRAM."}]
+  }'</code></pre>
+    </div>
+
+  </main>
+
+  <footer>
+    <p>
+      Sarrera AI Platform · Orchestrated via Docker Compose & LiteLLM · Perimeter Shielded by Caddy v2 Reverse Proxy
+    </p>
+  </footer>
+
+  <script>
+    // Tab switching logic
+    function showTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+      
+      const selectedContent = document.getElementById(tabId);
+      if (selectedContent) {
+        selectedContent.classList.add('active');
+      }
+      
+      event.currentTarget.classList.add('active');
+    }
+
+    // Adapt links dynamically based on current host
+    (function() {
+      const hostname = window.location.hostname;
+      const proto = window.location.protocol;
+      const port = window.location.port ? `:${window.location.port}` : '';
+
+      // If running on a domain other than localhost (e.g., ai.company.local)
+      if (hostname !== 'localhost') {
+        const linkChat = document.getElementById('link-chat');
+        const linkGateway = document.getElementById('link-gateway');
+        const linkAudit = document.getElementById('link-audit');
+        const linkStorage = document.getElementById('link-storage');
+
+        if (linkChat) linkChat.href = `${proto}//chat.${hostname}${port}`;
+        if (linkGateway) linkGateway.href = `${proto}//gateway.${hostname}${port}/ui/`;
+        if (linkAudit) linkAudit.href = `${proto}//audit.${hostname}${port}`;
+        if (linkStorage) linkStorage.href = `${proto}//storage.${hostname}${port}`;
+
+        document.getElementById('route-chat').innerText = `chat.${hostname}`;
+        document.getElementById('route-gateway').innerText = `gateway.${hostname}/ui/`;
+        document.getElementById('route-audit').innerText = `audit.${hostname}`;
+        document.getElementById('route-storage').innerText = `storage.${hostname}`;
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://raw.githubusercontent.com/continuedev/continue/main/packages/config-yaml/schema.json",
+  "models": [
+    {
+      "title": "Sarrera AI - Basic Coder (7B)",
+      "provider": "openai",
+      "model": "basic-coder",
+      "apiKey": "sk-generated-for-user",
+      "apiBase": "https://ai.company.local/v1"
+    },
+    {
+      "title": "Sarrera AI - Premium Coder (32B)",
+      "provider": "openai",
+      "model": "premium-coder",
+      "apiKey": "sk-generated-for-user",
+      "apiBase": "https://ai.company.local/v1"
+    },
+    {
+      "title": "Sarrera AI - Premium Reasoning (14B R1)",
+      "provider": "openai",
+      "model": "premium-reasoning",
+      "apiKey": "sk-generated-for-user",
+      "apiBase": "https://ai.company.local/v1"
+    }
+  ],
+  "tabAutocompleteModel": {
+    "title": "Sarrera AI - Autocomplete",
+    "provider": "openai",
+    "model": "basic-coder",
+    "apiKey": "sk-generated-for-user",
+    "apiBase": "https://ai.company.local/v1"
+  }
+}

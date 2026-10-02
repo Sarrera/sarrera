@@ -1,0 +1,70 @@
+site_name: Sarrera Documentation
+site_description: Enterprise Local AI Inference Gateway, Access Control (RBAC), Token Quotas, and Heterogeneous GPU/CPU Orchestration
+site_author: Sarrera Team
+site_url: https://your-org.github.io/sarrera/
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: deep purple
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: deep purple
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - tables
+  - attr_list
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Quickstart: getting-started/quickstart.md
+      - Architecture: getting-started/architecture.md
+      - Prerequisites: getting-started/prerequisites.md
+  - Configuration:
+      - Docker Compose: configuration/docker-compose.md
+      - LiteLLM Gateway: configuration/litellm.md
+      - Caddy TLS Proxy: configuration/caddy.md
+      - Environment Variables: configuration/environment-variables.md
+  - Governance & RBAC:
+      - Tiers & Quotas: governance-rbac/tiers-and-quotas.md
+      - Key Management: governance-rbac/key-management.md
+      - LiteLLM Dashboard: governance-rbac/litellm-dashboard.md
+  - Observability:
+      - Langfuse Setup: observability/langfuse.md
+      - Tracing & Metrics: observability/tracing-and-metrics.md
+      - Cost Accounting: observability/cost-accounting.md
+  - Client Integration:
+      - VS Code (Continue): clients/vscode-continue.md
+      - Cline & Roo Code: clients/cline-and-roo.md
+      - Open WebUI: clients/open-webui.md
+      - cURL & REST API: clients/curl-api.md
+  - Infrastructure:
+      - Inference Nodes: infrastructure/inference-nodes.md
+      - Load Balancing: infrastructure/load-balancing.md
+  - Operations:
+      - CLI Scripts: operations/scripts-reference.md
+      - Maintenance & Backup: operations/maintenance.md
+      - Troubleshooting: operations/troubleshooting.md

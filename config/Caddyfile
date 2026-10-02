@@ -1,0 +1,181 @@
+# ==============================================================================
+# Sarrera Edge Reverse Proxy - Caddyfile
+# Unified TLS Termination, Security Perimeter, and Microservice Routing
+# ==============================================================================
+
+# ==============================================================================
+# 1. APEX DOMAIN / MAIN HUB: Sarrera Service Portal ("Pantalla de Caddy")
+# ==============================================================================
+{$DOMAIN:localhost} {
+    # --------------------------------------------------------------------------
+    # TLS Certificate Management Examples
+    # --------------------------------------------------------------------------
+    # Option A (Active Default): Internal self-signed CA for local dev/testing
+    tls internal
+
+    # Option B: Automated Public ACME via Let's Encrypt / ZeroSSL (Production)
+    # tls admin@yourcompany.com
+
+    # Option C: Custom Corporate Wildcard Certificate / PKI Bundle
+    # tls /etc/caddy/certs/corporate-bundle.pem /etc/caddy/certs/corporate-private.key
+
+    # Option D: DNS-01 ACME Challenge for Air-Gapped / Intranet domains
+    # tls {
+    #     dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+    # }
+    # --------------------------------------------------------------------------
+
+    # Perimeter Security Headers
+    header {
+        Strict-Transport-Security "max-age=31536000; includeSubDomains"
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "SAMEORIGIN"
+        X-XSS-Protection "1; mode=block"
+    }
+
+    # Brand Vector & Icon Assets
+    handle_path /assets/* {
+        root * /var/www/assets
+        file_server
+    }
+
+    # Interactive Documentation & Runbooks (Docsify / Markdown)
+    handle_path /docs/* {
+        root * /var/www/docs
+        file_server
+    }
+    handle /docs {
+        redir /docs/ 301
+    }
+
+    # OpenAI-Compatible Inference API for IDEs (VS Code Continue, Cline, Roo Code)
+    handle /v1/* {
+        reverse_proxy litellm:4000 {
+            header_up Host {upstream_hostport}
+            header_up X-Real-IP {remote_host}
+            header_up X-Forwarded-For {remote_host}
+            header_up X-Forwarded-Proto {scheme}
+        }
+    }
+
+    # LiteLLM Admin Management Console
+    handle_path /admin/litellm/* {
+        reverse_proxy litellm:4000 {
+            header_up Host {upstream_hostport}
+            header_up X-Real-IP {remote_host}
+            header_up X-Forwarded-For {remote_host}
+            header_up X-Forwarded-Proto {scheme}
+        }
+    }
+    # LiteLLM static assets prefix
+    handle /litellm-asset-prefix/* {
+        reverse_proxy litellm:4000
+    }
+    handle /swagger/* {
+        reverse_proxy litellm:4000
+    }
+
+    # Langfuse Observability & Trace Auditing
+    handle_path /admin/audit/* {
+        reverse_proxy langfuse:3000 {
+            header_up Host {upstream_hostport}
+            header_up X-Real-IP {remote_host}
+            header_up X-Forwarded-For {remote_host}
+            header_up X-Forwarded-Proto {scheme}
+        }
+    }
+
+    # MinIO S3 Object Storage Console
+    handle_path /admin/storage/* {
+        reverse_proxy minio:9001 {
+            header_up Host {upstream_hostport}
+            header_up X-Real-IP {remote_host}
+            header_up X-Forwarded-For {remote_host}
+            header_up X-Forwarded-Proto {scheme}
+            header_up Upgrade {http.upgrade}
+            header_up Connection {http.connection}
+        }
+    }
+
+    # Open WebUI (User Chat & Model Playground) Subpath Fallback
+    handle /chat/* {
+        reverse_proxy open-webui:8080 {
+            header_up Host {upstream_hostport}
+            header_up X-Real-IP {remote_host}
+            header_up X-Forwarded-For {remote_host}
+            header_up X-Forwarded-Proto {scheme}
+            header_up Upgrade {http.upgrade}
+            header_up Connection {http.connection}
+        }
+    }
+    handle /chat {
+        redir /chat/ 301
+    }
+
+    # Central Portal Landing Screen ("Pantalla de Caddy")
+    handle {
+        root * /var/www/portal
+        file_server
+        try_files {path} /index.html
+    }
+}
+
+# ==============================================================================
+# 2. DEDICATED SUBDOMAINS (Asset Isolation & Native SPA Routing)
+# Works automatically with *.localhost or corporate wildcard DNS
+# ==============================================================================
+
+# Chat Subdomain -> Open WebUI
+chat.{$DOMAIN:localhost} {
+    tls internal
+    reverse_proxy open-webui:8080 {
+        header_up Host {upstream_hostport}
+        header_up X-Real-IP {remote_host}
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto {scheme}
+        header_up Upgrade {http.upgrade}
+        header_up Connection {http.connection}
+    }
+}
+
+# Gateway Subdomain -> LiteLLM Proxy & Admin UI
+gateway.{$DOMAIN:localhost} {
+    tls internal
+    reverse_proxy litellm:4000 {
+        header_up Host {upstream_hostport}
+        header_up X-Real-IP {remote_host}
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto {scheme}
+    }
+}
+
+# Audit Subdomain -> Langfuse Observability
+audit.{$DOMAIN:localhost} {
+    tls internal
+    reverse_proxy langfuse:3000 {
+        header_up Host {upstream_hostport}
+        header_up X-Real-IP {remote_host}
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto {scheme}
+    }
+}
+
+# Storage Subdomain -> MinIO S3 Console
+storage.{$DOMAIN:localhost} {
+    tls internal
+    reverse_proxy minio:9001 {
+        header_up Host {upstream_hostport}
+        header_up X-Real-IP {remote_host}
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto {scheme}
+        header_up Upgrade {http.upgrade}
+        header_up Connection {http.connection}
+    }
+}
+
+# Docs Subdomain -> Documentation & Runbooks
+docs.{$DOMAIN:localhost} {
+    tls internal
+    root * /var/www/docs
+    file_server
+}

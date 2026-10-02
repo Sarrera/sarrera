@@ -1,0 +1,42 @@
+model_list:
+  # --- PREMIUM TIER (High-end GPUs: NVIDIA A100 / RTX 4090) ---
+  - model_name: premium-coder
+    litellm_params:
+      model: ollama/qwen2.5-coder:32b
+      api_base: os.environ/GPU_PREMIUM_HOST
+      rpm: 180
+
+  - model_name: premium-reasoning
+    litellm_params:
+      model: ollama/deepseek-r1:14b
+      api_base: os.environ/GPU_PREMIUM_HOST
+      rpm: 180
+
+  # --- BASIC / STANDARD TIER (Mid-range GPU and CPU cluster with weighted load balancing) ---
+  - model_name: basic-coder
+    litellm_params:
+      model: ollama/qwen2.5-coder:7b
+      api_base: os.environ/GPU_ENTRY_HOST
+      weight: 8
+      rpm: 60
+
+  - model_name: basic-coder
+    litellm_params:
+      model: ollama/qwen2.5-coder:7b
+      api_base: os.environ/CPU_CLUSTER_HOST
+      weight: 2
+      rpm: 20
+
+router_settings:
+  routing_strategy: "least-busy"
+  timeout: 45
+  num_retries: 2
+
+general_settings:
+  database_url: "os.environ/DATABASE_URL"
+  enforce_user_param: false
+
+litellm_settings:
+  # Non-blocking asynchronous callbacks forwarding every trace to Langfuse without added latency
+  success_callback: ["langfuse"]
+  failure_callback: ["langfuse"]
