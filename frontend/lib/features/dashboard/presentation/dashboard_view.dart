@@ -110,6 +110,16 @@ class DashboardView extends ConsumerWidget {
                     ],
                   ),
                 ),
+                const SizedBox(width: 24),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(16),
+                  child: Image.asset(
+                    'assets/sarrera-icon.png',
+                    width: 76,
+                    height: 76,
+                    errorBuilder: (_, __, ___) => const SizedBox(),
+                  ),
+                ),
               ],
             ),
           ),

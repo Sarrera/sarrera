@@ -23,12 +23,14 @@ fi
 
 echo "📦 [1/3] Compiling Flutter Web application (release mode)..."
 cd "${FRONTEND_DIR}"
-flutter build web --release
+flutter build web --release --no-tree-shake-icons
 
 echo "🚀 [2/3] Syncing compiled assets to Caddy portal directory..."
 mkdir -p "${PORTAL_DIR}"
 rm -rf "${PORTAL_DIR:?}"/*
 cp -R "${FRONTEND_DIR}/build/web/"* "${PORTAL_DIR}/"
+# Also ensure direct asset links resolve
+cp -R "${REPO_DIR}/assets/"* "${PORTAL_DIR}/assets/" 2>/dev/null || true
 
 echo "🔄 [3/3] Checking Caddy container..."
 if docker ps --format '{{.Names}}' | grep -q "^ai-caddy$"; then

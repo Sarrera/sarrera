@@ -34,14 +34,22 @@ class AppShell extends ConsumerWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
                   child: Row(
                     children: [
-                      Container(
-                        width: 38,
-                        height: 38,
-                        decoration: BoxDecoration(
-                          gradient: AppTheme.primaryGradient,
-                          borderRadius: BorderRadius.circular(10),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.asset(
+                          'assets/sarrera-icon.png',
+                          width: 38,
+                          height: 38,
+                          errorBuilder: (_, __, ___) => Container(
+                            width: 38,
+                            height: 38,
+                            decoration: BoxDecoration(
+                              gradient: AppTheme.primaryGradient,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: const Icon(Icons.hub, color: Colors.white, size: 22),
+                          ),
                         ),
-                        child: const Icon(Icons.hub, color: Colors.white, size: 22),
                       ),
                       const SizedBox(width: 12),
                       Column(
