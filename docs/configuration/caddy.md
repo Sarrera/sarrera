@@ -28,15 +28,20 @@ When navigating to the root URL (e.g. `https://localhost/` or `https://ai.compan
 └──────────────────┘    └──────────────────┘      └──────────────────┘     └──────────────────┘
 ```
 
-The Central Portal provides:
-- **System & Perimeter Status**: Active TLS mode, HSTS state, and certificate health.
-- **Service Directory & Direct Links**: One-click navigation to Open WebUI, LiteLLM Admin, Langfuse Observability, Documentation Portal, MinIO Console, and API endpoints.
-- **Interactive Certificate Guide**: Reference examples for configuring Let's Encrypt, custom corporate certs, or internal CA.
-- **🔐 Authenticated Admin Control Center**: Accessible via the top navigation bar with credentials defined in `.env` (`ADMIN_USERNAME` and `ADMIN_PASSWORD`). Allows operators to:
-  1. **Dynamically register new compute nodes** (`api_base`, model name, engine type, weight, RPM limits) without restarting Docker.
-  2. **View and remove active inference nodes** in real time.
-  3. **Inspect the 3 Subscription Tiers** (`tier-basic`, `tier-standard`, `tier-premium`) and issue Virtual API Keys instantly.
-  4. Access the full LiteLLM Management UI directly.
+The Central Portal is powered by a high-performance **Flutter Web Application** (compiled to static assets served by Caddy at `/`):
+- **Executive KPI Dashboard**: Live tracking of pooled token spend, quota utilization percentages, active keys, and compute cluster health.
+- **Subscription Tiers & Quota Governance**: Fine-grained sliders to dynamically adjust monthly budgets (EUR), RPM/TPM limits, and model whitelists for `tier-basic`, `tier-standard`, and `tier-premium`.
+- **User Identity & Onboarding Directory**: Searchable developer directory, department attribution, user creation, and instant virtual API key generation with ready-to-paste VS Code Continue (`~/.continue/config.json`) configuration snippets.
+- **Telemetry & Spend Observability**: Real-time token consumption meters, cost chargeback leaderboards, and direct links to Langfuse v2 audit suites.
+- **Compute Nodes & Dynamic Orchestration**: Live latency ping testing and dynamic registration of upstream Ollama / vLLM nodes persisted in PostgreSQL without container downtime.
+- **TLS Certificate Management**: Reference configurations and interactive Caddyfile generator for Internal CA, Public ACME (Let's Encrypt / ZeroSSL), Corporate Wildcard PKI, and DNS-01 challenges.
+
+### Building & Updating the Flutter Portal
+The Flutter Web frontend source code lives in [`frontend/`](file:///Users/mario/repositorios/sarrera/frontend/). To recompile and redeploy to Caddy:
+```bash
+./scripts/build-portal.sh
+```
+This compiles the release web bundle and automatically reloads Caddy without downtime.
 
 ---
 
