@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -685,10 +685,10 @@
           <span class="badge-dot" style="background: #10b981;"></span>
           <span id="logged-username">admin</span>
         </span>
-        <button onclick="logoutAdmin()" class="btn btn-secondary" style="padding: 0.45rem 0.8rem; font-size: 0.8rem;">Cerrar Sesión</button>
+        <button onclick="logoutAdmin()" class="btn btn-secondary" style="padding: 0.45rem 0.8rem; font-size: 0.8rem;">Sign Out</button>
       </div>
       <button id="btn-open-login" onclick="openLoginModal()" class="btn btn-admin">
-        <span>🔐</span> Panel de Administración
+        <span>🔐</span> Admin Control Panel
       </button>
     </div>
   </nav>
@@ -699,21 +699,21 @@
       <h1>Sarrera Central Gateway</h1>
     </div>
     <p class="tagline">
-      Centro de Inferencia IA Empresarial, Control de Acceso por Tiers (RBAC), Cuotas de Tokens y Auditoría en Tiempo Real.
+      Enterprise AI Inference Hub, Role-Based Access Control (RBAC), Token Quotas, and Real-Time Observability.
     </p>
 
     <div class="status-ribbon">
       <div class="badge tls">
         <span class="badge-dot"></span>
-        Proxy Inverso TLS: Activo (Caddy v2)
+        TLS Edge Reverse Proxy: Active (Caddy v2)
       </div>
       <div class="badge shield">
         <span class="badge-dot"></span>
-        Perímetro Blindado: Solo Puertos 80 / 443 Expuestos
+        Shielded Perimeter: Only Ports 80 / 443 Exposed
       </div>
       <div class="badge acme">
         <span class="badge-dot"></span>
-        Ciclo de Vida de Certificados: Automatizado
+        Certificate Lifecycle: Automated
       </div>
     </div>
   </header>
@@ -724,12 +724,12 @@
     <section id="admin-panel">
       <div class="admin-header-bar">
         <div class="admin-title-box">
-          <h2><span>⚙️</span> Panel de Control y Alta de Nodos</h2>
-          <p>Gestión en tiempo real de nodos de cómputo GPU/CPU y balanceador LiteLLM Proxy.</p>
+          <h2><span>⚙️</span> Node Management & Gateway Control Center</h2>
+          <p>Real-time administration of GPU/CPU compute nodes and LiteLLM Proxy load balancer.</p>
         </div>
         <div style="display: flex; gap: 0.5rem;">
-          <button onclick="refreshModelsList()" class="btn btn-secondary">🔄 Actualizar Nodos</button>
-          <a href="/admin/litellm/ui/" target="_blank" class="btn btn-admin">Abrir LiteLLM UI Completa ↗</a>
+          <button onclick="refreshModelsList()" class="btn btn-secondary">🔄 Refresh Nodes</button>
+          <a href="/admin/litellm/ui/" target="_blank" class="btn btn-admin">Open Full LiteLLM UI ↗</a>
         </div>
       </div>
 
@@ -740,13 +740,13 @@
         <!-- FORMULARIO: ALTA DE NUEVO NODO -->
         <div class="admin-card">
           <div class="admin-card-title">
-            <span>➕</span> Dar de Alta Nuevo Nodo de Inferencia
+            <span>➕</span> Register New Inference Compute Node
           </div>
           <form id="form-add-node" onsubmit="handleRegisterNode(event)">
             
             <div class="form-group">
-              <label for="node-model-alias">Nombre / Alias del Modelo</label>
-              <input type="text" id="node-model-alias" class="form-control" placeholder="ej: basic-coder, premium-coder" required list="alias-suggestions">
+              <label for="node-model-alias">Model Name / Alias</label>
+              <input type="text" id="node-model-alias" class="form-control" placeholder="e.g. basic-coder, premium-coder" required list="alias-suggestions">
               <datalist id="alias-suggestions">
                 <option value="basic-coder">
                 <option value="premium-coder">
@@ -756,39 +756,39 @@
             </div>
 
             <div class="form-group">
-              <label for="node-engine">Motor / Proveedor Backend</label>
+              <label for="node-engine">Backend Engine / Provider</label>
               <select id="node-engine" class="form-control" onchange="handleEngineChange()">
-                <option value="ollama">Ollama (Servidor Local o Remoto)</option>
-                <option value="vllm">vLLM (Inferencia Alta Concurrencia)</option>
+                <option value="ollama">Ollama (Local or Remote Server)</option>
+                <option value="vllm">vLLM (High-Throughput PagedAttention)</option>
                 <option value="tgi">Text Generation Inference (TGI)</option>
-                <option value="openai">OpenAI Compatible (Cualquier endpoint)</option>
+                <option value="openai">OpenAI Compatible (Any standard endpoint)</option>
               </select>
             </div>
 
             <div class="form-group">
-              <label for="node-api-base">Dirección IP / Host del Nodo (api_base)</label>
+              <label for="node-api-base">Node Host URL (api_base)</label>
               <input type="text" id="node-api-base" class="form-control" placeholder="http://192.168.1.75:11434" required value="http://ai-ollama-local:11434">
             </div>
 
             <div class="form-group">
-              <label for="node-backend-model">Modelo Físico en el Backend</label>
+              <label for="node-backend-model">Physical Backend Model Name</label>
               <input type="text" id="node-backend-model" class="form-control" placeholder="ollama/qwen2.5-coder:7b" required value="ollama/qwen2.5-coder:7b">
             </div>
 
             <div class="form-row">
               <div class="form-group">
-                <label for="node-weight">Peso (Weight)</label>
+                <label for="node-weight">Balancing Weight</label>
                 <input type="number" id="node-weight" class="form-control" value="8" min="1" max="100">
               </div>
               <div class="form-group">
-                <label for="node-rpm">Límite RPM</label>
+                <label for="node-rpm">RPM Limit</label>
                 <input type="number" id="node-rpm" class="form-control" value="60" min="1">
               </div>
             </div>
 
             <div style="display: flex; gap: 0.5rem; margin-top: 1.25rem;">
-              <button type="button" onclick="testNodeConnectivity()" class="btn btn-secondary" style="flex: 1;">⚡ Probar Ping</button>
-              <button type="submit" class="btn btn-success" style="flex: 2;">🚀 Registrar Nodo</button>
+              <button type="button" onclick="testNodeConnectivity()" class="btn btn-secondary" style="flex: 1;">⚡ Test Ping</button>
+              <button type="submit" class="btn btn-success" style="flex: 2;">🚀 Register Node</button>
             </div>
           </form>
         </div>
@@ -796,8 +796,8 @@
         <!-- LISTA DE NODOS REGISTRADOS -->
         <div class="admin-card" style="display: flex; flex-direction: column;">
           <div class="admin-card-title" style="justify-content: space-between;">
-            <span><span>🖥️</span> Nodos de Inferencia Activos en el Proxy</span>
-            <span id="nodes-count-badge" class="badge shield">4 Nodos</span>
+            <span><span>🖥️</span> Active Inference Nodes in Proxy</span>
+            <span id="nodes-count-badge" class="badge shield">4 Nodes</span>
           </div>
           
           <div class="table-container" style="flex: 1;">
@@ -805,16 +805,16 @@
               <thead>
                 <tr>
                   <th>Alias</th>
-                  <th>Modelo Backend</th>
-                  <th>Dirección (api_base)</th>
+                  <th>Backend Model</th>
+                  <th>Host (api_base)</th>
                   <th>ID</th>
-                  <th>Acción</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody id="nodes-tbody">
                 <tr>
                   <td colspan="5" style="text-align: center; color: var(--text-muted); padding: 2rem;">
-                    Cargando nodos desde LiteLLM...
+                    Loading nodes from LiteLLM...
                   </td>
                 </tr>
               </tbody>
@@ -824,10 +824,10 @@
 
       </div>
 
-      <!-- GESTIÓN RÁPIDA DE TIERS Y CLAVES -->
+      <!-- SUBSCRIPTIONS & KEY ISSUANCE -->
       <div style="margin-top: 1.75rem; padding-top: 1.5rem; border-top: 1px solid var(--card-border);">
         <div class="admin-card-title">
-          <span>🛡️</span> Suscripciones (Tiers) y Emisión Rápida de Claves Virtuales
+          <span>🛡️</span> Subscription Tiers & Instant Key Provisioning
         </div>
         
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;" id="tiers-cards-container">
@@ -837,25 +837,25 @@
         <!-- FORMULARIO EMISIÓN RÁPIDA DE CLAVE -->
         <div class="admin-card" style="background: rgba(0,0,0,0.25);">
           <div style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.75rem; color: #a5b4fc;">
-            Generar Nueva Clave Virtual de Acceso (Virtual API Key)
+            Generate New Developer Virtual API Key
           </div>
           <form onsubmit="handleIssueKey(event)" style="display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: flex-end;">
             <div style="flex: 2; min-width: 200px;">
-              <label style="display: block; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">IDENTIFICADOR DE USUARIO</label>
-              <input type="text" id="new-key-user" class="form-control" placeholder="ej: dev_carlos, arquitectura_01" required>
+              <label style="display: block; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">DEVELOPER USER IDENTIFIER</label>
+              <input type="text" id="new-key-user" class="form-control" placeholder="e.g. dev_carlos, architect_01" required>
             </div>
             <div style="flex: 2; min-width: 180px;">
-              <label style="display: block; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">TIER / SUBSCRIPCIÓN</label>
+              <label style="display: block; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">SUBSCRIPTION TIER</label>
               <select id="new-key-tier" class="form-control">
-                <option value="tier-basic">tier-basic (7B, 15€/mes)</option>
-                <option value="tier-standard" selected>tier-standard (7B+32B, 50€/mes)</option>
-                <option value="tier-premium">tier-premium (Full + R1, 100€/mes)</option>
+                <option value="tier-basic">tier-basic (7B, 15 EUR/month)</option>
+                <option value="tier-standard" selected>tier-standard (7B+32B, 50 EUR/month)</option>
+                <option value="tier-premium">tier-premium (Full + R1, 100 EUR/month)</option>
               </select>
             </div>
-            <button type="submit" class="btn btn-admin" style="flex: 1; min-width: 160px; height: 38px;">Generar Clave</button>
+            <button type="submit" class="btn btn-admin" style="flex: 1; min-width: 160px; height: 38px;">Generate Key</button>
           </form>
           <div id="generated-key-box" style="display: none; margin-top: 1rem; padding: 0.85rem; background: #0c0d15; border-radius: 8px; border: 1px solid var(--primary);">
-            <div style="font-size: 0.8rem; color: #34d399; font-weight: 600; margin-bottom: 0.25rem;">✅ Clave Generada Exitosamente:</div>
+            <div style="font-size: 0.8rem; color: #34d399; font-weight: 600; margin-bottom: 0.25rem;">✅ Key Generated Successfully:</div>
             <code id="generated-key-value" style="font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: #fff;"></code>
           </div>
         </div>
@@ -868,9 +868,9 @@
     <div class="arch-callout">
       <div class="arch-icon">🛡️</div>
       <div class="arch-text">
-        <h4>Perímetro Centralizado de Seguridad (Único Punto Expuesto a Internet)</h4>
+        <h4>Centralized Security Perimeter (Single Internet Exposure)</h4>
         <p>
-          Solo Caddy está expuesto a internet (puertos 80 y 443). Todos los contenedores de aplicación internos (LiteLLM, Langfuse, Open WebUI, PostgreSQL, MinIO) operan estrictamente dentro de redes privadas de Docker y no son accesibles directamente desde el exterior.
+          Only Caddy is exposed to the internet (ports 80 and 443). All internal application containers (LiteLLM, Langfuse, Open WebUI, PostgreSQL, MinIO) operate strictly within internal Docker bridge networks and are never directly addressable from outside networks.
         </p>
       </div>
     </div>
@@ -879,29 +879,29 @@
     <div class="cert-box">
       <div class="cert-header">
         <div class="cert-title">
-          <span>🔒</span> Gestión Centralizada de Certificados TLS (Caddy)
+          <span>🔒</span> Centralized TLS Certificate Management (Caddy)
         </div>
-        <span class="badge tls">Terminado en el Perímetro</span>
+        <span class="badge tls">Terminated at Edge</span>
       </div>
       <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.25rem; line-height: 1.5;">
-        Caddy gestiona todas las conexiones SSL/TLS, las redirecciones HTTP a HTTPS y las cabeceras de seguridad de forma unificada. Selecciona una pestaña para ver ejemplos de configuración:
+        Caddy handles all SSL/TLS handshakes, HTTP-to-HTTPS redirects, and security headers centrally for every service. Select a tab below to inspect the configuration examples for each deployment environment:
       </p>
 
       <div class="tabs">
-        <button class="tab-btn active" onclick="showTab('acme-letsencrypt')">1. ACME Público Automatizado (Let's Encrypt / ZeroSSL)</button>
-        <button class="tab-btn" onclick="showTab('custom-cert')">2. Certificado Corporativo Wildcard Personalizado</button>
-        <button class="tab-btn" onclick="showTab('internal-ca')">3. CA Interna Autofirmada (Dev/Test)</button>
-        <button class="tab-btn" onclick="showTab('dns-challenge')">4. Desafío DNS-01 (Redes Aisladas / Intranet)</button>
+        <button class="tab-btn active" onclick="showTab('acme-letsencrypt')">1. Automated Public ACME (Let's Encrypt / ZeroSSL)</button>
+        <button class="tab-btn" onclick="showTab('custom-cert')">2. Custom Enterprise Wildcard Certificate</button>
+        <button class="tab-btn" onclick="showTab('internal-ca')">3. Internal Self-Signed CA (Dev/Test)</button>
+        <button class="tab-btn" onclick="showTab('dns-challenge')">4. DNS-01 Challenge (Air-Gapped / Intranet)</button>
       </div>
 
       <!-- Tab 1: Automated ACME -->
       <div id="acme-letsencrypt" class="tab-content active">
         <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">
-          <b>Producción (Dominio Público):</b> Caddy solicita y renueva certificados válidos de forma totalmente autónoma sin intervención manual.
+          <b>Production (Public Domain):</b> Caddy automatically contacts Let's Encrypt or ZeroSSL, issues the certificate, solves HTTP-01 or TLS-ALPN-01 challenges, and renews automatically without downtime.
         </p>
-        <pre><code># config/Caddyfile - Producción con Let's Encrypt
-ai.tuempresa.com {
-    tls admin@tuempresa.com
+        <pre><code># config/Caddyfile - Production Setup with Let's Encrypt
+ai.yourcompany.com {
+    tls admin@yourcompany.com
 
     header {
         Strict-Transport-Security "max-age=31536000; includeSubDomains"
@@ -917,20 +917,20 @@ ai.tuempresa.com {
       <!-- Tab 2: Custom Enterprise Cert -->
       <div id="custom-cert" class="tab-content">
         <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">
-          <b>Infraestructura Corporativa:</b> Usa tus propios certificados (.crt y .key) firmados por la CA interna de tu empresa.
+          <b>Corporate Infrastructure:</b> Use existing company certificates (.crt / .pem and .key) issued by an internal corporate PKI or commercial CA.
         </p>
-        <pre><code># config/Caddyfile - Certificados Wildcard Propios
-*.ai.tuempresa.local, ai.tuempresa.local {
-    tls /etc/caddy/certs/corporativo.crt /etc/caddy/certs/corporativo.key
+        <pre><code># config/Caddyfile - Custom Corporate Wildcard Certificates
+*.ai.yourcompany.local, ai.yourcompany.local {
+    tls /etc/caddy/certs/corporate-bundle.pem /etc/caddy/certs/corporate-private.key
 }</code></pre>
       </div>
 
       <!-- Tab 3: Internal CA -->
       <div id="internal-ca" class="tab-content">
         <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">
-          <b>Desarrollo Local:</b> Caddy inicializa su propia Autoridad de Certificación local con renovación automática (Modo Activo Actual).
+          <b>Local Development:</b> Caddy initializes an embedded, private local Certificate Authority with automatic renewal (Current Active Mode).
         </p>
-        <pre><code># config/Caddyfile - Modo Actual en Local
+        <pre><code># config/Caddyfile - Local Development (Current Active Mode)
 {$DOMAIN:localhost} {
     tls internal
 }</code></pre>
@@ -939,10 +939,10 @@ ai.tuempresa.com {
       <!-- Tab 4: DNS-01 Challenge -->
       <div id="dns-challenge" class="tab-content">
         <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">
-          <b>Intranet Privada:</b> Valida dominios internos sin abrir el puerto 80 a internet mediante desafíos DNS en Cloudflare o AWS Route53.
+          <b>Private / Intranet:</b> Issue valid public certificates for internal domain names without opening port 80 to the internet using Cloudflare or AWS Route53 DNS-01 validation.
         </p>
-        <pre><code># config/Caddyfile - Desafío DNS-01
-ai.corp.internal {
+        <pre><code># config/Caddyfile - DNS-01 ACME Challenge
+ai.internal.corp {
     tls {
         dns cloudflare {env.CLOUDFLARE_API_TOKEN}
     }
@@ -952,7 +952,7 @@ ai.corp.internal {
 
     <!-- SERVICES AND REGISTRIES DIRECTORY -->
     <div class="section-title">
-      <span>🚀</span> Directorio de Servicios y Consolas Administrativas
+      <span>🚀</span> Service Directory & Administrative Consoles
     </div>
 
     <div class="grid">
@@ -964,20 +964,20 @@ ai.corp.internal {
             <div class="card-icon" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">💬</div>
             <div class="card-info">
               <h3>Open WebUI Portal</h3>
-              <div class="card-role">Chat de Usuario y Prompts</div>
+              <div class="card-role">User Chat & Model Playground</div>
             </div>
           </div>
           <div class="card-desc">
-            Portal conversacional para equipos de ingeniería, consulta de documentos (RAG), gestión de agentes y autenticación Active Directory / LDAP.
+            Interactive enterprise conversational AI portal, document retrieval (RAG), user management, and Active Directory LDAP integration.
           </div>
           <div class="card-meta">
-            <span>Ruta: <code id="route-chat">chat.localhost</code></span>
-            <span>Destino: <code>open-webui:8080</code></span>
+            <span>Route: <code id="route-chat">chat.localhost</code></span>
+            <span>Target: <code>open-webui:8080</code></span>
           </div>
         </div>
         <div class="card-actions">
-          <a id="link-chat" href="https://chat.localhost" class="btn">Abrir Portal de Chat</a>
-          <a href="/chat" class="btn btn-secondary" title="Ruta Subpath Alternativa">/chat</a>
+          <a id="link-chat" href="https://chat.localhost" class="btn">Launch Chat Portal</a>
+          <a href="/chat" class="btn btn-secondary" title="Fallback Subpath Route">/chat</a>
         </div>
       </div>
 
@@ -988,20 +988,20 @@ ai.corp.internal {
             <div class="card-icon" style="background: rgba(99, 102, 241, 0.1); color: #6366f1;">🛡️</div>
             <div class="card-info">
               <h3>LiteLLM Admin Console</h3>
-              <div class="card-role">Gobernanza, Tiers y Cuotas</div>
+              <div class="card-role">Governance, Tiers & Quotas</div>
             </div>
           </div>
           <div class="card-desc">
-            Administra los 3 Tiers (basic, standard, premium), emite Virtual Keys, monitoriza consumo de tokens y revisa el balanceo de carga.
+            Manage Subscription Tiers (<code>tier-basic</code>, <code>tier-standard</code>, <code>tier-premium</code>), issue Virtual API Keys, monitor token spend, and configure upstream routing.
           </div>
           <div class="card-meta">
-            <span>Ruta: <code id="route-gateway">gateway.localhost/ui/</code></span>
-            <span>Destino: <code>litellm:4000</code></span>
+            <span>Route: <code id="route-gateway">gateway.localhost/ui/</code></span>
+            <span>Target: <code>litellm:4000</code></span>
           </div>
         </div>
         <div class="card-actions">
-          <a id="link-gateway" href="https://gateway.localhost/ui/" class="btn">Abrir LiteLLM Admin</a>
-          <a href="/admin/litellm/ui/" class="btn btn-secondary" title="Ruta Subpath Alternativa">/ui</a>
+          <a id="link-gateway" href="https://gateway.localhost/ui/" class="btn">Open LiteLLM Admin</a>
+          <a href="/admin/litellm/ui/" class="btn btn-secondary" title="Fallback Subpath Route">/ui</a>
         </div>
       </div>
 
@@ -1012,20 +1012,20 @@ ai.corp.internal {
             <div class="card-icon" style="background: rgba(6, 182, 212, 0.1); color: #06b6d4;">📊</div>
             <div class="card-info">
               <h3>Langfuse Observability</h3>
-              <div class="card-role">Telemetría y Auditoría</div>
+              <div class="card-role">Telemetry & Audit Traces</div>
             </div>
           </div>
           <div class="card-desc">
-            Trazabilidad asíncrona sin latencia, auditoría completa de prompts y respuestas, latencias TTFT e imputación de costes por departamento.
+            Zero-latency asynchronous tracing, full prompt compliance auditing, TTFT latency tracking, and departmental cost chargeback attribution.
           </div>
           <div class="card-meta">
-            <span>Ruta: <code id="route-audit">audit.localhost</code></span>
-            <span>Destino: <code>langfuse:3000</code></span>
+            <span>Route: <code id="route-audit">audit.localhost</code></span>
+            <span>Target: <code>langfuse:3000</code></span>
           </div>
         </div>
         <div class="card-actions">
-          <a id="link-audit" href="https://audit.localhost" class="btn">Abrir Consola Langfuse</a>
-          <a href="/admin/audit/" class="btn btn-secondary" title="Ruta Subpath Alternativa">/audit</a>
+          <a id="link-audit" href="https://audit.localhost" class="btn">Open Langfuse Console</a>
+          <a href="/admin/audit/" class="btn btn-secondary" title="Fallback Subpath Route">/audit</a>
         </div>
       </div>
 
@@ -1035,20 +1035,20 @@ ai.corp.internal {
           <div class="card-header">
             <div class="card-icon" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b;">📚</div>
             <div class="card-info">
-              <h3>Documentación & GitHub Pages</h3>
-              <div class="card-role">Guías y Manuales Técnicos</div>
+              <h3>Documentation & Runbooks</h3>
+              <div class="card-role">Technical Manuals & Guides</div>
             </div>
           </div>
           <div class="card-desc">
-            Suite completa de manuales operativos: configuración de Continue en VS Code, arquitectura, endpoints cURL y resolución de problemas.
+            Complete technical documentation suite: architecture blueprints, VS Code Continue guides, RBAC tier manuals, and troubleshooting runbooks.
           </div>
           <div class="card-meta">
-            <span>Ruta: <code>/docs/</code></span>
-            <span>Destino: <code>Docsify / Markdown</code></span>
+            <span>Route: <code>/docs/</code></span>
+            <span>Target: <code>Docsify / Markdown</code></span>
           </div>
         </div>
         <div class="card-actions">
-          <a href="/docs/" class="btn">Ver Portal Documentación</a>
+          <a href="/docs/" class="btn">View Documentation Portal</a>
         </div>
       </div>
 
@@ -1059,20 +1059,20 @@ ai.corp.internal {
             <div class="card-icon" style="background: rgba(239, 68, 68, 0.1); color: #ef4444;">🗄️</div>
             <div class="card-info">
               <h3>MinIO S3 Storage Console</h3>
-              <div class="card-role">Almacén S3 de Trazas</div>
+              <div class="card-role">Audit Trace Blob Storage</div>
             </div>
           </div>
           <div class="card-desc">
-            Gestiona buckets S3 de alta velocidad donde se persisten las trazas completas, archivos adjuntos y blobs de auditoría de Langfuse.
+            Manage high-performance S3 object storage buckets where raw Langfuse trace payloads, completions, and conversation blobs are stored.
           </div>
           <div class="card-meta">
-            <span>Ruta: <code id="route-storage">storage.localhost</code></span>
-            <span>Destino: <code>minio:9001</code></span>
+            <span>Route: <code id="route-storage">storage.localhost</code></span>
+            <span>Target: <code>minio:9001</code></span>
           </div>
         </div>
         <div class="card-actions">
-          <a id="link-storage" href="https://storage.localhost" class="btn">Abrir Consola MinIO</a>
-          <a href="/admin/storage/" class="btn btn-secondary" title="Ruta Subpath Alternativa">/storage</a>
+          <a id="link-storage" href="https://storage.localhost" class="btn">Open MinIO Console</a>
+          <a href="/admin/storage/" class="btn btn-secondary" title="Fallback Subpath Route">/storage</a>
         </div>
       </div>
 
@@ -1082,20 +1082,20 @@ ai.corp.internal {
           <div class="card-header">
             <div class="card-icon" style="background: rgba(168, 85, 247, 0.1); color: #a855f7;">⚡</div>
             <div class="card-info">
-              <h3>API OpenAI Compatible</h3>
-              <div class="card-role">Endpoint para IDEs</div>
+              <h3>OpenAI-Compatible API</h3>
+              <div class="card-role">IDE & Client Gateway Endpoint</div>
             </div>
           </div>
           <div class="card-desc">
-            Endpoint unificado <code>/v1/chat/completions</code> consumido por extensiones de desarrollo (Continue, Cline, Roo Code y Cursor).
+            Unified <code>/v1/chat/completions</code> endpoint consumed by VS Code Continue, Cline, Roo Code, and enterprise SDK integrations.
           </div>
           <div class="card-meta">
-            <span>Ruta: <code>/v1/models</code></span>
-            <span>Destino: <code>litellm:4000/v1</code></span>
+            <span>Route: <code>/v1/models</code></span>
+            <span>Target: <code>litellm:4000/v1</code></span>
           </div>
         </div>
         <div class="card-actions">
-          <a href="/v1/models" target="_blank" class="btn btn-secondary" style="flex: 1;">Ver JSON /v1/models</a>
+          <a href="/v1/models" target="_blank" class="btn btn-secondary" style="flex: 1;">Inspect /v1/models JSON</a>
         </div>
       </div>
 
@@ -1104,17 +1104,17 @@ ai.corp.internal {
     <!-- API QUICK REFERENCE -->
     <div class="cert-box" style="border-color: var(--card-border);">
       <div class="section-title" style="margin-bottom: 0.75rem; color: #f3f4f6;">
-        <span>💻</span> Conexión Rápida de Desarrollador (Ejemplo cURL)
+        <span>💻</span> Quick Developer Consumption (cURL Example)
       </div>
       <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-        Los IDEs y scripts conectan por HTTPS a través de Caddy utilizando su clave virtual:
+        IDEs and scripts connect directly through Caddy's single HTTPS port. Use your virtual API key:
       </p>
       <pre><code>curl -k -X POST https://localhost/v1/chat/completions \
-  -H "Authorization: Bearer sk-tu-clave-virtual-aqui" \
+  -H "Authorization: Bearer sk-your-tier-key-here" \
   -H "Content-Type: application/json" \
   -d '{
     "model": "basic-coder",
-    "messages": [{"role": "user", "content": "Escribe un script en Python para comprobar la VRAM."}]
+    "messages": [{"role": "user", "content": "Write a Python script to check GPU VRAM."}]
   }'</code></pre>
     </div>
 
@@ -1124,27 +1124,27 @@ ai.corp.internal {
   <div id="login-modal" class="modal-overlay">
     <div class="modal-box">
       <div class="modal-header">
-        <div class="modal-title">🔐 Iniciar Sesión de Administrador</div>
+        <div class="modal-title">🔐 Admin Authentication</div>
         <button class="modal-close" onclick="closeLoginModal()">&times;</button>
       </div>
       <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">
-        Introduce las credenciales de administración configuradas en tu archivo <code>.env</code> (<code>ADMIN_USERNAME</code> y <code>ADMIN_PASSWORD</code> o <code>LITELLM_MASTER_KEY</code>).
+        Enter the administrative credentials configured in your <code>.env</code> file (<code>ADMIN_USERNAME</code> and <code>ADMIN_PASSWORD</code> or <code>LITELLM_MASTER_KEY</code>).
       </p>
       
       <div id="login-alert" class="alert alert-error"></div>
 
       <form onsubmit="handleAdminLogin(event)">
         <div class="form-group">
-          <label for="login-username">Usuario Administrador</label>
+          <label for="login-username">Admin Username</label>
           <input type="text" id="login-username" class="form-control" value="admin" required>
         </div>
         <div class="form-group">
-          <label for="login-password">Contraseña (Master Key)</label>
+          <label for="login-password">Password (Master Key)</label>
           <input type="password" id="login-password" class="form-control" placeholder="sk-master-platform-key-change-me" required>
         </div>
         <div style="margin-top: 1.5rem; display: flex; gap: 0.5rem;">
-          <button type="button" onclick="closeLoginModal()" class="btn btn-secondary" style="flex: 1;">Cancelar</button>
-          <button type="submit" class="btn btn-admin" style="flex: 2;">Iniciar Sesión</button>
+          <button type="button" onclick="closeLoginModal()" class="btn btn-secondary" style="flex: 1;">Cancel</button>
+          <button type="submit" class="btn btn-admin" style="flex: 2;">Sign In</button>
         </div>
       </form>
     </div>
@@ -1152,7 +1152,7 @@ ai.corp.internal {
 
   <footer>
     <p>
-      Sarrera AI Platform · Orquestado con Docker Compose & LiteLLM · Perímetro Protegido por Caddy v2 Reverse Proxy
+      Sarrera AI Platform · Orchestrated via Docker Compose & LiteLLM · Perimeter Shielded by Caddy v2 Reverse Proxy
     </p>
   </footer>
 
@@ -1222,7 +1222,6 @@ ai.corp.internal {
       alertBox.style.display = 'none';
 
       try {
-        // Validate password by querying LiteLLM Proxy endpoint through Caddy
         const res = await fetch('/admin/litellm/model/info', {
           headers: {
             'Authorization': `Bearer ${password}`
@@ -1230,19 +1229,18 @@ ai.corp.internal {
         });
 
         if (res.ok) {
-          // Success
           sessionStorage.setItem(AUTH_KEY, password);
           sessionStorage.setItem(USER_KEY, username);
           closeLoginModal();
           checkAuthStatus();
           showAdminPanel();
-          showNotification('Sesión iniciada correctamente como ' + username, 'success');
+          showNotification('Signed in successfully as ' + username, 'success');
         } else {
-          alertBox.innerText = 'Contraseña o credenciales inválidas. Revisa ADMIN_PASSWORD o LITELLM_MASTER_KEY en tu .env.';
+          alertBox.innerText = 'Invalid credentials. Please verify ADMIN_PASSWORD or LITELLM_MASTER_KEY in your .env.';
           alertBox.style.display = 'block';
         }
       } catch (err) {
-        alertBox.innerText = 'Error conectando con LiteLLM Proxy: ' + err.message;
+        alertBox.innerText = 'Error connecting to LiteLLM Proxy: ' + err.message;
         alertBox.style.display = 'block';
       }
     }
@@ -1252,7 +1250,7 @@ ai.corp.internal {
       sessionStorage.removeItem(USER_KEY);
       checkAuthStatus();
       document.getElementById('admin-panel').style.display = 'none';
-      showNotification('Sesión cerrada.', 'success');
+      showNotification('Signed out successfully.', 'success');
     }
 
     function checkAuthStatus() {
@@ -1310,18 +1308,17 @@ ai.corp.internal {
     async function testNodeConnectivity() {
       const apiBase = document.getElementById('node-api-base').value.trim();
       if (!apiBase) {
-        alert('Introduce la dirección del nodo (api_base).');
+        alert('Please enter node host address (api_base).');
         return;
       }
-      showNotification('Comprobando conectividad con ' + apiBase + '...', 'success');
+      showNotification('Probing connectivity to ' + apiBase + '...', 'success');
       try {
         const start = performance.now();
-        // Check health endpoint or tags
         const res = await fetch(apiBase + '/api/version', { mode: 'no-cors' });
         const latency = Math.round(performance.now() - start);
-        showNotification(`✅ Conexión con nodo alcanzada (${latency} ms)`, 'success');
+        showNotification(`✅ Node reachable (${latency} ms)`, 'success');
       } catch (err) {
-        showNotification(`⚠️ El nodo respondió o requiere proxy: ` + err.message, 'success');
+        showNotification(`⚠️ Node ping attempted: ` + err.message, 'success');
       }
     }
 
@@ -1360,16 +1357,16 @@ ai.corp.internal {
 
         const data = await res.json();
         if (res.ok) {
-          showNotification(`🚀 Nodo '${modelAlias}' dado de alta exitosamente en LiteLLM.`, 'success');
+          showNotification(`🚀 Node '${modelAlias}' registered successfully in LiteLLM.`, 'success');
           document.getElementById('form-add-node').reset();
           document.getElementById('node-api-base').value = 'http://ai-ollama-local:11434';
           document.getElementById('node-backend-model').value = 'ollama/qwen2.5-coder:7b';
           refreshModelsList();
         } else {
-          showNotification('Error dando de alta el nodo: ' + (data.detail || JSON.stringify(data)), 'error');
+          showNotification('Error registering node: ' + (data.detail || JSON.stringify(data)), 'error');
         }
       } catch (err) {
-        showNotification('Error de red: ' + err.message, 'error');
+        showNotification('Network error: ' + err.message, 'error');
       }
     }
 
@@ -1378,7 +1375,7 @@ ai.corp.internal {
       if (!token) return;
 
       const tbody = document.getElementById('nodes-tbody');
-      tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--text-muted); padding: 1.5rem;">Actualizando lista de nodos...</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--text-muted); padding: 1.5rem;">Refreshing nodes list...</td></tr>`;
 
       try {
         const res = await fetch('/admin/litellm/model/info', {
@@ -1387,16 +1384,16 @@ ai.corp.internal {
         const data = await res.json();
 
         if (res.ok && data.data) {
-          document.getElementById('nodes-count-badge').innerText = `${data.data.length} Nodos`;
+          document.getElementById('nodes-count-badge').innerText = `${data.data.length} Nodes`;
           if (data.data.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--text-muted); padding: 1.5rem;">No hay nodos registrados en base de datos.</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--text-muted); padding: 1.5rem;">No nodes registered in database.</td></tr>`;
             return;
           }
 
           tbody.innerHTML = '';
           data.data.forEach(item => {
             const tr = document.createElement('tr');
-            const modelName = item.model_name || 'Desconocido';
+            const modelName = item.model_name || 'Unknown';
             const backend = (item.litellm_params && item.litellm_params.model) ? item.litellm_params.model : 'default';
             const apiBase = (item.litellm_params && item.litellm_params.api_base) ? item.litellm_params.api_base : 'Inherited / Cluster';
             const modelId = (item.model_info && item.model_info.id) ? item.model_info.id : (item.id || '');
@@ -1407,19 +1404,19 @@ ai.corp.internal {
               <td style="font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: #94a3b8;">${apiBase}</td>
               <td style="font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: #64748b;">${modelId ? modelId.substring(0, 8) + '...' : 'static'}</td>
               <td>
-                ${modelId ? `<button onclick="deleteModelNode('${modelId}', '${modelName}')" class="btn btn-danger" style="padding: 0.25rem 0.55rem; font-size: 0.75rem;">Baja</button>` : `<span style="font-size: 0.75rem; color: var(--text-muted);">Estático (yaml)</span>`}
+                ${modelId ? `<button onclick="deleteModelNode('${modelId}', '${modelName}')" class="btn btn-danger" style="padding: 0.25rem 0.55rem; font-size: 0.75rem;">Remove</button>` : `<span style="font-size: 0.75rem; color: var(--text-muted);">Static (yaml)</span>`}
               </td>
             `;
             tbody.appendChild(tr);
           });
         }
       } catch (err) {
-        tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #f87171; padding: 1.5rem;">Error cargando nodos: ${err.message}</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #f87171; padding: 1.5rem;">Error loading nodes: ${err.message}</td></tr>`;
       }
     }
 
     async function deleteModelNode(modelId, modelName) {
-      if (!confirm(`¿Estás seguro de que deseas dar de baja el nodo/modelo '${modelName}' (${modelId})?`)) return;
+      if (!confirm(`Are you sure you want to remove compute node/model '${modelName}' (${modelId})?`)) return;
       const token = getAdminToken();
 
       try {
@@ -1433,13 +1430,13 @@ ai.corp.internal {
         });
         const data = await res.json();
         if (res.ok) {
-          showNotification(`Nodo '${modelName}' dado de baja exitosamente.`, 'success');
+          showNotification(`Node '${modelName}' removed successfully.`, 'success');
           refreshModelsList();
         } else {
-          showNotification('Error eliminando nodo: ' + JSON.stringify(data), 'error');
+          showNotification('Error removing node: ' + JSON.stringify(data), 'error');
         }
       } catch (err) {
-        showNotification('Error de red: ' + err.message, 'error');
+        showNotification('Network error: ' + err.message, 'error');
       }
     }
 
@@ -1467,17 +1464,17 @@ ai.corp.internal {
                 <span class="badge" style="background: rgba(99, 102, 241, 0.15); color: #a5b4fc;">${t.team_id}</span>
               </div>
               <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.4rem;">
-                Presupuesto: <b>${t.max_budget ? t.max_budget + ' €/mes' : 'Ilimitado'}</b> · <b>${t.rpm_limit || 60} RPM</b>
+                Budget: <b>${t.max_budget ? t.max_budget + ' EUR/month' : 'Unlimited'}</b> · <b>${t.rpm_limit || 60} RPM</b>
               </div>
               <div style="font-size: 0.78rem; color: #cbd5e1; font-family: 'JetBrains Mono', monospace;">
-                Modelos: ${(t.models || []).join(', ') || 'Todos'}
+                Allowed Models: ${(t.models || []).join(', ') || 'All'}
               </div>
             `;
             container.appendChild(card);
           });
         }
       } catch (err) {
-        console.error('Error cargando tiers:', err);
+        console.error('Error loading tiers:', err);
       }
     }
 
@@ -1513,9 +1510,9 @@ ai.corp.internal {
           const keyBox = document.getElementById('generated-key-box');
           document.getElementById('generated-key-value').innerText = data.key;
           keyBox.style.display = 'block';
-          showNotification(`Clave emitida exitosamente para ${userId}`, 'success');
+          showNotification(`Key generated successfully for ${userId}`, 'success');
         } else {
-          showNotification('Error generando clave: ' + JSON.stringify(data), 'error');
+          showNotification('Error generating key: ' + JSON.stringify(data), 'error');
         }
       } catch (err) {
         showNotification('Error: ' + err.message, 'error');

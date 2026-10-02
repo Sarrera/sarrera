@@ -138,7 +138,7 @@ Editing configuration files and restarting containers during office hours is imp
 
 We built an **Authenticated Admin Control Center** directly into the Caddy web interface (`https://localhost/`):
 
-1. Click **`🔐 Panel de Administración`** in the top navigation.
+1. Click **`🔐 Admin Control Panel`** in the top navigation.
 2. Sign in with the credentials defined in `.env` (`ADMIN_USERNAME` and `ADMIN_PASSWORD`).
 3. You can:
    - **Register new GPU/CPU nodes on the fly**: Provide the node IP (`api_base`), backend model, engine (Ollama, vLLM, TGI), weight, and RPM limits.
