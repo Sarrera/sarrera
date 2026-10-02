@@ -1,0 +1,69 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'core/theme/app_theme.dart';
+import 'features/shell/app_shell.dart';
+import 'features/dashboard/presentation/dashboard_view.dart';
+import 'features/tiers/presentation/tiers_view.dart';
+import 'features/users/presentation/users_view.dart';
+import 'features/telemetry/presentation/telemetry_view.dart';
+import 'features/nodes/presentation/nodes_view.dart';
+import 'features/certificates/presentation/certificates_view.dart';
+
+final _router = GoRouter(
+  initialLocation: '/',
+  routes: [
+    ShellRoute(
+      builder: (context, state, child) => AppShell(child: child),
+      routes: [
+        GoRoute(
+          path: '/',
+          builder: (context, state) => const DashboardView(),
+        ),
+        GoRoute(
+          path: '/tiers',
+          builder: (context, state) => const TiersView(),
+        ),
+        GoRoute(
+          path: '/users',
+          builder: (context, state) => const UsersView(),
+        ),
+        GoRoute(
+          path: '/telemetry',
+          builder: (context, state) => const TelemetryView(),
+        ),
+        GoRoute(
+          path: '/nodes',
+          builder: (context, state) => const NodesView(),
+        ),
+        GoRoute(
+          path: '/certificates',
+          builder: (context, state) => const CertificatesView(),
+        ),
+      ],
+    ),
+  ],
+);
+
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(
+    const ProviderScope(
+      child: SarreraPortalApp(),
+    ),
+  );
+}
+
+class SarreraPortalApp extends StatelessWidget {
+  const SarreraPortalApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp.router(
+      title: 'Sarrera - Edge Gateway & Governance Portal',
+      debugShowCheckedModeBanner: false,
+      theme: AppTheme.darkTheme,
+      routerConfig: _router,
+    );
+  }
+}
