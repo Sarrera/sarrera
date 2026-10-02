@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -23,6 +23,7 @@
       --warning: #f59e0b;
       --danger: #ef4444;
       --code-bg: #161722;
+      --modal-bg: rgba(18, 19, 28, 0.95);
     }
 
     * {
@@ -45,8 +46,45 @@
       background-attachment: fixed;
     }
 
+    /* TOP NAVBAR */
+    .top-nav {
+      max-width: 1280px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 1.25rem 2rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .nav-brand img {
+      width: 36px;
+      height: 36px;
+      filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.5));
+    }
+
+    .nav-brand span {
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
     header {
-      padding: 3rem 2rem 1.5rem;
+      padding: 2rem 2rem 1.5rem;
       max-width: 1280px;
       margin: 0 auto;
       width: 100%;
@@ -151,6 +189,66 @@
       letter-spacing: -0.01em;
     }
 
+    /* BUTTONS */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      padding: 0.65rem 1.1rem;
+      background: var(--primary);
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.88rem;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      text-align: center;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text);
+      border: 1px solid var(--card-border);
+      padding: 0.65rem 0.9rem;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .btn-success {
+      background: #059669;
+      color: white;
+    }
+    .btn-success:hover { background: #047857; }
+
+    .btn-danger {
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+    .btn-danger:hover {
+      background: rgba(239, 68, 68, 0.3);
+      color: #fff;
+    }
+
+    .btn-admin {
+      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+      color: white;
+      box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
+    }
+    .btn-admin:hover {
+      box-shadow: 0 6px 20px rgba(79, 70, 229, 0.55);
+      transform: translateY(-1px);
+    }
+
     /* GRID FOR SERVICES */
     .grid {
       display: grid;
@@ -235,41 +333,6 @@
     .card-actions {
       display: flex;
       gap: 0.6rem;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.45rem;
-      padding: 0.65rem 1.1rem;
-      background: var(--primary);
-      color: #ffffff;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.88rem;
-      border-radius: 8px;
-      transition: background 0.2s ease;
-      flex: 1;
-      text-align: center;
-      border: none;
-      cursor: pointer;
-    }
-
-    .btn:hover {
-      background: var(--primary-hover);
-    }
-
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.06);
-      color: var(--text);
-      border: 1px solid var(--card-border);
-      flex: 0 0 auto;
-      padding: 0.65rem 0.9rem;
-    }
-
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.12);
     }
 
     /* CERTIFICATE MANAGEMENT SECTION */
@@ -378,6 +441,221 @@
       line-height: 1.5;
     }
 
+    /* =========================================================================
+       ADMIN CONTROL CENTER (PROTECTED BY USER/PASSWORD)
+       ========================================================================= */
+    #admin-panel {
+      display: none;
+      background: #11121d;
+      border: 1px solid rgba(99, 102, 241, 0.4);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 10px 40px -10px rgba(99, 102, 241, 0.2);
+    }
+
+    .admin-header-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .admin-title-box h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .admin-title-box p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    .admin-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.75rem;
+    }
+
+    @media (min-width: 900px) {
+      .admin-grid {
+        grid-template-columns: 420px 1fr;
+      }
+    }
+
+    .admin-card {
+      background: #161726;
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+
+    .admin-card-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #c7d2fe;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+      color: #cbd5e1;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .form-control {
+      width: 100%;
+      background: #0c0d15;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      padding: 0.65rem 0.85rem;
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary);
+    }
+
+    .form-row {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .form-row .form-group {
+      flex: 1;
+    }
+
+    /* NODE TABLE */
+    .table-container {
+      overflow-x: auto;
+      margin-top: 0.5rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      text-align: left;
+    }
+
+    th {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    td {
+      padding: 0.75rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      vertical-align: middle;
+    }
+
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .node-badge {
+      font-family: 'JetBrains Mono', monospace;
+      padding: 0.2rem 0.5rem;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      background: rgba(99, 102, 241, 0.15);
+      color: #a5b4fc;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+    }
+
+    /* MODAL */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 1rem;
+    }
+
+    .modal-box {
+      background: var(--modal-bg);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: 16px;
+      max-width: 440px;
+      width: 100%;
+      padding: 2rem;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .modal-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+
+    .modal-close {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .alert {
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+      display: none;
+    }
+
+    .alert-error {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #fca5a5;
+    }
+
+    .alert-success {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #6ee7b7;
+    }
+
     footer {
       border-top: 1px solid var(--card-border);
       padding: 2rem;
@@ -395,40 +673,204 @@
 </head>
 <body>
 
+  <!-- TOP NAVIGATION -->
+  <nav class="top-nav">
+    <a href="/" class="nav-brand">
+      <img src="/assets/sarrera-icon.svg" alt="Sarrera Logo" />
+      <span>Sarrera AI Platform</span>
+    </a>
+    <div class="nav-actions">
+      <div id="auth-status-logged-in" style="display: none; align-items: center; gap: 0.75rem;">
+        <span class="badge" style="background: rgba(16, 185, 129, 0.1); color: #34d399; border-color: rgba(16, 185, 129, 0.3);">
+          <span class="badge-dot" style="background: #10b981;"></span>
+          <span id="logged-username">admin</span>
+        </span>
+        <button onclick="logoutAdmin()" class="btn btn-secondary" style="padding: 0.45rem 0.8rem; font-size: 0.8rem;">Cerrar Sesión</button>
+      </div>
+      <button id="btn-open-login" onclick="openLoginModal()" class="btn btn-admin">
+        <span>🔐</span> Panel de Administración
+      </button>
+    </div>
+  </nav>
+
   <header>
     <div class="brand">
       <img src="/assets/sarrera-icon.svg" alt="Sarrera Logo" />
       <h1>Sarrera Central Gateway</h1>
     </div>
     <p class="tagline">
-      Enterprise AI Inference Hub, Role-Based Access Control, Token Quotas, and Zero-Latency Auditing.
+      Centro de Inferencia IA Empresarial, Control de Acceso por Tiers (RBAC), Cuotas de Tokens y Auditoría en Tiempo Real.
     </p>
 
     <div class="status-ribbon">
       <div class="badge tls">
         <span class="badge-dot"></span>
-        TLS Edge Reverse Proxy: Active (Caddy v2)
+        Proxy Inverso TLS: Activo (Caddy v2)
       </div>
       <div class="badge shield">
         <span class="badge-dot"></span>
-        Single Internet Point: Only Port 443 / 80 Exposed
+        Perímetro Blindado: Solo Puertos 80 / 443 Expuestos
       </div>
       <div class="badge acme">
         <span class="badge-dot"></span>
-        Automated Certificate Lifecycle: Enabled
+        Ciclo de Vida de Certificados: Automatizado
       </div>
     </div>
   </header>
 
   <main>
 
+    <!-- ADMIN CONTROL CENTER (AUTHENTICATED VIEW) -->
+    <section id="admin-panel">
+      <div class="admin-header-bar">
+        <div class="admin-title-box">
+          <h2><span>⚙️</span> Panel de Control y Alta de Nodos</h2>
+          <p>Gestión en tiempo real de nodos de cómputo GPU/CPU y balanceador LiteLLM Proxy.</p>
+        </div>
+        <div style="display: flex; gap: 0.5rem;">
+          <button onclick="refreshModelsList()" class="btn btn-secondary">🔄 Actualizar Nodos</button>
+          <a href="/admin/litellm/ui/" target="_blank" class="btn btn-admin">Abrir LiteLLM UI Completa ↗</a>
+        </div>
+      </div>
+
+      <div id="admin-alert" class="alert"></div>
+
+      <div class="admin-grid">
+        
+        <!-- FORMULARIO: ALTA DE NUEVO NODO -->
+        <div class="admin-card">
+          <div class="admin-card-title">
+            <span>➕</span> Dar de Alta Nuevo Nodo de Inferencia
+          </div>
+          <form id="form-add-node" onsubmit="handleRegisterNode(event)">
+            
+            <div class="form-group">
+              <label for="node-model-alias">Nombre / Alias del Modelo</label>
+              <input type="text" id="node-model-alias" class="form-control" placeholder="ej: basic-coder, premium-coder" required list="alias-suggestions">
+              <datalist id="alias-suggestions">
+                <option value="basic-coder">
+                <option value="premium-coder">
+                <option value="premium-reasoning">
+                <option value="custom-coder-70b">
+              </datalist>
+            </div>
+
+            <div class="form-group">
+              <label for="node-engine">Motor / Proveedor Backend</label>
+              <select id="node-engine" class="form-control" onchange="handleEngineChange()">
+                <option value="ollama">Ollama (Servidor Local o Remoto)</option>
+                <option value="vllm">vLLM (Inferencia Alta Concurrencia)</option>
+                <option value="tgi">Text Generation Inference (TGI)</option>
+                <option value="openai">OpenAI Compatible (Cualquier endpoint)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="node-api-base">Dirección IP / Host del Nodo (api_base)</label>
+              <input type="text" id="node-api-base" class="form-control" placeholder="http://192.168.1.75:11434" required value="http://ai-ollama-local:11434">
+            </div>
+
+            <div class="form-group">
+              <label for="node-backend-model">Modelo Físico en el Backend</label>
+              <input type="text" id="node-backend-model" class="form-control" placeholder="ollama/qwen2.5-coder:7b" required value="ollama/qwen2.5-coder:7b">
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="node-weight">Peso (Weight)</label>
+                <input type="number" id="node-weight" class="form-control" value="8" min="1" max="100">
+              </div>
+              <div class="form-group">
+                <label for="node-rpm">Límite RPM</label>
+                <input type="number" id="node-rpm" class="form-control" value="60" min="1">
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 0.5rem; margin-top: 1.25rem;">
+              <button type="button" onclick="testNodeConnectivity()" class="btn btn-secondary" style="flex: 1;">⚡ Probar Ping</button>
+              <button type="submit" class="btn btn-success" style="flex: 2;">🚀 Registrar Nodo</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- LISTA DE NODOS REGISTRADOS -->
+        <div class="admin-card" style="display: flex; flex-direction: column;">
+          <div class="admin-card-title" style="justify-content: space-between;">
+            <span><span>🖥️</span> Nodos de Inferencia Activos en el Proxy</span>
+            <span id="nodes-count-badge" class="badge shield">4 Nodos</span>
+          </div>
+          
+          <div class="table-container" style="flex: 1;">
+            <table id="nodes-table">
+              <thead>
+                <tr>
+                  <th>Alias</th>
+                  <th>Modelo Backend</th>
+                  <th>Dirección (api_base)</th>
+                  <th>ID</th>
+                  <th>Acción</th>
+                </tr>
+              </thead>
+              <tbody id="nodes-tbody">
+                <tr>
+                  <td colspan="5" style="text-align: center; color: var(--text-muted); padding: 2rem;">
+                    Cargando nodos desde LiteLLM...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- GESTIÓN RÁPIDA DE TIERS Y CLAVES -->
+      <div style="margin-top: 1.75rem; padding-top: 1.5rem; border-top: 1px solid var(--card-border);">
+        <div class="admin-card-title">
+          <span>🛡️</span> Suscripciones (Tiers) y Emisión Rápida de Claves Virtuales
+        </div>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;" id="tiers-cards-container">
+          <!-- Tiers cards rendered dynamically -->
+        </div>
+
+        <!-- FORMULARIO EMISIÓN RÁPIDA DE CLAVE -->
+        <div class="admin-card" style="background: rgba(0,0,0,0.25);">
+          <div style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.75rem; color: #a5b4fc;">
+            Generar Nueva Clave Virtual de Acceso (Virtual API Key)
+          </div>
+          <form onsubmit="handleIssueKey(event)" style="display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: flex-end;">
+            <div style="flex: 2; min-width: 200px;">
+              <label style="display: block; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">IDENTIFICADOR DE USUARIO</label>
+              <input type="text" id="new-key-user" class="form-control" placeholder="ej: dev_carlos, arquitectura_01" required>
+            </div>
+            <div style="flex: 2; min-width: 180px;">
+              <label style="display: block; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">TIER / SUBSCRIPCIÓN</label>
+              <select id="new-key-tier" class="form-control">
+                <option value="tier-basic">tier-basic (7B, 15€/mes)</option>
+                <option value="tier-standard" selected>tier-standard (7B+32B, 50€/mes)</option>
+                <option value="tier-premium">tier-premium (Full + R1, 100€/mes)</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-admin" style="flex: 1; min-width: 160px; height: 38px;">Generar Clave</button>
+          </form>
+          <div id="generated-key-box" style="display: none; margin-top: 1rem; padding: 0.85rem; background: #0c0d15; border-radius: 8px; border: 1px solid var(--primary);">
+            <div style="font-size: 0.8rem; color: #34d399; font-weight: 600; margin-bottom: 0.25rem;">✅ Clave Generada Exitosamente:</div>
+            <code id="generated-key-value" style="font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: #fff;"></code>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
     <!-- ARCHITECTURE CALLOUT -->
     <div class="arch-callout">
       <div class="arch-icon">🛡️</div>
       <div class="arch-text">
-        <h4>Centralized Security Perimeter (Single Internet Exposure)</h4>
+        <h4>Perímetro Centralizado de Seguridad (Único Punto Expuesto a Internet)</h4>
         <p>
-          Only Caddy is exposed to the internet (ports 80 and 443). All internal application containers (LiteLLM, Langfuse, Open WebUI, PostgreSQL, MinIO) operate strictly within internal Docker bridge networks and are never directly addressable from outside networks.
+          Solo Caddy está expuesto a internet (puertos 80 y 443). Todos los contenedores de aplicación internos (LiteLLM, Langfuse, Open WebUI, PostgreSQL, MinIO) operan estrictamente dentro de redes privadas de Docker y no son accesibles directamente desde el exterior.
         </p>
       </div>
     </div>
@@ -437,39 +879,36 @@
     <div class="cert-box">
       <div class="cert-header">
         <div class="cert-title">
-          <span>🔒</span> Centralized TLS Certificate Management (Caddy)
+          <span>🔒</span> Gestión Centralizada de Certificados TLS (Caddy)
         </div>
-        <span class="badge tls">Terminated at Edge</span>
+        <span class="badge tls">Terminado en el Perímetro</span>
       </div>
       <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.25rem; line-height: 1.5;">
-        Caddy handles all SSL/TLS handshakes, HTTP-to-HTTPS redirects, and security headers centrally for every service. Select a tab below to inspect the configuration examples for each deployment environment:
+        Caddy gestiona todas las conexiones SSL/TLS, las redirecciones HTTP a HTTPS y las cabeceras de seguridad de forma unificada. Selecciona una pestaña para ver ejemplos de configuración:
       </p>
 
       <div class="tabs">
-        <button class="tab-btn active" onclick="showTab('acme-letsencrypt')">1. Automated Public ACME (Let's Encrypt / ZeroSSL)</button>
-        <button class="tab-btn" onclick="showTab('custom-cert')">2. Custom Enterprise Wildcard Certificate</button>
-        <button class="tab-btn" onclick="showTab('internal-ca')">3. Internal Self-Signed CA (Dev/Test)</button>
-        <button class="tab-btn" onclick="showTab('dns-challenge')">4. DNS-01 Challenge (Air-Gapped / Intranet)</button>
+        <button class="tab-btn active" onclick="showTab('acme-letsencrypt')">1. ACME Público Automatizado (Let's Encrypt / ZeroSSL)</button>
+        <button class="tab-btn" onclick="showTab('custom-cert')">2. Certificado Corporativo Wildcard Personalizado</button>
+        <button class="tab-btn" onclick="showTab('internal-ca')">3. CA Interna Autofirmada (Dev/Test)</button>
+        <button class="tab-btn" onclick="showTab('dns-challenge')">4. Desafío DNS-01 (Redes Aisladas / Intranet)</button>
       </div>
 
       <!-- Tab 1: Automated ACME -->
       <div id="acme-letsencrypt" class="tab-content active">
         <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">
-          <b>Production (Public Domain):</b> Caddy automatically contacts Let's Encrypt or ZeroSSL, issues the certificate, solves HTTP-01 or TLS-ALPN-01 challenges, and renews automatically without downtime.
+          <b>Producción (Dominio Público):</b> Caddy solicita y renueva certificados válidos de forma totalmente autónoma sin intervención manual.
         </p>
-        <pre><code># config/Caddyfile - Production Setup with Let's Encrypt
-ai.yourcompany.com {
-    # Provide admin email for renewal alerts; Caddy automates ACME certificate issuance
-    tls admin@yourcompany.com
+        <pre><code># config/Caddyfile - Producción con Let's Encrypt
+ai.tuempresa.com {
+    tls admin@tuempresa.com
 
-    # Central HSTS and Security Headers
     header {
         Strict-Transport-Security "max-age=31536000; includeSubDomains"
         X-Content-Type-Options "nosniff"
         X-Frame-Options "SAMEORIGIN"
     }
 
-    # All microservice routing is protected under this single certificate
     handle /v1/* { reverse_proxy litellm:4000 }
     handle /chat/* { reverse_proxy open-webui:8080 }
 }</code></pre>
@@ -478,37 +917,32 @@ ai.yourcompany.com {
       <!-- Tab 2: Custom Enterprise Cert -->
       <div id="custom-cert" class="tab-content">
         <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">
-          <b>Corporate Infrastructure:</b> Use existing company certificates (.crt / .pem and .key) issued by an internal corporate PKI or commercial CA.
+          <b>Infraestructura Corporativa:</b> Usa tus propios certificados (.crt y .key) firmados por la CA interna de tu empresa.
         </p>
-        <pre><code># config/Caddyfile - Custom Corporate Wildcard Certificates
-*.ai.yourcompany.com, ai.yourcompany.com {
-    # Mount certificate files into Caddy container and specify absolute paths
-    tls /etc/caddy/certs/corporate-bundle.pem /etc/caddy/certs/corporate-private.key
-
-    # Reverse proxy definitions...
+        <pre><code># config/Caddyfile - Certificados Wildcard Propios
+*.ai.tuempresa.local, ai.tuempresa.local {
+    tls /etc/caddy/certs/corporativo.crt /etc/caddy/certs/corporativo.key
 }</code></pre>
       </div>
 
       <!-- Tab 3: Internal CA -->
       <div id="internal-ca" class="tab-content">
         <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">
-          <b>Local Development:</b> Caddy initializes an embedded, private local Certificate Authority with automatic renewal (Current Active Mode).
+          <b>Desarrollo Local:</b> Caddy inicializa su propia Autoridad de Certificación local con renovación automática (Modo Activo Actual).
         </p>
-        <pre><code># config/Caddyfile - Local Development (Current Active Mode)
+        <pre><code># config/Caddyfile - Modo Actual en Local
 {$DOMAIN:localhost} {
     tls internal
-
-    # All traffic routed internally via Caddy...
 }</code></pre>
       </div>
 
       <!-- Tab 4: DNS-01 Challenge -->
       <div id="dns-challenge" class="tab-content">
         <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">
-          <b>Private / Intranet:</b> Issue valid public certificates for internal domain names without opening port 80 to the internet using Cloudflare or AWS Route53 DNS-01 validation.
+          <b>Intranet Privada:</b> Valida dominios internos sin abrir el puerto 80 a internet mediante desafíos DNS en Cloudflare o AWS Route53.
         </p>
-        <pre><code># config/Caddyfile - DNS-01 ACME Challenge
-ai.internal.corp {
+        <pre><code># config/Caddyfile - Desafío DNS-01
+ai.corp.internal {
     tls {
         dns cloudflare {env.CLOUDFLARE_API_TOKEN}
     }
@@ -518,7 +952,7 @@ ai.internal.corp {
 
     <!-- SERVICES AND REGISTRIES DIRECTORY -->
     <div class="section-title">
-      <span>🚀</span> Service Directory & Administrative Consoles
+      <span>🚀</span> Directorio de Servicios y Consolas Administrativas
     </div>
 
     <div class="grid">
@@ -530,20 +964,20 @@ ai.internal.corp {
             <div class="card-icon" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">💬</div>
             <div class="card-info">
               <h3>Open WebUI Portal</h3>
-              <div class="card-role">User Chat & Model Playground</div>
+              <div class="card-role">Chat de Usuario y Prompts</div>
             </div>
           </div>
           <div class="card-desc">
-            Interactive enterprise conversational AI portal, document retrieval (RAG), user management, and Active Directory LDAP integration.
+            Portal conversacional para equipos de ingeniería, consulta de documentos (RAG), gestión de agentes y autenticación Active Directory / LDAP.
           </div>
           <div class="card-meta">
-            <span>Route: <code id="route-chat">chat.localhost</code></span>
-            <span>Target: <code>open-webui:8080</code></span>
+            <span>Ruta: <code id="route-chat">chat.localhost</code></span>
+            <span>Destino: <code>open-webui:8080</code></span>
           </div>
         </div>
         <div class="card-actions">
-          <a id="link-chat" href="https://chat.localhost" class="btn">Launch Chat Portal</a>
-          <a href="/chat" class="btn btn-secondary" title="Fallback Subpath Route">/chat</a>
+          <a id="link-chat" href="https://chat.localhost" class="btn">Abrir Portal de Chat</a>
+          <a href="/chat" class="btn btn-secondary" title="Ruta Subpath Alternativa">/chat</a>
         </div>
       </div>
 
@@ -554,20 +988,20 @@ ai.internal.corp {
             <div class="card-icon" style="background: rgba(99, 102, 241, 0.1); color: #6366f1;">🛡️</div>
             <div class="card-info">
               <h3>LiteLLM Admin Console</h3>
-              <div class="card-role">Governance, Tiers & Quotas</div>
+              <div class="card-role">Gobernanza, Tiers y Cuotas</div>
             </div>
           </div>
           <div class="card-desc">
-            Manage Subscription Tiers (<code>tier-basic</code>, <code>tier-premium</code>), issue Virtual API Keys, monitor token spend, and configure upstream routing.
+            Administra los 3 Tiers (basic, standard, premium), emite Virtual Keys, monitoriza consumo de tokens y revisa el balanceo de carga.
           </div>
           <div class="card-meta">
-            <span>Route: <code id="route-gateway">gateway.localhost/ui/</code></span>
-            <span>Target: <code>litellm:4000</code></span>
+            <span>Ruta: <code id="route-gateway">gateway.localhost/ui/</code></span>
+            <span>Destino: <code>litellm:4000</code></span>
           </div>
         </div>
         <div class="card-actions">
-          <a id="link-gateway" href="https://gateway.localhost/ui/" class="btn">Open LiteLLM Admin</a>
-          <a href="/admin/litellm/ui/" class="btn btn-secondary" title="Fallback Subpath Route">/ui</a>
+          <a id="link-gateway" href="https://gateway.localhost/ui/" class="btn">Abrir LiteLLM Admin</a>
+          <a href="/admin/litellm/ui/" class="btn btn-secondary" title="Ruta Subpath Alternativa">/ui</a>
         </div>
       </div>
 
@@ -578,20 +1012,20 @@ ai.internal.corp {
             <div class="card-icon" style="background: rgba(6, 182, 212, 0.1); color: #06b6d4;">📊</div>
             <div class="card-info">
               <h3>Langfuse Observability</h3>
-              <div class="card-role">Telemetry & Audit Traces</div>
+              <div class="card-role">Telemetría y Auditoría</div>
             </div>
           </div>
           <div class="card-desc">
-            Zero-latency asynchronous tracing, full prompt compliance auditing, TTFT latency tracking, and departmental cost chargeback attribution.
+            Trazabilidad asíncrona sin latencia, auditoría completa de prompts y respuestas, latencias TTFT e imputación de costes por departamento.
           </div>
           <div class="card-meta">
-            <span>Route: <code id="route-audit">audit.localhost</code></span>
-            <span>Target: <code>langfuse:3000</code></span>
+            <span>Ruta: <code id="route-audit">audit.localhost</code></span>
+            <span>Destino: <code>langfuse:3000</code></span>
           </div>
         </div>
         <div class="card-actions">
-          <a id="link-audit" href="https://audit.localhost" class="btn">Open Langfuse Console</a>
-          <a href="/admin/audit/" class="btn btn-secondary" title="Fallback Subpath Route">/audit</a>
+          <a id="link-audit" href="https://audit.localhost" class="btn">Abrir Consola Langfuse</a>
+          <a href="/admin/audit/" class="btn btn-secondary" title="Ruta Subpath Alternativa">/audit</a>
         </div>
       </div>
 
@@ -601,20 +1035,20 @@ ai.internal.corp {
           <div class="card-header">
             <div class="card-icon" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b;">📚</div>
             <div class="card-info">
-              <h3>Documentation & GitHub Pages</h3>
-              <div class="card-role">Operational Runbooks & Guides</div>
+              <h3>Documentación & GitHub Pages</h3>
+              <div class="card-role">Guías y Manuales Técnicos</div>
             </div>
           </div>
           <div class="card-desc">
-            Complete technical documentation suite: architecture blueprints, VS Code Continue guides, RBAC tier manuals, and troubleshooting runbooks.
+            Suite completa de manuales operativos: configuración de Continue en VS Code, arquitectura, endpoints cURL y resolución de problemas.
           </div>
           <div class="card-meta">
-            <span>Route: <code>/docs/</code></span>
-            <span>Target: <code>Static Docsify / Markdown</code></span>
+            <span>Ruta: <code>/docs/</code></span>
+            <span>Destino: <code>Docsify / Markdown</code></span>
           </div>
         </div>
         <div class="card-actions">
-          <a href="/docs/" class="btn">View Documentation Portal</a>
+          <a href="/docs/" class="btn">Ver Portal Documentación</a>
         </div>
       </div>
 
@@ -625,20 +1059,20 @@ ai.internal.corp {
             <div class="card-icon" style="background: rgba(239, 68, 68, 0.1); color: #ef4444;">🗄️</div>
             <div class="card-info">
               <h3>MinIO S3 Storage Console</h3>
-              <div class="card-role">Audit Trace Blob Storage</div>
+              <div class="card-role">Almacén S3 de Trazas</div>
             </div>
           </div>
           <div class="card-desc">
-            Manage high-performance S3 object storage buckets where raw Langfuse trace payloads, completions, and conversation blobs are stored.
+            Gestiona buckets S3 de alta velocidad donde se persisten las trazas completas, archivos adjuntos y blobs de auditoría de Langfuse.
           </div>
           <div class="card-meta">
-            <span>Route: <code id="route-storage">storage.localhost</code></span>
-            <span>Target: <code>minio:9001</code></span>
+            <span>Ruta: <code id="route-storage">storage.localhost</code></span>
+            <span>Destino: <code>minio:9001</code></span>
           </div>
         </div>
         <div class="card-actions">
-          <a id="link-storage" href="https://storage.localhost" class="btn">Open MinIO Console</a>
-          <a href="/admin/storage/" class="btn btn-secondary" title="Fallback Subpath Route">/storage</a>
+          <a id="link-storage" href="https://storage.localhost" class="btn">Abrir Consola MinIO</a>
+          <a href="/admin/storage/" class="btn btn-secondary" title="Ruta Subpath Alternativa">/storage</a>
         </div>
       </div>
 
@@ -648,20 +1082,20 @@ ai.internal.corp {
           <div class="card-header">
             <div class="card-icon" style="background: rgba(168, 85, 247, 0.1); color: #a855f7;">⚡</div>
             <div class="card-info">
-              <h3>OpenAI-Compatible API</h3>
-              <div class="card-role">IDE & Client Gateway Endpoint</div>
+              <h3>API OpenAI Compatible</h3>
+              <div class="card-role">Endpoint para IDEs</div>
             </div>
           </div>
           <div class="card-desc">
-            Unified <code>/v1/chat/completions</code> endpoint consumed by VS Code Continue, Cline, Roo Code, and enterprise SDK integrations.
+            Endpoint unificado <code>/v1/chat/completions</code> consumido por extensiones de desarrollo (Continue, Cline, Roo Code y Cursor).
           </div>
           <div class="card-meta">
-            <span>Route: <code>/v1/models</code></span>
-            <span>Target: <code>litellm:4000/v1</code></span>
+            <span>Ruta: <code>/v1/models</code></span>
+            <span>Destino: <code>litellm:4000/v1</code></span>
           </div>
         </div>
         <div class="card-actions">
-          <a href="/v1/models" target="_blank" class="btn btn-secondary" style="flex: 1;">Inspect /v1/models JSON</a>
+          <a href="/v1/models" target="_blank" class="btn btn-secondary" style="flex: 1;">Ver JSON /v1/models</a>
         </div>
       </div>
 
@@ -670,25 +1104,55 @@ ai.internal.corp {
     <!-- API QUICK REFERENCE -->
     <div class="cert-box" style="border-color: var(--card-border);">
       <div class="section-title" style="margin-bottom: 0.75rem; color: #f3f4f6;">
-        <span>💻</span> Quick Developer Consumption (cURL Example)
+        <span>💻</span> Conexión Rápida de Desarrollador (Ejemplo cURL)
       </div>
       <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-        IDEs and scripts connect directly through Caddy's single HTTPS port. Use your virtual API key:
+        Los IDEs y scripts conectan por HTTPS a través de Caddy utilizando su clave virtual:
       </p>
       <pre><code>curl -k -X POST https://localhost/v1/chat/completions \
-  -H "Authorization: Bearer sk-your-tier-key-here" \
+  -H "Authorization: Bearer sk-tu-clave-virtual-aqui" \
   -H "Content-Type: application/json" \
   -d '{
     "model": "basic-coder",
-    "messages": [{"role": "user", "content": "Write a Python script to check GPU VRAM."}]
+    "messages": [{"role": "user", "content": "Escribe un script en Python para comprobar la VRAM."}]
   }'</code></pre>
     </div>
 
   </main>
 
+  <!-- MODAL DE LOGIN (ADMIN USER / PASSWORD) -->
+  <div id="login-modal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-title">🔐 Iniciar Sesión de Administrador</div>
+        <button class="modal-close" onclick="closeLoginModal()">&times;</button>
+      </div>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+        Introduce las credenciales de administración configuradas en tu archivo <code>.env</code> (<code>ADMIN_USERNAME</code> y <code>ADMIN_PASSWORD</code> o <code>LITELLM_MASTER_KEY</code>).
+      </p>
+      
+      <div id="login-alert" class="alert alert-error"></div>
+
+      <form onsubmit="handleAdminLogin(event)">
+        <div class="form-group">
+          <label for="login-username">Usuario Administrador</label>
+          <input type="text" id="login-username" class="form-control" value="admin" required>
+        </div>
+        <div class="form-group">
+          <label for="login-password">Contraseña (Master Key)</label>
+          <input type="password" id="login-password" class="form-control" placeholder="sk-master-platform-key-change-me" required>
+        </div>
+        <div style="margin-top: 1.5rem; display: flex; gap: 0.5rem;">
+          <button type="button" onclick="closeLoginModal()" class="btn btn-secondary" style="flex: 1;">Cancelar</button>
+          <button type="submit" class="btn btn-admin" style="flex: 2;">Iniciar Sesión</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <footer>
     <p>
-      Sarrera AI Platform · Orchestrated via Docker Compose & LiteLLM · Perimeter Shielded by Caddy v2 Reverse Proxy
+      Sarrera AI Platform · Orquestado con Docker Compose & LiteLLM · Perímetro Protegido por Caddy v2 Reverse Proxy
     </p>
   </footer>
 
@@ -712,7 +1176,6 @@ ai.internal.corp {
       const proto = window.location.protocol;
       const port = window.location.port ? `:${window.location.port}` : '';
 
-      // If running on a domain other than localhost (e.g., ai.company.local)
       if (hostname !== 'localhost') {
         const linkChat = document.getElementById('link-chat');
         const linkGateway = document.getElementById('link-gateway');
@@ -730,6 +1193,339 @@ ai.internal.corp {
         document.getElementById('route-storage').innerText = `storage.${hostname}`;
       }
     })();
+
+    /* =========================================================================
+       ADMIN AUTHENTICATION & NODE MANAGEMENT JAVASCRIPT
+       ========================================================================= */
+    const AUTH_KEY = 'sarrera_admin_token';
+    const USER_KEY = 'sarrera_admin_user';
+
+    function getAdminToken() {
+      return sessionStorage.getItem(AUTH_KEY) || localStorage.getItem(AUTH_KEY);
+    }
+
+    function openLoginModal() {
+      document.getElementById('login-alert').style.display = 'none';
+      document.getElementById('login-modal').style.display = 'flex';
+    }
+
+    function closeLoginModal() {
+      document.getElementById('login-modal').style.display = 'none';
+    }
+
+    async function handleAdminLogin(e) {
+      e.preventDefault();
+      const username = document.getElementById('login-username').value.trim();
+      const password = document.getElementById('login-password').value.trim();
+      const alertBox = document.getElementById('login-alert');
+
+      alertBox.style.display = 'none';
+
+      try {
+        // Validate password by querying LiteLLM Proxy endpoint through Caddy
+        const res = await fetch('/admin/litellm/model/info', {
+          headers: {
+            'Authorization': `Bearer ${password}`
+          }
+        });
+
+        if (res.ok) {
+          // Success
+          sessionStorage.setItem(AUTH_KEY, password);
+          sessionStorage.setItem(USER_KEY, username);
+          closeLoginModal();
+          checkAuthStatus();
+          showAdminPanel();
+          showNotification('Sesión iniciada correctamente como ' + username, 'success');
+        } else {
+          alertBox.innerText = 'Contraseña o credenciales inválidas. Revisa ADMIN_PASSWORD o LITELLM_MASTER_KEY en tu .env.';
+          alertBox.style.display = 'block';
+        }
+      } catch (err) {
+        alertBox.innerText = 'Error conectando con LiteLLM Proxy: ' + err.message;
+        alertBox.style.display = 'block';
+      }
+    }
+
+    function logoutAdmin() {
+      sessionStorage.removeItem(AUTH_KEY);
+      sessionStorage.removeItem(USER_KEY);
+      checkAuthStatus();
+      document.getElementById('admin-panel').style.display = 'none';
+      showNotification('Sesión cerrada.', 'success');
+    }
+
+    function checkAuthStatus() {
+      const token = getAdminToken();
+      const user = sessionStorage.getItem(USER_KEY) || 'admin';
+      const btnOpenLogin = document.getElementById('btn-open-login');
+      const authStatusLoggedIn = document.getElementById('auth-status-logged-in');
+      const loggedUsername = document.getElementById('logged-username');
+
+      if (token) {
+        btnOpenLogin.style.display = 'none';
+        authStatusLoggedIn.style.display = 'flex';
+        loggedUsername.innerText = user;
+        showAdminPanel();
+      } else {
+        btnOpenLogin.style.display = 'inline-flex';
+        authStatusLoggedIn.style.display = 'none';
+        document.getElementById('admin-panel').style.display = 'none';
+      }
+    }
+
+    function showAdminPanel() {
+      document.getElementById('admin-panel').style.display = 'block';
+      refreshModelsList();
+      refreshTiersList();
+    }
+
+    function showNotification(msg, type = 'success') {
+      const alertBox = document.getElementById('admin-alert');
+      alertBox.className = 'alert ' + (type === 'success' ? 'alert-success' : 'alert-error');
+      alertBox.innerText = msg;
+      alertBox.style.display = 'block';
+      setTimeout(() => {
+        alertBox.style.display = 'none';
+      }, 5000);
+    }
+
+    function handleEngineChange() {
+      const engine = document.getElementById('node-engine').value;
+      const modelInput = document.getElementById('node-backend-model');
+      const apiBaseInput = document.getElementById('node-api-base');
+
+      if (engine === 'ollama') {
+        if (!modelInput.value.startsWith('ollama/')) modelInput.value = 'ollama/qwen2.5-coder:7b';
+        if (apiBaseInput.value === '') apiBaseInput.value = 'http://192.168.1.75:11434';
+      } else if (engine === 'vllm') {
+        modelInput.value = 'vllm/Qwen/Qwen2.5-Coder-32B-Instruct';
+        apiBaseInput.value = 'http://192.168.1.50:8000';
+      } else if (engine === 'tgi') {
+        modelInput.value = 'tgi/deepseek-ai/DeepSeek-R1-Distill-Qwen-14B';
+        apiBaseInput.value = 'http://192.168.1.50:8080';
+      }
+    }
+
+    async function testNodeConnectivity() {
+      const apiBase = document.getElementById('node-api-base').value.trim();
+      if (!apiBase) {
+        alert('Introduce la dirección del nodo (api_base).');
+        return;
+      }
+      showNotification('Comprobando conectividad con ' + apiBase + '...', 'success');
+      try {
+        const start = performance.now();
+        // Check health endpoint or tags
+        const res = await fetch(apiBase + '/api/version', { mode: 'no-cors' });
+        const latency = Math.round(performance.now() - start);
+        showNotification(`✅ Conexión con nodo alcanzada (${latency} ms)`, 'success');
+      } catch (err) {
+        showNotification(`⚠️ El nodo respondió o requiere proxy: ` + err.message, 'success');
+      }
+    }
+
+    async function handleRegisterNode(e) {
+      e.preventDefault();
+      const token = getAdminToken();
+      if (!token) {
+        openLoginModal();
+        return;
+      }
+
+      const modelAlias = document.getElementById('node-model-alias').value.trim();
+      const apiBase = document.getElementById('node-api-base').value.trim();
+      const backendModel = document.getElementById('node-backend-model').value.trim();
+      const weight = parseInt(document.getElementById('node-weight').value, 10) || 8;
+      const rpm = parseInt(document.getElementById('node-rpm').value, 10) || 60;
+
+      const payload = {
+        model_name: modelAlias,
+        litellm_params: {
+          model: backendModel,
+          api_base: apiBase,
+          rpm: rpm
+        }
+      };
+
+      try {
+        const res = await fetch('/admin/litellm/model/new', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+        if (res.ok) {
+          showNotification(`🚀 Nodo '${modelAlias}' dado de alta exitosamente en LiteLLM.`, 'success');
+          document.getElementById('form-add-node').reset();
+          document.getElementById('node-api-base').value = 'http://ai-ollama-local:11434';
+          document.getElementById('node-backend-model').value = 'ollama/qwen2.5-coder:7b';
+          refreshModelsList();
+        } else {
+          showNotification('Error dando de alta el nodo: ' + (data.detail || JSON.stringify(data)), 'error');
+        }
+      } catch (err) {
+        showNotification('Error de red: ' + err.message, 'error');
+      }
+    }
+
+    async function refreshModelsList() {
+      const token = getAdminToken();
+      if (!token) return;
+
+      const tbody = document.getElementById('nodes-tbody');
+      tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--text-muted); padding: 1.5rem;">Actualizando lista de nodos...</td></tr>`;
+
+      try {
+        const res = await fetch('/admin/litellm/model/info', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await res.json();
+
+        if (res.ok && data.data) {
+          document.getElementById('nodes-count-badge').innerText = `${data.data.length} Nodos`;
+          if (data.data.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--text-muted); padding: 1.5rem;">No hay nodos registrados en base de datos.</td></tr>`;
+            return;
+          }
+
+          tbody.innerHTML = '';
+          data.data.forEach(item => {
+            const tr = document.createElement('tr');
+            const modelName = item.model_name || 'Desconocido';
+            const backend = (item.litellm_params && item.litellm_params.model) ? item.litellm_params.model : 'default';
+            const apiBase = (item.litellm_params && item.litellm_params.api_base) ? item.litellm_params.api_base : 'Inherited / Cluster';
+            const modelId = (item.model_info && item.model_info.id) ? item.model_info.id : (item.id || '');
+
+            tr.innerHTML = `
+              <td><span class="node-badge">${modelName}</span></td>
+              <td style="font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: #cbd5e1;">${backend}</td>
+              <td style="font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: #94a3b8;">${apiBase}</td>
+              <td style="font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: #64748b;">${modelId ? modelId.substring(0, 8) + '...' : 'static'}</td>
+              <td>
+                ${modelId ? `<button onclick="deleteModelNode('${modelId}', '${modelName}')" class="btn btn-danger" style="padding: 0.25rem 0.55rem; font-size: 0.75rem;">Baja</button>` : `<span style="font-size: 0.75rem; color: var(--text-muted);">Estático (yaml)</span>`}
+              </td>
+            `;
+            tbody.appendChild(tr);
+          });
+        }
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #f87171; padding: 1.5rem;">Error cargando nodos: ${err.message}</td></tr>`;
+      }
+    }
+
+    async function deleteModelNode(modelId, modelName) {
+      if (!confirm(`¿Estás seguro de que deseas dar de baja el nodo/modelo '${modelName}' (${modelId})?`)) return;
+      const token = getAdminToken();
+
+      try {
+        const res = await fetch('/admin/litellm/model/delete', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ id: modelId })
+        });
+        const data = await res.json();
+        if (res.ok) {
+          showNotification(`Nodo '${modelName}' dado de baja exitosamente.`, 'success');
+          refreshModelsList();
+        } else {
+          showNotification('Error eliminando nodo: ' + JSON.stringify(data), 'error');
+        }
+      } catch (err) {
+        showNotification('Error de red: ' + err.message, 'error');
+      }
+    }
+
+    async function refreshTiersList() {
+      const token = getAdminToken();
+      if (!token) return;
+
+      const container = document.getElementById('tiers-cards-container');
+      try {
+        const res = await fetch('/admin/litellm/team/list', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await res.json();
+        if (res.ok && Array.isArray(data)) {
+          container.innerHTML = '';
+          data.forEach(t => {
+            const card = document.createElement('div');
+            card.style.background = '#161726';
+            card.style.border = '1px solid var(--card-border)';
+            card.style.borderRadius = '10px';
+            card.style.padding = '1rem';
+            card.innerHTML = `
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                <span style="font-weight: 700; color: #fff;">${t.team_alias || t.team_id}</span>
+                <span class="badge" style="background: rgba(99, 102, 241, 0.15); color: #a5b4fc;">${t.team_id}</span>
+              </div>
+              <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.4rem;">
+                Presupuesto: <b>${t.max_budget ? t.max_budget + ' €/mes' : 'Ilimitado'}</b> · <b>${t.rpm_limit || 60} RPM</b>
+              </div>
+              <div style="font-size: 0.78rem; color: #cbd5e1; font-family: 'JetBrains Mono', monospace;">
+                Modelos: ${(t.models || []).join(', ') || 'Todos'}
+              </div>
+            `;
+            container.appendChild(card);
+          });
+        }
+      } catch (err) {
+        console.error('Error cargando tiers:', err);
+      }
+    }
+
+    async function handleIssueKey(e) {
+      e.preventDefault();
+      const token = getAdminToken();
+      if (!token) return;
+
+      const userId = document.getElementById('new-key-user').value.trim();
+      const tier = document.getElementById('new-key-tier').value;
+
+      try {
+        const res = await fetch('/admin/litellm/key/generate', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            team_id: tier,
+            user_id: userId,
+            key_alias: `${userId}-${tier}-key`,
+            duration: '90d',
+            metadata: {
+              created_by: 'caddy_portal_admin',
+              department: 'Engineering'
+            }
+          })
+        });
+
+        const data = await res.json();
+        if (res.ok && data.key) {
+          const keyBox = document.getElementById('generated-key-box');
+          document.getElementById('generated-key-value').innerText = data.key;
+          keyBox.style.display = 'block';
+          showNotification(`Clave emitida exitosamente para ${userId}`, 'success');
+        } else {
+          showNotification('Error generando clave: ' + JSON.stringify(data), 'error');
+        }
+      } catch (err) {
+        showNotification('Error: ' + err.message, 'error');
+      }
+    }
+
+    // Initialize state on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      checkAuthStatus();
+    });
   </script>
 </body>
 </html>

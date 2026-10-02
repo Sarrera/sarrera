@@ -32,6 +32,11 @@ The Central Portal provides:
 - **System & Perimeter Status**: Active TLS mode, HSTS state, and certificate health.
 - **Service Directory & Direct Links**: One-click navigation to Open WebUI, LiteLLM Admin, Langfuse Observability, Documentation Portal, MinIO Console, and API endpoints.
 - **Interactive Certificate Guide**: Reference examples for configuring Let's Encrypt, custom corporate certs, or internal CA.
+- **🔐 Authenticated Admin Control Center**: Accessible via the top navigation bar with credentials defined in `.env` (`ADMIN_USERNAME` and `ADMIN_PASSWORD`). Allows operators to:
+  1. **Dynamically register new compute nodes** (`api_base`, model name, engine type, weight, RPM limits) without restarting Docker.
+  2. **View and remove active inference nodes** in real time.
+  3. **Inspect the 3 Subscription Tiers** (`tier-basic`, `tier-standard`, `tier-premium`) and issue Virtual API Keys instantly.
+  4. Access the full LiteLLM Management UI directly.
 
 ---
 
