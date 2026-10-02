@@ -93,12 +93,12 @@ If connecting over HTTPS using Caddy's internal TLS certificate without installi
 
 ---
 
-## 4. Testing Continue
-
+## 4. Model Switching in VS Code
+ 
 1. Press `Cmd+L` (or `Ctrl+L`) to focus Continue Chat.
-2. Select **Sarrera - Basic Coder (7B)** or **Sarrera - Premium Coder (32B)** from the dropdown.
-3. Send a message, e.g.:
-   ```text
-   Write a Python function to validate an email address using regex.
-   ```
-4. As the model responds, check Langfuse at [http://localhost:3000](http://localhost:3000) to observe the incoming trace, latency, and token metrics.
+2. In the model selector dropdown at the bottom of the Continue panel, you will see all models listed in your `config.json` (e.g., **Sarrera - Basic Coder (7B)**, **Sarrera - Premium Coder (32B)**).
+3. **Switch on the fly**:
+   - Use **Basic Coder** for fast, cost-effective tab auto-completion and short syntax questions.
+   - Switch to **Premium Coder** for deep refactoring, architectural reviews, or test suite generation.
+4. **RBAC Guardrails**: If you configure a model not authorized by your assigned subscription Tier (e.g., attempting to run `premium-coder` on a `tier-basic` key), Sarrera immediately returns `HTTP 403 Forbidden` (`Model Not Allowed for Team tier-basic`). The request is terminated at the edge without reaching your GPU nodes.
+5. As the model responds, check Langfuse at [http://localhost:3000](http://localhost:3000) (or via Caddy at `/admin/audit/`) to inspect live token metrics, execution traces, and prompt latency.
