@@ -87,8 +87,8 @@ class AppShell extends ConsumerWidget {
                         title: 'Overview',
                         icon: Icons.dashboard_outlined,
                         activeIcon: Icons.dashboard,
-                        isSelected: location == '/' || location == '',
-                        onTap: () => context.go('/'),
+                        isSelected: location == '/admin' || location == '/admin/',
+                        onTap: () => context.go('/admin'),
                       ),
                       _NavItem(
                         title: 'Tiers & Quotas',
@@ -237,15 +237,36 @@ class AppShell extends ConsumerWidget {
                   ],
                 ),
                 actions: [
+                  TextButton.icon(
+                    onPressed: () => context.go('/'),
+                    icon: const Icon(Icons.home_outlined, size: 16, color: AppTheme.textSecondary),
+                    label: const Text('Landing Page', style: TextStyle(fontSize: 12, color: AppTheme.textSecondary)),
+                  ),
+                  const SizedBox(width: 8),
                   if (!auth.isAuthenticated)
                     Padding(
                       padding: const EdgeInsets.only(right: 16),
                       child: ElevatedButton.icon(
-                        onPressed: () => LoginDialog.show(context),
+                        onPressed: () => context.go('/login'),
                         icon: const Icon(Icons.security, size: 16),
                         label: const Text('Admin Sign In'),
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                        ),
+                      ),
+                    )
+                  else
+                    Padding(
+                      padding: const EdgeInsets.only(right: 16),
+                      child: OutlinedButton.icon(
+                        onPressed: () {
+                          ref.read(authProvider.notifier).logout();
+                          context.go('/');
+                        },
+                        icon: const Icon(Icons.logout, size: 16),
+                        label: const Text('Sign Out'),
+                        style: OutlinedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                         ),
                       ),
                     ),

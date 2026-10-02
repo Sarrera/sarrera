@@ -64,8 +64,16 @@
   <div id="loading" class="loading-container">
     <img src="favicon.png" alt="Sarrera" style="width: 64px; height: 64px; margin-bottom: 20px;" />
     <div class="loading-spinner"></div>
-    <p style="margin-top: 20px; font-size: 14px; letter-spacing: 0.05em; color: #94A3B8;">INITIALIZING SARRERA GATEWAY...</p>
   </div>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function(registrations) {
+        for (let registration of registrations) {
+          registration.update();
+        }
+      });
+    }
+  </script>
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>

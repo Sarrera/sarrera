@@ -115,6 +115,12 @@
     # Central Portal Landing Screen ("Pantalla de Caddy")
     handle {
         root * /var/www/portal
+        @nocache path / /index.html /flutter_bootstrap.js /flutter_service_worker.js /version.json
+        header @nocache {
+            Cache-Control "no-cache, no-store, must-revalidate"
+            Pragma "no-cache"
+            Expires "0"
+        }
         file_server
         try_files {path} /index.html
     }

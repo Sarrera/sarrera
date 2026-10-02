@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../network/api_client.dart';
 import '../../features/tiers/domain/tier_model.dart';
@@ -7,30 +8,83 @@ import '../../features/users/data/user_repository.dart';
 import '../../features/nodes/domain/node_model.dart';
 import '../../features/nodes/data/node_repository.dart';
 
+enum UserRole { guest, developer, admin }
+
 // --- AUTH STATE ---
 class AuthState {
   final bool isAuthenticated;
+  final UserRole role;
   final String? token;
-  final String? username;
+  final String? userId;
+  final String? userAlias;
+  final String? userEmail;
+  final String? teamId;
+  final double spend;
+  final double? maxBudget;
+  final List<String> allowedModels;
+  final int rpmLimit;
+  final int tpmLimit;
+  final String? keyAlias;
   final String? error;
 
   const AuthState({
     this.isAuthenticated = false,
+    this.role = UserRole.guest,
     this.token,
-    this.username,
+    this.userId,
+    this.userAlias,
+    this.userEmail,
+    this.teamId,
+    this.spend = 0.0,
+    this.maxBudget,
+    this.allowedModels = const [],
+    this.rpmLimit = 60,
+    this.tpmLimit = 30000,
+    this.keyAlias,
     this.error,
   });
 
+  bool get isAdmin => role == UserRole.admin;
+  bool get isDeveloper => role == UserRole.developer;
+  bool get isGuest => role == UserRole.guest;
+
+  String? get username => userId ?? (isAdmin ? 'Administrator' : null);
+
+  double get budgetProgressPercentage {
+    if (maxBudget == null || maxBudget! <= 0) return 0.0;
+    return ((spend / maxBudget!) * 100.0).clamp(0.0, 100.0);
+  }
+
   AuthState copyWith({
     bool? isAuthenticated,
+    UserRole? role,
     String? token,
-    String? username,
+    String? userId,
+    String? userAlias,
+    String? userEmail,
+    String? teamId,
+    double? spend,
+    double? maxBudget,
+    List<String>? allowedModels,
+    int? rpmLimit,
+    int? tpmLimit,
+    String? keyAlias,
     String? error,
   }) {
     return AuthState(
       isAuthenticated: isAuthenticated ?? this.isAuthenticated,
+      role: role ?? this.role,
       token: token ?? this.token,
-      username: username ?? this.username,
+      userId: userId ?? this.userId,
+      userAlias: userAlias ?? this.userAlias,
+      userEmail: userEmail ?? this.userEmail,
+      teamId: teamId ?? this.teamId,
+      spend: spend ?? this.spend,
+      maxBudget: maxBudget ?? this.maxBudget,
+      allowedModels: allowedModels ?? this.allowedModels,
+      rpmLimit: rpmLimit ?? this.rpmLimit,
+      tpmLimit: tpmLimit ?? this.tpmLimit,
+      keyAlias: keyAlias ?? this.keyAlias,
       error: error,
     );
   }
@@ -41,25 +95,32 @@ class AuthNotifier extends Notifier<AuthState> {
 
   @override
   AuthState build() {
+    final hasToken = ApiClient().isAuthenticated;
     return AuthState(
-      isAuthenticated: ApiClient().isAuthenticated,
+      isAuthenticated: hasToken,
+      role: hasToken ? UserRole.admin : UserRole.guest,
       token: ApiClient().adminToken,
-      username: ApiClient().isAuthenticated ? 'Admin' : null,
+      userId: hasToken ? 'Admin' : null,
     );
   }
 
   Future<bool> login(String username, String password) async {
-    // In Sarrera, LiteLLM verifies the Master API Key via Bearer token
-    final token = password.trim();
+    return loginAdmin(password.trim());
+  }
+
+  Future<bool> loginAdmin(String masterKey) async {
+    final token = masterKey.trim();
     _client.setToken(token);
 
     try {
-      // Test key by requesting tier list
+      // Test master key by querying tier list
       await TierRepository().getTiers();
       state = state.copyWith(
         isAuthenticated: true,
+        role: UserRole.admin,
         token: token,
-        username: username.isEmpty ? 'Admin' : username,
+        userId: 'admin',
+        userAlias: 'Platform Administrator',
         error: null,
       );
       return true;
@@ -67,9 +128,81 @@ class AuthNotifier extends Notifier<AuthState> {
       _client.clearToken();
       state = state.copyWith(
         isAuthenticated: false,
+        role: UserRole.guest,
         token: null,
-        username: null,
-        error: 'Invalid credentials or connection error: $e',
+        error: 'Invalid Administrator Master Key: $e',
+      );
+      return false;
+    }
+  }
+
+  Future<bool> loginDeveloper(String apiKey) async {
+    final key = apiKey.trim();
+    if (key.isEmpty) {
+      state = state.copyWith(error: 'Please enter your Virtual API Key');
+      return false;
+    }
+
+    try {
+      // Validate virtual key via /key/info
+      final response = await _client.dio.get(
+        '/admin/litellm/key/info',
+        options: Options(
+          headers: {'Authorization': 'Bearer $key'},
+        ),
+      );
+
+      if (response.statusCode == 200 && response.data != null) {
+        final info = response.data['info'] as Map<String, dynamic>? ?? {};
+        final userId = info['user_id']?.toString() ?? 'developer';
+        final teamId = info['team_id']?.toString() ?? 'tier-standard';
+        final spend = (info['spend'] as num?)?.toDouble() ?? 0.0;
+        final keyAlias = info['key_alias']?.toString() ?? 'Developer Key';
+
+        // Load models & limits for this team
+        List<String> models = ['basic-coder'];
+        double maxBudget = 50.0;
+        int rpm = 60;
+        int tpm = 30000;
+
+        if (teamId == 'tier-premium') {
+          models = ['basic-coder', 'premium-coder', 'premium-reasoning'];
+          maxBudget = 100.0;
+          rpm = 180;
+          tpm = 120000;
+        } else if (teamId == 'tier-standard') {
+          models = ['basic-coder', 'premium-coder'];
+          maxBudget = 50.0;
+          rpm = 120;
+          tpm = 60000;
+        } else if (teamId == 'tier-basic') {
+          models = ['basic-coder'];
+          maxBudget = 15.0;
+          rpm = 60;
+          tpm = 30000;
+        }
+
+        _client.setToken(key);
+
+        state = AuthState(
+          isAuthenticated: true,
+          role: UserRole.developer,
+          token: key,
+          userId: userId,
+          userAlias: keyAlias,
+          teamId: teamId,
+          spend: spend,
+          maxBudget: maxBudget,
+          allowedModels: models,
+          rpmLimit: rpm,
+          tpmLimit: tpm,
+          keyAlias: keyAlias,
+        );
+        return true;
+      }
+    } catch (e) {
+      state = state.copyWith(
+        error: 'Virtual API key not found or expired. Please check with your administrator.',
       );
       return false;
     }
@@ -78,7 +211,7 @@ class AuthNotifier extends Notifier<AuthState> {
 
   void logout() {
     _client.clearToken();
-    state = const AuthState(isAuthenticated: false);
+    state = const AuthState(isAuthenticated: false, role: UserRole.guest);
   }
 }
 
