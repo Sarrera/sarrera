@@ -1,5 +1,9 @@
 <p align="center">
-  <img src="assets/sarrera-icon.svg" width="110" height="110" alt="Sarrera Logo" />
+  <img src="assets/cover-devto.jpg" alt="Sarrera AI Inference Gateway" width="100%" style="border-radius: 8px;" />
+</p>
+
+<p align="center">
+  <img src="assets/sarrera-icon.svg" width="90" height="90" alt="Sarrera Logo" />
 </p>
 
 <h1 align="center">Sarrera</h1>

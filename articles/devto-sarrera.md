@@ -4,7 +4,7 @@ published: false
 description: "How to deploy a private, local AI gateway for engineering teams using LiteLLM, Caddy, Langfuse, and Open WebUI with multi-tier quotas."
 tags: ai, devops, docker, opensource
 canonical_url: https://github.com/Sarrera/sarrera
-cover_image: https://raw.githubusercontent.com/Sarrera/sarrera/main/assets/logo.png
+cover_image: https://raw.githubusercontent.com/Sarrera/sarrera/main/assets/cover-devto.jpg
 ---
 
 Engineering teams worldwide face a common dilemma when adopting generative AI:
