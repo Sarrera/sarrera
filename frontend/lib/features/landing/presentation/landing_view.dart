@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import '../../../core/constants/api_constants.dart';
 import '../../../core/theme/app_theme.dart';
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:html' as html;
@@ -79,14 +80,35 @@ print(response.choices[0].message.content)''';
             const SizedBox(width: 10),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text(
+              children: [
+                const Text(
                   'Sarrera',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, letterSpacing: -0.5),
                 ),
-                Text(
-                  'Enterprise Local AI Gateway',
-                  style: TextStyle(fontSize: 10, color: AppTheme.textMuted),
+                Row(
+                  children: [
+                    const Text(
+                      'Enterprise Local AI Gateway',
+                      style: TextStyle(fontSize: 10, color: AppTheme.textMuted),
+                    ),
+                    const SizedBox(width: 8),
+                    InkWell(
+                      onTap: () => html.window.open(ApiConstants.changelogUrl, '_blank'),
+                      borderRadius: BorderRadius.circular(4),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
+                        decoration: BoxDecoration(
+                          color: AppTheme.primary.withValues(alpha: 0.15),
+                          borderRadius: BorderRadius.circular(4),
+                          border: Border.all(color: AppTheme.primary.withValues(alpha: 0.3)),
+                        ),
+                        child: const Text(
+                          ApiConstants.appVersion,
+                          style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: AppTheme.accent),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -98,7 +120,7 @@ print(response.choices[0].message.content)''';
             child: const Text('Open WebUI (Chat)', style: TextStyle(fontSize: 13, color: AppTheme.textSecondary)),
           ),
           TextButton(
-            onPressed: () => html.window.open('/docs/', '_blank'),
+            onPressed: () => html.window.open(ApiConstants.docsUrl, '_blank'),
             child: const Text('Documentation', style: TextStyle(fontSize: 13, color: AppTheme.textSecondary)),
           ),
           const SizedBox(width: 12),
@@ -353,7 +375,69 @@ print(response.choices[0].message.content)''';
                 ),
               ),
             ),
-            const SizedBox(height: 48),
+            const SizedBox(height: 32),
+            // Footer with Version & Docs Links
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 24),
+              decoration: const BoxDecoration(
+                border: Border(top: BorderSide(color: AppTheme.surfaceBorder)),
+              ),
+              child: Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 1200),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Image.asset('assets/sarrera-icon.png', width: 20, height: 20),
+                          const SizedBox(width: 8),
+                          const Text(
+                            'Sarrera Edge Gateway',
+                            style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppTheme.textSecondary),
+                          ),
+                          const SizedBox(width: 8),
+                          InkWell(
+                            onTap: () => html.window.open(ApiConstants.changelogUrl, '_blank'),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                              decoration: BoxDecoration(
+                                color: AppTheme.surfaceElevated,
+                                borderRadius: BorderRadius.circular(4),
+                                border: Border.all(color: AppTheme.surfaceBorder),
+                              ),
+                              child: const Text(
+                                ApiConstants.appVersion,
+                                style: TextStyle(fontSize: 10, fontFamily: 'monospace', color: AppTheme.textMuted),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          TextButton(
+                            onPressed: () => html.window.open(ApiConstants.docsUrl, '_blank'),
+                            child: const Text('GitHub Pages Docs', style: TextStyle(fontSize: 12, color: AppTheme.textMuted)),
+                          ),
+                          const SizedBox(width: 8),
+                          TextButton(
+                            onPressed: () => html.window.open(ApiConstants.changelogUrl, '_blank'),
+                            child: const Text('Changelog (SemVer)', style: TextStyle(fontSize: 12, color: AppTheme.textMuted)),
+                          ),
+                          const SizedBox(width: 8),
+                          TextButton(
+                            onPressed: () => html.window.open('https://github.com/Sarrera/sarrera', '_blank'),
+                            child: const Text('GitHub Repo', style: TextStyle(fontSize: 12, color: AppTheme.textMuted)),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),

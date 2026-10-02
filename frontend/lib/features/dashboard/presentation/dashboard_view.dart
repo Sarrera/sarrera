@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/providers/app_providers.dart';
+import '../../../core/constants/api_constants.dart';
 import '../../../core/theme/app_theme.dart';
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:html' as html;
@@ -46,13 +47,16 @@ class DashboardView extends ConsumerWidget {
                               borderRadius: BorderRadius.circular(6),
                               border: Border.all(color: AppTheme.primaryLight.withValues(alpha: 0.4)),
                             ),
-                            child: const Text(
-                              'SARRERA EDGE GATEWAY V1.0',
-                              style: TextStyle(
-                                fontSize: 11,
-                                fontWeight: FontWeight.bold,
-                                color: AppTheme.primaryLight,
-                                letterSpacing: 0.05,
+                            child: InkWell(
+                              onTap: () => html.window.open(ApiConstants.changelogUrl, '_blank'),
+                              child: const Text(
+                                'SARRERA EDGE GATEWAY ${ApiConstants.appVersion}',
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppTheme.primaryLight,
+                                  letterSpacing: 0.05,
+                                ),
                               ),
                             ),
                           ),
@@ -211,10 +215,10 @@ class DashboardView extends ConsumerWidget {
                   ),
                   _ServiceCard(
                     title: 'Documentation',
-                    subtitle: 'Interactive Runbooks',
+                    subtitle: 'GitHub Pages Runbooks',
                     icon: Icons.menu_book_outlined,
                     color: const Color(0xFF06B6D4),
-                    url: '/docs/',
+                    url: ApiConstants.docsUrl,
                     width: width,
                   ),
                 ],

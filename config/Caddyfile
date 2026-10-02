@@ -39,13 +39,9 @@
         file_server
     }
 
-    # Interactive Documentation & Runbooks (Docsify / Markdown)
-    handle_path /docs/* {
-        root * /var/www/docs
-        file_server
-    }
-    handle /docs {
-        redir /docs/ 301
+    # Official Documentation & Runbooks (Hosted on GitHub Pages)
+    handle /docs* {
+        redir https://sarrera.github.io/sarrera/ 302
     }
 
     # OpenAI-Compatible Inference API for IDEs (VS Code Continue, Cline, Roo Code)

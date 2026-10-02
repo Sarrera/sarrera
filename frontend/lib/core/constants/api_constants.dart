@@ -34,9 +34,13 @@ class ApiConstants {
   static const String langfuseHealth = '$langfuseBase/api/public/health';
   static const String langfuseTraces = '$langfuseBase/api/public/traces';
 
+  // Platform Versioning (SemVer: MAJOR.MINOR.PATCH)
+  static const String appVersion = 'v1.1.0';
+
   // Navigation Links
   static const String chatUrl = '/chat';
-  static const String docsUrl = '/docs/';
+  static const String docsUrl = 'https://sarrera.github.io/sarrera/';
+  static const String changelogUrl = 'https://sarrera.github.io/sarrera/#/operations/changelog';
   static const String auditUrl = '/admin/audit/';
   static const String storageUrl = '/admin/storage/';
 }

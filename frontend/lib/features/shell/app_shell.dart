@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../core/providers/app_providers.dart';
+import '../../core/constants/api_constants.dart';
 import '../../core/theme/app_theme.dart';
 import '../auth/presentation/login_dialog.dart';
 // ignore: avoid_web_libraries_in_flutter
@@ -54,17 +55,38 @@ class AppShell extends ConsumerWidget {
                       const SizedBox(width: 12),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text(
-                            'Sarrera',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: -0.5,
-                              color: AppTheme.textPrimary,
-                            ),
+                        children: [
+                          Row(
+                            children: [
+                              const Text(
+                                'Sarrera',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: -0.5,
+                                  color: AppTheme.textPrimary,
+                                ),
+                              ),
+                              const SizedBox(width: 6),
+                              InkWell(
+                                onTap: () => html.window.open(ApiConstants.changelogUrl, '_blank'),
+                                borderRadius: BorderRadius.circular(4),
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
+                                  decoration: BoxDecoration(
+                                    color: AppTheme.primary.withValues(alpha: 0.15),
+                                    borderRadius: BorderRadius.circular(4),
+                                    border: Border.all(color: AppTheme.primary.withValues(alpha: 0.3)),
+                                  ),
+                                  child: const Text(
+                                    ApiConstants.appVersion,
+                                    style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: AppTheme.accent),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                          Text(
+                          const Text(
                             'AI Inference Gateway',
                             style: TextStyle(
                               fontSize: 11,
@@ -151,7 +173,7 @@ class AppShell extends ConsumerWidget {
                       _ExternalLinkItem(
                         title: 'Documentation',
                         icon: Icons.menu_book_outlined,
-                        url: '/docs/',
+                        url: ApiConstants.docsUrl,
                       ),
                     ],
                   ),
@@ -272,8 +294,8 @@ class AppShell extends ConsumerWidget {
                     ),
                   IconButton(
                     icon: const Icon(Icons.help_outline, size: 20),
-                    tooltip: 'Open Documentation',
-                    onPressed: () => html.window.open('/docs/', '_blank'),
+                    tooltip: 'Open GitHub Pages Documentation',
+                    onPressed: () => html.window.open(ApiConstants.docsUrl, '_blank'),
                   ),
                   const SizedBox(width: 8),
                 ],

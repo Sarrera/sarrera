@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/providers/app_providers.dart';
+import '../../../core/constants/api_constants.dart';
 import '../../../core/theme/app_theme.dart';
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:html' as html;
@@ -69,13 +70,39 @@ class DeveloperPortalView extends ConsumerWidget {
               'Developer Workspace · $userId',
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
-            Text(
-              'Personal Quotas & Virtual Key Hub',
-              style: const TextStyle(fontSize: 11, color: AppTheme.textMuted),
+            Row(
+              children: [
+                const Text(
+                  'Personal Quotas & Virtual Key Hub',
+                  style: TextStyle(fontSize: 11, color: AppTheme.textMuted),
+                ),
+                const SizedBox(width: 8),
+                InkWell(
+                  onTap: () => html.window.open(ApiConstants.changelogUrl, '_blank'),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
+                    decoration: BoxDecoration(
+                      color: AppTheme.primary.withValues(alpha: 0.15),
+                      borderRadius: BorderRadius.circular(4),
+                      border: Border.all(color: AppTheme.primary.withValues(alpha: 0.3)),
+                    ),
+                    child: const Text(
+                      ApiConstants.appVersion,
+                      style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: AppTheme.accent),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
         actions: [
+          TextButton.icon(
+            onPressed: () => html.window.open(ApiConstants.docsUrl, '_blank'),
+            icon: const Icon(Icons.menu_book_outlined, size: 16),
+            label: const Text('Documentation'),
+          ),
+          const SizedBox(width: 8),
           TextButton.icon(
             onPressed: () => html.window.open('/chat', '_blank'),
             icon: const Icon(Icons.chat_bubble_outline, size: 16),

@@ -37,3 +37,7 @@
   * [CLI Scripts Reference](operations/scripts-reference.md)
   * [Maintenance & Backup](operations/maintenance.md)
   * [Troubleshooting Guide](operations/troubleshooting.md)
+
+* **Release & Versioning**
+  * [Versioning Policy (SemVer)](operations/versioning.md)
+  * [Changelog & Releases](operations/changelog.md)
