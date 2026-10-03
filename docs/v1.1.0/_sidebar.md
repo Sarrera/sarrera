@@ -14,6 +14,7 @@
   * [Environment Variables](configuration/environment-variables.md)
 
 * **Governance & RBAC**
+  * [Groups & Tenancy Models](governance-rbac/groups-and-tenancy.md)
   * [Tiers & Quotas](governance-rbac/tiers-and-quotas.md)
   * [Key Management](governance-rbac/key-management.md)
   * [LiteLLM Dashboard](governance-rbac/litellm-dashboard.md)

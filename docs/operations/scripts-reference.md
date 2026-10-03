@@ -55,7 +55,44 @@ Prints the raw API key (`sk-...`) along with a ready-to-copy JSON block for `~/.
 
 ---
 
-## 3. `scripts/smoke-test.sh`
+## 3. `scripts/create-group.sh`
+
+### Purpose
+Provisions a B2B corporate client group in LiteLLM Proxy with pooled monthly token quotas, base tier model inheritance, and multi-seat support.
+
+### Usage
+```bash
+./scripts/create-group.sh [OPTIONS]
+```
+
+### Options
+- `-i, --id <slug>`: Client group identifier (auto-prefixed with `group-`).
+- `-n, --name <name>`: Corporate company or department name.
+- `-t, --tier <tier>`: Base subscription tier (`tier-basic`, `tier-standard`, `tier-premium`). Default: `tier-standard`.
+- `-b, --budget <amount>`: Monthly pooled budget in EUR. Default: `500.0`.
+- `-e, --email <email>`: Corporate billing contact email.
+- `-r, --rpm <rpm>`: Requests per minute rate limit. Default: `120`.
+
+### Example
+```bash
+./scripts/create-group.sh -i acme-corp -n "Acme Corporation" -t tier-standard -b 500.0 -e billing@acme.com
+```
+
+---
+
+## 4. `scripts/build-portal.sh`
+
+### Purpose
+Compiles the Flutter Web management portal in release mode and automatically syncs it to Caddy's `/var/www/portal` directory, triggering a hot reload of the reverse proxy perimeter.
+
+### Usage
+```bash
+./scripts/build-portal.sh
+```
+
+---
+
+## 5. `scripts/smoke-test.sh`
 
 ### Purpose
 An automated validation suite that executes end-to-end integration and security assertions against the live platform.

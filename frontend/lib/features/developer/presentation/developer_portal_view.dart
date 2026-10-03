@@ -162,24 +162,45 @@ class DeveloperPortalView extends ConsumerWidget {
                                   Container(
                                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                                     decoration: BoxDecoration(
-                                      color: AppTheme.secondary.withValues(alpha: 0.15),
+                                      color: auth.isGroupMember
+                                          ? AppTheme.secondary.withValues(alpha: 0.15)
+                                          : AppTheme.primary.withValues(alpha: 0.15),
                                       borderRadius: BorderRadius.circular(6),
-                                      border: Border.all(color: AppTheme.secondary.withValues(alpha: 0.4)),
-                                    ),
-                                    child: Text(
-                                      teamId.toUpperCase(),
-                                      style: const TextStyle(
-                                        fontSize: 11,
-                                        fontWeight: FontWeight.bold,
-                                        color: AppTheme.secondary,
+                                      border: Border.all(
+                                        color: auth.isGroupMember
+                                            ? AppTheme.secondary.withValues(alpha: 0.4)
+                                            : AppTheme.primary.withValues(alpha: 0.4),
                                       ),
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Icon(
+                                          auth.isGroupMember ? Icons.corporate_fare : Icons.person_outline,
+                                          size: 14,
+                                          color: auth.isGroupMember ? AppTheme.secondary : AppTheme.primary,
+                                        ),
+                                        const SizedBox(width: 6),
+                                        Text(
+                                          auth.isGroupMember
+                                              ? (auth.groupAlias ?? teamId).toUpperCase()
+                                              : teamId.toUpperCase(),
+                                          style: TextStyle(
+                                            fontSize: 11,
+                                            fontWeight: FontWeight.bold,
+                                            color: auth.isGroupMember ? AppTheme.secondary : AppTheme.primary,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ],
                               ),
                               const SizedBox(height: 4),
                               Text(
-                                'Role: Engineer / API Consumer · Quota cycle: 30 days rolling',
+                                auth.isGroupMember
+                                    ? 'Account: B2B Group Member (${auth.groupAlias ?? teamId}) · Quota cycle: 30 days rolling'
+                                    : 'Account: B2C Solo Developer · Quota cycle: 30 days rolling',
                                 style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 13),
                               ),
                             ],
@@ -207,7 +228,10 @@ class DeveloperPortalView extends ConsumerWidget {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      const Text('MONTHLY TOKEN SPEND', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppTheme.textMuted)),
+                                      Text(
+                                        auth.isGroupMember ? 'INDIVIDUAL TOKEN SPEND' : 'MONTHLY TOKEN SPEND',
+                                        style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppTheme.textMuted),
+                                      ),
                                       const Icon(Icons.euro, size: 18, color: AppTheme.primary),
                                     ],
                                   ),
@@ -228,7 +252,7 @@ class DeveloperPortalView extends ConsumerWidget {
                                   ),
                                   const SizedBox(height: 8),
                                   Text(
-                                    '${((1 - progress) * 100).toStringAsFixed(0)}% remaining until budget cap',
+                                    '${((1 - progress) * 100).toStringAsFixed(0)}% remaining of personal quota',
                                     style: const TextStyle(fontSize: 11, color: AppTheme.textMuted),
                                   ),
                                 ],
@@ -236,6 +260,49 @@ class DeveloperPortalView extends ConsumerWidget {
                             ),
                           ),
                         ),
+                        if (isWide && auth.isGroupMember && auth.groupMaxBudget != null) ...[
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: Card(
+                              child: Padding(
+                                padding: const EdgeInsets.all(20),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        const Text('GROUP POOLED BUDGET',
+                                            style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppTheme.textMuted)),
+                                        const Icon(Icons.corporate_fare, size: 18, color: AppTheme.secondary),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 12),
+                                    Text(
+                                      '${(auth.groupSpend ?? 0.0).toStringAsFixed(2)} € / ${(auth.groupMaxBudget ?? 0.0).toStringAsFixed(2)} €',
+                                      style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    LinearProgressIndicator(
+                                      value: auth.groupBudgetProgressPercentage / 100.0,
+                                      backgroundColor: AppTheme.surfaceElevated,
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        auth.groupBudgetProgressPercentage > 90 ? AppTheme.error : AppTheme.secondary,
+                                      ),
+                                      borderRadius: BorderRadius.circular(4),
+                                      minHeight: 6,
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Text(
+                                      '${((1 - (auth.groupBudgetProgressPercentage / 100.0)) * 100).toStringAsFixed(0)}% remaining in corporate pool',
+                                      style: const TextStyle(fontSize: 11, color: AppTheme.textMuted),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                         if (isWide) const SizedBox(width: 16),
                         if (isWide)
                           Expanded(

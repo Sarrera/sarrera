@@ -9,6 +9,9 @@ class ApiConstants {
   static const String teamNew = '$litellmBase/team/new';
   static const String teamUpdate = '$litellmBase/team/update';
   static const String teamInfo = '$litellmBase/team/info';
+  static const String teamDelete = '$litellmBase/team/delete';
+  static const String teamMemberAdd = '$litellmBase/team/member_add';
+  static const String teamMemberDelete = '$litellmBase/team/member_delete';
 
   // LiteLLM User Endpoints
   static const String userList = '$litellmBase/user/list';

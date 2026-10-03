@@ -6,8 +6,9 @@ set -euo pipefail
 # ==============================================================================
 
 if [ "$#" -lt 1 ]; then
-  echo "Usage: $0 <user_id> [tier: tier-basic|tier-standard|tier-premium] [duration] [department]"
-  echo "Example: $0 john_doe tier-standard 90d Backend"
+  echo "Usage: $0 <user_id> [tier_or_group: tier-basic|tier-standard|tier-premium|group-<id>] [duration] [department]"
+  echo "Example Solo:  $0 john_doe tier-standard 90d Backend"
+  echo "Example Group: $0 carlos_acme group-acme-corp 90d \"Acme Engineering\""
   exit 1
 fi
 

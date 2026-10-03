@@ -4,7 +4,9 @@ import '../network/api_client.dart';
 import '../../features/tiers/domain/tier_model.dart';
 import '../../features/tiers/data/tier_repository.dart';
 import '../../features/users/domain/user_model.dart';
+import '../../features/users/domain/group_model.dart';
 import '../../features/users/data/user_repository.dart';
+import '../../features/users/data/group_repository.dart';
 import '../../features/nodes/domain/node_model.dart';
 import '../../features/nodes/data/node_repository.dart';
 
@@ -26,6 +28,11 @@ class AuthState {
   final int tpmLimit;
   final String? keyAlias;
   final String? error;
+  // Group Affiliation info (for B2B corporate team members)
+  final String? groupAlias;
+  final double? groupSpend;
+  final double? groupMaxBudget;
+  final bool isGroupMember;
 
   const AuthState({
     this.isAuthenticated = false,
@@ -42,6 +49,10 @@ class AuthState {
     this.tpmLimit = 30000,
     this.keyAlias,
     this.error,
+    this.groupAlias,
+    this.groupSpend,
+    this.groupMaxBudget,
+    this.isGroupMember = false,
   });
 
   bool get isAdmin => role == UserRole.admin;
@@ -53,6 +64,11 @@ class AuthState {
   double get budgetProgressPercentage {
     if (maxBudget == null || maxBudget! <= 0) return 0.0;
     return ((spend / maxBudget!) * 100.0).clamp(0.0, 100.0);
+  }
+
+  double get groupBudgetProgressPercentage {
+    if (groupMaxBudget == null || groupMaxBudget! <= 0) return 0.0;
+    return (((groupSpend ?? 0.0) / groupMaxBudget!) * 100.0).clamp(0.0, 100.0);
   }
 
   AuthState copyWith({
@@ -70,6 +86,10 @@ class AuthState {
     int? tpmLimit,
     String? keyAlias,
     String? error,
+    String? groupAlias,
+    double? groupSpend,
+    double? groupMaxBudget,
+    bool? isGroupMember,
   }) {
     return AuthState(
       isAuthenticated: isAuthenticated ?? this.isAuthenticated,
@@ -86,6 +106,10 @@ class AuthState {
       tpmLimit: tpmLimit ?? this.tpmLimit,
       keyAlias: keyAlias ?? this.keyAlias,
       error: error,
+      groupAlias: groupAlias ?? this.groupAlias,
+      groupSpend: groupSpend ?? this.groupSpend,
+      groupMaxBudget: groupMaxBudget ?? this.groupMaxBudget,
+      isGroupMember: isGroupMember ?? this.isGroupMember,
     );
   }
 }
@@ -165,7 +189,32 @@ class AuthNotifier extends Notifier<AuthState> {
         int rpm = 60;
         int tpm = 30000;
 
-        if (teamId == 'tier-premium') {
+        bool isGroup = teamId.startsWith('group-');
+        String? groupAlias;
+        double? groupSpend;
+        double? groupMaxBudget;
+
+        if (isGroup) {
+          try {
+            final groupRes = await _client.dio.get(
+              '/admin/litellm/team/info',
+              queryParameters: {'team_id': teamId},
+            );
+            if (groupRes.statusCode == 200 && groupRes.data != null) {
+              final tInfo = groupRes.data['team_info'] as Map<String, dynamic>? ?? {};
+              groupAlias = tInfo['team_alias']?.toString() ?? teamId;
+              groupSpend = (tInfo['spend'] as num?)?.toDouble() ?? 0.0;
+              groupMaxBudget = (tInfo['max_budget'] as num?)?.toDouble();
+              if (tInfo['models'] is List) {
+                models = (tInfo['models'] as List).map((e) => e.toString()).toList();
+              }
+              if (tInfo['rpm_limit'] != null) rpm = tInfo['rpm_limit'] as int;
+              if (tInfo['tpm_limit'] != null) tpm = tInfo['tpm_limit'] as int;
+            }
+          } catch (_) {
+            groupAlias = teamId;
+          }
+        } else if (teamId == 'tier-premium') {
           models = ['basic-coder', 'premium-coder', 'premium-reasoning'];
           maxBudget = 100.0;
           rpm = 180;
@@ -197,6 +246,10 @@ class AuthNotifier extends Notifier<AuthState> {
           rpmLimit: rpm,
           tpmLimit: tpm,
           keyAlias: keyAlias,
+          groupAlias: groupAlias,
+          groupSpend: groupSpend,
+          groupMaxBudget: groupMaxBudget,
+          isGroupMember: isGroup,
         );
         return true;
       }
@@ -220,6 +273,7 @@ final authProvider = NotifierProvider<AuthNotifier, AuthState>(AuthNotifier.new)
 // --- REPOSITORIES ---
 final tierRepositoryProvider = Provider((ref) => TierRepository());
 final userRepositoryProvider = Provider((ref) => UserRepository());
+final groupRepositoryProvider = Provider((ref) => GroupRepository());
 final nodeRepositoryProvider = Provider((ref) => NodeRepository());
 
 // --- TIERS STATE ---
@@ -260,7 +314,92 @@ class TiersNotifier extends AsyncNotifier<List<TierModel>> {
   }
 }
 
-// --- USERS STATE ---
+// --- CLIENT GROUPS STATE (B2B Multi-Tenancy) ---
+final groupsProvider = AsyncNotifierProvider<GroupsNotifier, List<GroupModel>>(() {
+  return GroupsNotifier();
+});
+
+class GroupsNotifier extends AsyncNotifier<List<GroupModel>> {
+  @override
+  Future<List<GroupModel>> build() async {
+    final repo = ref.watch(groupRepositoryProvider);
+    return repo.getGroups();
+  }
+
+  Future<void> refresh() async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() => ref.read(groupRepositoryProvider).getGroups());
+  }
+
+  Future<bool> createGroup({
+    required String groupId,
+    required String groupAlias,
+    required String tier,
+    required double maxBudget,
+    int? rpmLimit,
+    int? tpmLimit,
+    String? contactEmail,
+  }) async {
+    final success = await ref.read(groupRepositoryProvider).createGroup(
+          groupId: groupId,
+          groupAlias: groupAlias,
+          tier: tier,
+          maxBudget: maxBudget,
+          rpmLimit: rpmLimit,
+          tpmLimit: tpmLimit,
+          contactEmail: contactEmail,
+        );
+    if (success) {
+      await refresh();
+    }
+    return success;
+  }
+
+  Future<bool> deleteGroup(String groupId) async {
+    final success = await ref.read(groupRepositoryProvider).deleteGroup(groupId);
+    if (success) {
+      await refresh();
+      ref.read(usersProvider.notifier).refresh();
+    }
+    return success;
+  }
+
+  Future<bool> addMember({
+    required String groupId,
+    required String userId,
+    String role = 'user',
+    double? maxBudget,
+  }) async {
+    final success = await ref.read(groupRepositoryProvider).addMemberToGroup(
+          groupId: groupId,
+          userId: userId,
+          role: role,
+          maxBudget: maxBudget,
+        );
+    if (success) {
+      await refresh();
+      ref.read(usersProvider.notifier).refresh();
+    }
+    return success;
+  }
+
+  Future<bool> removeMember({
+    required String groupId,
+    required String userId,
+  }) async {
+    final success = await ref.read(groupRepositoryProvider).removeMemberFromGroup(
+          groupId: groupId,
+          userId: userId,
+        );
+    if (success) {
+      await refresh();
+      ref.read(usersProvider.notifier).refresh();
+    }
+    return success;
+  }
+}
+
+// --- USERS STATE (Solo & Group Members) ---
 final usersProvider = AsyncNotifierProvider<UsersNotifier, List<UserModel>>(() {
   return UsersNotifier();
 });
@@ -282,6 +421,8 @@ class UsersNotifier extends AsyncNotifier<List<UserModel>> {
     String? email,
     String? alias,
     required String tier,
+    String? groupId,
+    bool isGroupAccount = false,
     double? maxBudget,
     int? rpmLimit,
     int? tpmLimit,
@@ -291,12 +432,17 @@ class UsersNotifier extends AsyncNotifier<List<UserModel>> {
           email: email,
           alias: alias,
           tier: tier,
+          groupId: groupId,
+          isGroupAccount: isGroupAccount,
           maxBudget: maxBudget,
           rpmLimit: rpmLimit,
           tpmLimit: tpmLimit,
         );
     if (success) {
       await refresh();
+      if (isGroupAccount) {
+        ref.read(groupsProvider.notifier).refresh();
+      }
     }
     return success;
   }
@@ -305,6 +451,7 @@ class UsersNotifier extends AsyncNotifier<List<UserModel>> {
     final success = await ref.read(userRepositoryProvider).deleteUser(userId);
     if (success) {
       await refresh();
+      ref.read(groupsProvider.notifier).refresh();
     }
     return success;
   }
@@ -363,6 +510,9 @@ class TelemetrySummary {
   final int totalUsers;
   final int totalKeys;
   final int activeNodes;
+  final int totalGroups;
+  final double totalGroupSpend;
+  final double totalSoloSpend;
 
   const TelemetrySummary({
     this.totalSpend = 0.0,
@@ -370,6 +520,9 @@ class TelemetrySummary {
     this.totalUsers = 0,
     this.totalKeys = 0,
     this.activeNodes = 0,
+    this.totalGroups = 0,
+    this.totalGroupSpend = 0.0,
+    this.totalSoloSpend = 0.0,
   });
 
   double get quotaUtilizationPercentage {
@@ -381,6 +534,7 @@ class TelemetrySummary {
 final telemetrySummaryProvider = Provider<TelemetrySummary>((ref) {
   final tiersAsync = ref.watch(tiersProvider);
   final usersAsync = ref.watch(usersProvider);
+  final groupsAsync = ref.watch(groupsProvider);
   final nodesAsync = ref.watch(nodesProvider);
 
   double spend = 0.0;
@@ -389,15 +543,36 @@ final telemetrySummaryProvider = Provider<TelemetrySummary>((ref) {
 
   tiersAsync.whenData((tiers) {
     for (var t in tiers) {
-      spend += t.spend;
-      budget += t.maxBudget ?? 0.0;
-      keys += t.activeKeysCount;
+      // Only count system tiers in baseline
+      if (t.teamId.startsWith('tier-')) {
+        spend += t.spend;
+        budget += t.maxBudget ?? 0.0;
+        keys += t.activeKeysCount;
+      }
     }
   });
 
+  double groupSpend = 0.0;
+  int groupCount = 0;
+  groupsAsync.whenData((groups) {
+    groupCount = groups.length;
+    for (var g in groups) {
+      groupSpend += g.spend;
+      spend += g.spend;
+      budget += g.maxBudget ?? 0.0;
+      keys += g.activeKeysCount;
+    }
+  });
+
+  double soloSpend = 0.0;
   int userCount = 0;
   usersAsync.whenData((users) {
     userCount = users.length;
+    for (var u in users) {
+      if (u.isSolo) {
+        soloSpend += u.spend;
+      }
+    }
   });
 
   int nodeCount = 0;
@@ -411,5 +586,8 @@ final telemetrySummaryProvider = Provider<TelemetrySummary>((ref) {
     totalUsers: userCount,
     totalKeys: keys,
     activeNodes: nodeCount,
+    totalGroups: groupCount,
+    totalGroupSpend: groupSpend,
+    totalSoloSpend: soloSpend,
   );
 });

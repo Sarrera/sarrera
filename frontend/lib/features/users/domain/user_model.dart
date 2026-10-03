@@ -11,6 +11,7 @@ class UserModel {
   final List<String> models;
   final DateTime? createdAt;
   final int keyCount;
+  final Map<String, dynamic> metadata;
 
   const UserModel({
     required this.userId,
@@ -25,6 +26,7 @@ class UserModel {
     this.models = const [],
     this.createdAt,
     this.keyCount = 0,
+    this.metadata = const {},
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -38,6 +40,7 @@ class UserModel {
     }
 
     final rawTeams = json['teams'] as List<dynamic>? ?? [];
+    final meta = json['metadata'] as Map<String, dynamic>? ?? {};
 
     return UserModel(
       userId: json['user_id'] ?? '',
@@ -52,10 +55,37 @@ class UserModel {
       models: (json['models'] as List<dynamic>?)?.map((e) => e.toString()).toList() ?? [],
       createdAt: parseDate(json['created_at']),
       keyCount: json['key_count'] as int? ?? 0,
+      metadata: meta,
     );
   }
 
-  String get primaryTier => teams.isNotEmpty ? teams.first : 'Unassigned';
+  /// Whether this user is enrolled under a corporate client group / organization
+  bool get isGroupMember {
+    if (metadata['account_type'] == 'group_member') return true;
+    return teams.any((t) => t.startsWith('group-'));
+  }
+
+  bool get isSolo => !isGroupMember;
+
+  /// The corporate group ID if assigned, or null
+  String? get assignedGroupId {
+    final groupTeam = teams.firstWhere(
+      (t) => t.startsWith('group-'),
+      orElse: () => '',
+    );
+    if (groupTeam.isNotEmpty) return groupTeam;
+    return metadata['group_id'] as String?;
+  }
+
+  String get primaryTier {
+    final systemTier = teams.firstWhere(
+      (t) => t.startsWith('tier-'),
+      orElse: () => '',
+    );
+    if (systemTier.isNotEmpty) return systemTier;
+    if (teams.isNotEmpty) return teams.first;
+    return 'Unassigned';
+  }
 
   double get budgetProgressPercentage {
     if (maxBudget == null || maxBudget! <= 0) return 0.0;
