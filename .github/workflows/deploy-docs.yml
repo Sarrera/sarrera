@@ -41,14 +41,14 @@ jobs:
           touch docs/.nojekyll
           find docs -type d -name "v*" -exec touch {}/.nojekyll \;
           
-          # 2. Guarantee README.md exists for Docsify default route
+          # 2. Guarantee README.md exists for Docsify default route across all versions
           cp -f docs/index.md docs/README.md
-          if [ -d "docs/v1.0.0" ]; then
-            cp -f docs/v1.0.0/index.md docs/v1.0.0/README.md 2>/dev/null || true
-          fi
-          if [ -d "docs/v1.1.0" ]; then
-            cp -f docs/v1.1.0/index.md docs/v1.1.0/README.md 2>/dev/null || true
-          fi
+          for vdir in docs/v*; do
+            if [ -d "$vdir" ] && [ -f "$vdir/index.md" ]; then
+              cp -f "$vdir/index.md" "$vdir/README.md" 2>/dev/null || true
+              touch "$vdir/.nojekyll" 2>/dev/null || true
+            fi
+          done
           
           # 3. Ensure brand assets are bundled in docs/assets
           mkdir -p docs/assets

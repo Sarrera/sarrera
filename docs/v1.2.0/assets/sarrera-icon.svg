@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+  <!-- Rounded container / app icon background -->
+  <rect width="100" height="100" rx="22" fill="#0F172A" />
+
+  <!-- "Sarrera" Entryway / Threshold Portal (clean, bold stroke) -->
+  <path 
+    d="M28 72 V36 C28 24 72 24 72 36 V72" 
+    fill="none" 
+    stroke="#38BDF8" 
+    stroke-width="7" 
+    stroke-linecap="round" 
+    stroke-linejoin="round" 
+  />
+
+  <!-- Floating Nucleus / Token crossing the threshold -->
+  <rect 
+    x="43" 
+    y="48" 
+    width="14" 
+    height="14" 
+    rx="3" 
+    transform="rotate(45 50 55)" 
+    fill="#F8FAFC" 
+  />
+
+  <!-- Subtle bottom flow vector (inbound entry indicator) -->
+  <path 
+    d="M44 76 L50 70 L56 76" 
+    fill="none" 
+    stroke="#38BDF8" 
+    stroke-width="3.5" 
+    stroke-linecap="round" 
+    stroke-linejoin="round" 
+  />
+</svg>

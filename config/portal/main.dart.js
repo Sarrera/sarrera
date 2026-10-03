@@ -58516,7 +58516,7 @@ gdK(){return this.x}}
 A.a_6.prototype={}
 A.Qt.prototype={
 K(a){var s=null
-return A.aYa(!1,s,B.i0,s,B.Y,s,s,B.l,s,s,s,s,s,s,s,s,s,s,!0,B.a5h,s,s,s,s,s,s,s,s,!1,s,s,s,s,s,s,s,!1,s,s)}}
+return A.aYa(!1,s,B.i0,s,B.Y,s,s,B.l,s,s,s,s,s,s,s,s,s,s,!0,B.a5i,s,s,s,s,s,s,s,s,!1,s,s,s,s,s,s,s,!1,s,s)}}
 A.GQ.prototype={
 ah(){return new A.LS(A.YR(),null,null)}}
 A.LS.prototype={
@@ -101781,7 +101781,7 @@ l.push(B.as)
 m=A.ib(B.du,new A.aFO(a),o)
 s=p.y
 r=s?o:p.gasG()
-l.push(A.au(A.b([m,B.aY,A.k3(s?B.ec:B.a5s,r,o)],k),B.m,B.cI,B.e,0,o))
+l.push(A.au(A.b([m,B.aY,A.k3(s?B.ec:B.a5t,r,o)],k),B.m,B.cI,B.e,0,o))
 return A.xJ(o,B.aO,A.aJ(o,A.aK(l,B.q,B.i,B.aF),B.l,o,o,o,o,o,o,o,B.eE,o,o,440),o,o,o,o,B.f4,o,new A.cV(n,B.bV),o)}}
 A.aFJ.prototype={
 $0(){return this.a.z="Please enter your Admin Master Key"},
@@ -101842,8 +101842,8 @@ if(o){n=p.c
 n.toString
 A.eS(n).eD(0,"/admin",null)}else p.Z(new A.aFS(p))}case 1:return A.L(q,r)}})
 return A.M($async$wL,r)},
-K(a){var s,r,q,p,o,n,m,l,k=this,j=null,i="assets/sarrera-icon.png",h=t.p,g=A.PC(j,!0,B.v,0,A.hd(j,j,B.Mm,j,j,new A.aFZ(a),j,j,"Back to Home"),j,A.au(A.b([A.yg(i,new A.aG_(),24,24),B.ax,B.a5y],h),B.m,B.i,B.e,0,j)),f=A.aB(16),e=A.cn(B.aq,1),d=A.b([new A.bT(0,B.a1,B.p.b9(0.5),B.TK,30)],t.E),c=A.cn(B.B.b9(0.3),1)
-c=A.e7(A.aK(A.b([A.aJ(j,A.yg(i,new A.aG0(),52,52),B.l,j,j,new A.aO(B.Y,j,c,j,j,j,B.eq),j,j,j,j,B.d0,j,j,j),B.aS,B.a4Z,B.bP,B.a3x],h),B.m,B.i,B.e),j,j)
+K(a){var s,r,q,p,o,n,m,l,k=this,j=null,i="assets/sarrera-icon.png",h=t.p,g=A.PC(j,!0,B.v,0,A.hd(j,j,B.Mm,j,j,new A.aFZ(a),j,j,"Back to Home"),j,A.au(A.b([A.yg(i,new A.aG_(),24,24),B.ax,B.a5z],h),B.m,B.i,B.e,0,j)),f=A.aB(16),e=A.cn(B.aq,1),d=A.b([new A.bT(0,B.a1,B.p.b9(0.5),B.TK,30)],t.E),c=A.cn(B.B.b9(0.3),1)
+c=A.e7(A.aK(A.b([A.aJ(j,A.yg(i,new A.aG0(),52,52),B.l,j,j,new A.aO(B.Y,j,c,j,j,j,B.eq),j,j,j,j,B.d0,j,j,j),B.aS,B.a5_,B.bP,B.a3x],h),B.m,B.i,B.e),j,j)
 s=A.aB(10)
 r=A.cn(B.aq,1)
 q=A.aB(8)
@@ -101864,14 +101864,14 @@ q=A.cn(B.O.b9(0.4),1)
 p=k.Q
 p.toString
 B.b.P(c,A.b([A.aJ(j,A.au(A.b([B.MH,B.jN,A.cb(A.a3(p,j,j,j,j,B.a2G,j,j),1)],h),B.m,B.i,B.e,0,j),B.l,j,j,new A.aO(s,j,q,r,j,j,B.r),j,j,j,j,B.d0,j,j,j),B.aS],h))}if(k.w===0){s=A.fU(k.x,B.Nt,j,!1,j,new A.aG3(k))
-r=A.i_(B.ML,B.a4Q,new A.aG4(k),j)
+r=A.i_(B.ML,B.a4R,new A.aG4(k),j)
 q=k.z
 p=q?j:k.gasI()
-B.b.P(c,A.b([B.a68,B.bP,s,B.bB,B.a5O,B.aS,r,B.as,A.dD(A.k3(q?B.ec:B.Db,p,j),j,1/0)],h))}else{s=A.fU(k.y,B.Ny,j,!0,j,new A.aG5(k))
+B.b.P(c,A.b([B.a69,B.bP,s,B.bB,B.a5P,B.aS,r,B.as,A.dD(A.k3(q?B.ec:B.Db,p,j),j,1/0)],h))}else{s=A.fU(k.y,B.Ny,j,!0,j,new A.aG5(k))
 r=A.i_(B.Ma,B.a3M,new A.aG6(k),j)
 q=k.z
 p=q?j:k.gasH()
-B.b.P(c,A.b([B.a3Y,B.bP,s,B.bB,B.a5H,B.aS,r,B.as,A.dD(A.k3(q?B.ec:B.a5n,p,j),j,1/0)],h))}return A.Hy(g,B.di,A.e7(A.o4(A.aJ(j,A.aK(c,B.q,B.i,B.aF),B.l,j,j,new A.aO(B.aO,j,e,f,d,j,B.r),j,j,j,j,B.cA,j,j,480),j,B.a9,B.bW,j,B.ac),j,j))}}
+B.b.P(c,A.b([B.a3Y,B.bP,s,B.bB,B.a5I,B.aS,r,B.as,A.dD(A.k3(q?B.ec:B.a5o,p,j),j,1/0)],h))}return A.Hy(g,B.di,A.e7(A.o4(A.aJ(j,A.aK(c,B.q,B.i,B.aF),B.l,j,j,new A.aO(B.aO,j,e,f,d,j,B.r),j,j,j,j,B.cA,j,j,480),j,B.a9,B.bW,j,B.ac),j,j))}}
 A.aFT.prototype={
 $0(){return this.a.Q="Please enter your Virtual API Key (sk-...)"},
 $S:0}
@@ -101948,7 +101948,7 @@ A.a_2.prototype={
 K(a){var s=null,r=A.T(a).ok.e
 return A.o4(A.aK(A.b([A.a3("TLS Certificate Management & Security Perimeter",s,s,s,s,r==null?s:r.tV(B.b9,B.A),s,s),B.bP,A.a3("Caddy terminates all incoming HTTPS connections, enforcing strict security headers (HSTS, nosniff, SAMEORIGIN).",s,s,s,s,A.T(a).ok.z,s,s),B.cM,A.m_(new A.aBg(this))],t.p),B.q,B.i,B.e),s,B.a9,B.cA,s,B.ac)},
 SZ(){return A.aK(A.U0(4,new A.aBe(this),!0,t.l7),B.m,B.i,B.e)},
-T1(){var s=null,r=this.e[this.d],q=A.bL(r.i(0,"snippet")),p=t.p,o=A.au(A.b([A.a3("Caddyfile Snippet: "+A.k(r.i(0,"title")),s,s,s,s,B.jY,s,s),A.i_(B.mq,B.a5g,new A.aBf(this,q),s)],p),B.m,B.a3,B.e,0,s),n=A.aB(8),m=A.cn(B.aq,1)
+T1(){var s=null,r=this.e[this.d],q=A.bL(r.i(0,"snippet")),p=t.p,o=A.au(A.b([A.a3("Caddyfile Snippet: "+A.k(r.i(0,"title")),s,s,s,s,B.jY,s,s),A.i_(B.mq,B.a5h,new A.aBf(this,q),s)],p),B.m,B.a3,B.e,0,s),n=A.aB(8),m=A.cn(B.aq,1)
 return A.dq(new A.b0(B.bW,A.aK(A.b([o,B.aS,A.aJ(s,A.a3(q,s,s,s,s,B.ZC,s,s),B.l,s,s,new A.aO(B.fA,s,m,n,s,s,B.r),s,s,s,s,B.dM,s,s,1/0),B.aS,B.a4o],p),B.q,B.i,B.e),s))}}
 A.aBg.prototype={
 $2(a,b){var s
@@ -101983,11 +101983,11 @@ this.a.c.a8(t.J).f.f6(B.Ys)},
 $S:0}
 A.xE.prototype={
 lC(a,b){var s=null,r=b.eB($.aUI(),t.eM),q=A.aB(16),p=A.cn(B.B.b9(0.3),1),o=B.B.b9(0.2),n=A.aB(6),m=A.cn(B.ey.b9(0.4),1),l=t.p
-n=A.au(A.b([A.aJ(s,A.fo(!1,s,!0,B.a45,s,!0,s,s,s,s,s,s,s,s,s,new A.adX(),s,s,s,s,s,s),B.l,s,s,new A.aO(o,s,m,n,s,s,B.r),s,s,s,s,B.is,s,s,s),B.aY,A.aJ(s,s,B.l,s,s,B.EJ,s,8,s,s,s,s,s,8),B.f9,B.a5q],l),B.m,B.i,B.e,0,s)
+n=A.au(A.b([A.aJ(s,A.fo(!1,s,!0,B.a45,s,!0,s,s,s,s,s,s,s,s,s,new A.adX(),s,s,s,s,s,s),B.l,s,s,new A.aO(o,s,m,n,s,s,B.r),s,s,s,s,B.is,s,s,s),B.aY,A.aJ(s,s,B.l,s,s,B.EJ,s,8,s,s,s,s,s,8),B.f9,B.a5r],l),B.m,B.i,B.e,0,s)
 m=A.T(a).ok.e
 o=A.a3("Enterprise Local AI Inference & Governance Hub",s,s,s,s,m==null?s:m.tV(B.n,B.A),s,s)
 m=A.T(a).ok.z
-q=A.aJ(s,A.au(A.b([A.cb(A.aK(A.b([n,B.c0,o,B.bC,A.a3("Decoupling engineering client IDEs from heterogeneous physical GPUs. Multi-tier token quotas, dynamic load balancing, and compliance telemetry.",s,s,s,s,m==null?s:m.bP(B.pd),s,s),B.as,A.ms(B.bE,A.b([A.tr(B.MR,B.a4R,new A.adY(a),s),A.i_(B.qO,B.a5E,new A.adZ(a),s),A.i_(B.Me,B.a42,new A.ae_(a),s)],l),12,12)],l),B.q,B.i,B.e),1),B.jO,A.QN(A.aB(16),A.yg("assets/sarrera-icon.png",new A.ae0(),76,76),B.cg)],l),B.m,B.i,B.e,0,s),B.l,s,s,new A.aO(s,s,p,q,s,B.Oh,B.r),s,s,s,s,B.cA,s,s,1/0)
+q=A.aJ(s,A.au(A.b([A.cb(A.aK(A.b([n,B.c0,o,B.bC,A.a3("Decoupling engineering client IDEs from heterogeneous physical GPUs. Multi-tier token quotas, dynamic load balancing, and compliance telemetry.",s,s,s,s,m==null?s:m.bP(B.pd),s,s),B.as,A.ms(B.bE,A.b([A.tr(B.MR,B.a4S,new A.adY(a),s),A.i_(B.qO,B.a5F,new A.adZ(a),s),A.i_(B.Me,B.a42,new A.ae_(a),s)],l),12,12)],l),B.q,B.i,B.e),1),B.jO,A.QN(A.aB(16),A.yg("assets/sarrera-icon.png",new A.ae0(),76,76),B.cg)],l),B.m,B.i,B.e,0,s),B.l,s,s,new A.aO(s,s,p,q,s,B.Oh,B.r),s,s,s,s,B.cA,s,s,1/0)
 p=A.m_(new A.ae1(r))
 o=A.T(a).ok.r
 return A.o4(A.aK(A.b([q,B.jP,p,B.jP,A.a3("Integrated Microservices & Applications",s,s,s,s,o==null?s:o.a1o(18),s,s),B.aM,B.a3F,B.aS,A.m_(new A.ae2())],l),B.q,B.i,B.e),s,B.a9,B.cA,s,B.ac)}}
@@ -102050,8 +102050,8 @@ j=A.a3("Developer Workspace \xb7 "+s,a0,a0,a0,a0,B.cq,a0,a0)
 i=B.B.b9(0.15)
 h=A.aB(4)
 g=t.p
-h=A.aK(A.b([j,A.au(A.b([B.a5x,B.ax,A.fo(!1,a0,!0,A.aJ(a0,B.nU,B.l,a0,a0,new A.aO(i,a0,A.cn(B.B.b9(0.3),1),h,a0,a0,B.r),a0,a0,a0,a0,B.lv,a0,a0,a0),a0,!0,a0,a0,a0,a0,a0,a0,a0,a0,a0,new A.aeu(),a0,a0,a0,a0,a0,a0)],g),B.m,B.i,B.e,0,a0)],g),B.q,B.i,B.e)
-h=A.PC(A.b([A.axd(B.Mp,B.a3Z,new A.aev()),B.ax,A.axd(B.Mh,B.a5e,new A.aew()),B.ax,A.hd(a0,a0,B.M8,a0,a0,new A.aex(a6,a5),a0,a0,"Sign Out"),B.bO],g),!0,B.aO,0,new A.b0(B.d0,l,a0),a0,h)
+h=A.aK(A.b([j,A.au(A.b([B.a5y,B.ax,A.fo(!1,a0,!0,A.aJ(a0,B.nU,B.l,a0,a0,new A.aO(i,a0,A.cn(B.B.b9(0.3),1),h,a0,a0,B.r),a0,a0,a0,a0,B.lv,a0,a0,a0),a0,!0,a0,a0,a0,a0,a0,a0,a0,a0,a0,new A.aeu(),a0,a0,a0,a0,a0,a0)],g),B.m,B.i,B.e,0,a0)],g),B.q,B.i,B.e)
+h=A.PC(A.b([A.axd(B.Mp,B.a3Z,new A.aev()),B.ax,A.axd(B.Mh,B.a5f,new A.aew()),B.ax,A.hd(a0,a0,B.M8,a0,a0,new A.aex(a6,a5),a0,a0,"Sign Out"),B.bO],g),!0,B.aO,0,new A.b0(B.d0,l,a0),a0,h)
 l=A.aB(12)
 i=A.aVt(B.B.b9(0.2),B.MN,28)
 j=A.a3(r,a0,a0,a0,a0,B.a_N,a0,a0)
@@ -102074,7 +102074,7 @@ j=A.aB(8)
 i=A.cn(B.aq,1)
 j=A.dq(new A.b0(B.bj,A.aK(A.b([f,B.Cq,A.aJ(a0,A.au(A.b([A.cb(A.a3(p,a0,a0,a0,a0,B.D7,a0,a0),1),A.hd(a0,a0,B.qT,a0,a0,new A.aez(p,a5),a0,a0,"Copy API Key")],g),B.m,B.i,B.e,0,a0),B.l,a0,a0,new A.aO(B.fA,a0,i,j,a0,a0,B.r),a0,a0,a0,a0,B.lt,a0,a0,a0)],g),B.q,B.i,B.e),a0))
 i=A.dq(new A.b0(B.bj,A.aK(A.b([A.a3("Your Authorized Models ("+q+")",a0,a0,a0,a0,B.jY,a0,a0),B.aM,B.a4z,B.aS,A.ms(B.bE,A.b([new A.B9(a1,"Qwen 2.5 Coder 7B (Fast Autocomplete)",B.b.q(m,a1),a0),new A.B9(a2,"Qwen 2.5 Coder 32B (Refactoring & Architecture)",B.b.q(m,a2),a0),new A.B9(a3,"DeepSeek-R1 (Complex Chain-of-Thought)",B.b.q(m,a3),a0)],g),12,12)],g),B.q,B.i,B.e),a0))
-f=A.au(A.b([A.aK(B.QW,B.q,B.i,B.e),A.i_(B.mq,B.a5C,new A.aeA(k,a5),a0)],g),B.m,B.a3,B.e,0,a0)
+f=A.au(A.b([A.aK(B.QW,B.q,B.i,B.e),A.i_(B.mq,B.a5D,new A.aeA(k,a5),a0)],g),B.m,B.a3,B.e,0,a0)
 e=A.aB(8)
 d=A.cn(B.aq,1)
 return A.Hy(h,B.di,A.o4(A.e7(A.aJ(a0,A.aK(A.b([l,B.as,n,B.as,j,B.as,i,B.as,A.dq(new A.b0(B.bj,A.aK(A.b([f,B.c0,A.aJ(a0,A.a3(k,a0,a0,a0,a0,B.D8,a0,a0),B.l,a0,a0,new A.aO(B.fA,a0,d,e,a0,a0,B.r),a0,a0,a0,a0,B.dM,a0,a0,1/0)],g),B.q,B.i,B.e),a0))],g),B.q,B.i,B.e),B.l,a0,B.oJ,a0,a0,a0,a0,a0,a0,a0,a0,a0),a0,a0),a0,B.a9,B.cA,a0,B.ac))}}
@@ -102106,7 +102106,7 @@ $S:0}
 A.aey.prototype={
 $2(a,b){var s=this,r=null,q=b.b>700,p=s.a,o=p.CW,n=t.p,m=A.au(A.b([A.a3(o?"INDIVIDUAL TOKEN SPEND":"MONTHLY TOKEN SPEND",r,r,r,r,B.fd,r,r),B.MI],n),B.m,B.a3,B.e,0,r),l=A.a3(B.d.U(s.b,2)+" \u20ac / "+B.j.U(s.c,2)+" \u20ac",r,r,r,r,B.hC,r,r),k=s.d,j=k>0.9?B.O:B.B,i=t.ZU
 k=A.b([A.cb(A.dq(new A.b0(B.bj,A.aK(A.b([m,B.bB,l,B.bC,A.u5(B.Y,A.aB(4),6,k,new A.jT(j,i)),B.bC,A.a3(B.d.U((1-k)*100,0)+"% remaining of personal quota",r,r,r,r,B.bg,r,r)],n),B.q,B.i,B.e),r)),1)],n)
-if(q&&o&&p.ch!=null){o=A.au(A.b([B.a54,B.qQ],n),B.m,B.a3,B.e,0,r)
+if(q&&o&&p.ch!=null){o=A.au(A.b([B.a55,B.qQ],n),B.m,B.a3,B.e,0,r)
 m=p.ay
 m=B.d.U(m==null?0:m,2)
 l=p.ch
@@ -102114,7 +102114,7 @@ m=A.a3(m+" \u20ac / "+B.d.U(l==null?0:l,2)+" \u20ac",r,r,r,r,B.hC,r,r)
 l=p.gGr()
 j=p.gGr()>90?B.O:B.T
 B.b.P(k,A.b([B.bO,A.cb(A.dq(new A.b0(B.bj,A.aK(A.b([o,B.bB,m,B.bC,A.u5(B.Y,A.aB(4),6,l/100,new A.jT(j,i)),B.bC,A.a3(B.d.U((1-p.gGr()/100)*100,0)+"% remaining in corporate pool",r,r,r,r,B.bg,r,r)],n),B.q,B.i,B.e),r)),1)],n))}if(q)k.push(B.bO)
-if(q)k.push(A.cb(A.dq(new A.b0(B.bj,A.aK(A.b([A.au(B.QK,B.m,B.a3,B.e,0,r),B.bB,A.au(A.b([A.cb(A.aK(A.b([B.a3R,B.eb,A.a3(""+p.z+" RPM",r,r,r,r,B.cq,r,r)],n),B.q,B.i,B.e),1),A.cb(A.aK(A.b([B.a3v,B.eb,A.a3(""+B.d.aG(p.Q/1000)+"k TPM",r,r,r,r,B.cq,r,r)],n),B.q,B.i,B.e),1)],n),B.m,B.i,B.e,0,r),B.c0,B.a5l],n),B.q,B.i,B.e),r)),1))
+if(q)k.push(A.cb(A.dq(new A.b0(B.bj,A.aK(A.b([A.au(B.QK,B.m,B.a3,B.e,0,r),B.bB,A.au(A.b([A.cb(A.aK(A.b([B.a3R,B.eb,A.a3(""+p.z+" RPM",r,r,r,r,B.cq,r,r)],n),B.q,B.i,B.e),1),A.cb(A.aK(A.b([B.a3v,B.eb,A.a3(""+B.d.aG(p.Q/1000)+"k TPM",r,r,r,r,B.cq,r,r)],n),B.q,B.i,B.e),1)],n),B.m,B.i,B.e,0,r),B.c0,B.a5m],n),B.q,B.i,B.e),r)),1))
 return A.au(k,B.q,B.i,B.e,0,r)},
 $S:637}
 A.aez.prototype={
@@ -102134,8 +102134,8 @@ A.u0.prototype={
 ah(){return new A.a29()}}
 A.a29.prototype={
 K(a){var s,r,q,p=this,o="assets/sarrera-icon.png",n=null,m=A.yg(o,new A.aFe(),32,32),l=A.aB(4),k=B.B.b9(0.15),j=A.aB(4),i=t.p
-j=A.au(A.b([m,B.jN,A.aK(A.b([B.a5p,A.au(A.b([B.a4B,B.ax,A.fo(!1,l,!0,A.aJ(n,B.nU,B.l,n,n,new A.aO(k,n,A.cn(B.B.b9(0.3),1),j,n,n,B.r),n,n,n,n,B.lv,n,n,n),n,!0,n,n,n,n,n,n,n,n,n,new A.aFf(),n,n,n,n,n,n)],i),B.m,B.i,B.e,0,n)],i),B.q,B.i,B.e)],i),B.m,B.i,B.e,0,n)
-j=A.PC(A.b([A.ib(B.a4v,new A.aFg(),n),A.ib(B.a5P,new A.aFj(),n),B.aY,A.tr(B.ME,B.a3X,new A.aFk(a),A.xT(n,n,n,n,n,n,n,n,n,n,n,n,B.Kk,n,n,n,n,n,n,n)),B.bO],i),!0,B.aO,0,n,n,j)
+j=A.au(A.b([m,B.jN,A.aK(A.b([B.a5q,A.au(A.b([B.a4B,B.ax,A.fo(!1,l,!0,A.aJ(n,B.nU,B.l,n,n,new A.aO(k,n,A.cn(B.B.b9(0.3),1),j,n,n,B.r),n,n,n,n,B.lv,n,n,n),n,!0,n,n,n,n,n,n,n,n,n,new A.aFf(),n,n,n,n,n,n)],i),B.m,B.i,B.e,0,n)],i),B.q,B.i,B.e)],i),B.m,B.i,B.e,0,n)
+j=A.PC(A.b([A.ib(B.a4v,new A.aFg(),n),A.ib(B.a5Q,new A.aFj(),n),B.aY,A.tr(B.ME,B.a3X,new A.aFk(a),A.xT(n,n,n,n,n,n,n,n,n,n,n,n,B.Kk,n,n,n,n,n,n,n)),B.bO],i),!0,B.aO,0,n,n,j)
 k=B.B.b9(0.15)
 l=A.aB(20)
 m=A.cn(B.B.b9(0.4),1)
@@ -102148,7 +102148,7 @@ l=A.au(A.b([A.aJ(n,B.MO,B.l,n,n,new A.aO(B.T.b9(0.15),n,n,A.aB(8),n,n,B.r),n,n,n
 k=A.aB(10)
 s=A.cn(B.aq,1)
 k=A.aJ(n,A.au(A.b([p.A5(0,"VS Code (Continue)",B.qy),p.A5(1,"Cursor IDE",B.LN),p.A5(2,"Cline / Roo Code",B.LS),p.A5(3,"Python & cURL",B.LT)],i),B.m,B.i,B.e,0,n),B.l,n,n,new A.aO(B.aO,n,s,k,n,n,B.r),n,n,n,n,n,n,n,n)
-s=A.au(A.b([A.a3(p.aiT(),n,n,n,n,B.a2_,n,n),A.i_(B.MW,B.a5d,new A.aFn(p,a),n)],i),B.m,B.a3,B.e,0,n)
+s=A.au(A.b([A.a3(p.aiT(),n,n,n,n,B.a2_,n,n),A.i_(B.MW,B.a5e,new A.aFn(p,a),n)],i),B.m,B.a3,B.e,0,n)
 r=A.aB(8)
 q=A.cn(B.aq,1)
 r=A.aJ(n,A.aK(A.b([l,B.as,k,B.aS,A.dq(new A.b0(B.bW,A.aK(A.b([s,B.c0,A.aJ(n,A.a3(p.Vw(),n,n,n,n,B.D8,n,n),B.l,n,n,new A.aO(B.fA,n,q,r,n,n,B.r),n,n,n,n,B.Kp,n,n,1/0)],i),B.q,B.i,B.e),n))],i),B.q,B.i,B.e),B.l,n,B.oI,n,n,n,n,n,B.Ky,n,n,n)
@@ -102156,7 +102156,7 @@ q=B.aO.b9(0.5)
 q=A.aJ(n,A.e7(A.aJ(n,A.aK(A.b([B.a3D,B.bP,B.a4I,B.jP,A.m_(new A.aFo(p))],i),B.m,B.i,B.e),B.l,n,B.oI,n,n,n,n,n,n,n,n,n),n,n),B.l,q,n,n,n,n,n,n,B.Kx,n,n,n)
 s=A.yg(o,n,20,20)
 k=A.aB(4)
-return A.Hy(j,B.di,A.o4(A.aK(A.b([m,r,q,B.jP,A.aJ(n,A.e7(new A.fl(B.EI,A.au(A.b([A.au(A.b([s,B.ax,B.a3u,B.ax,A.fo(!1,n,!0,A.aJ(n,B.a69,B.l,n,n,new A.aO(B.Y,n,A.cn(B.aq,1),k,n,n,B.r),n,n,n,n,B.q3,n,n,n),n,!0,n,n,n,n,n,n,n,n,n,new A.aFp(),n,n,n,n,n,n)],i),B.m,B.i,B.e,0,n),A.au(A.b([A.ib(B.a5z,new A.aFq(),n),B.ax,A.ib(B.a5v,new A.aFh(),n),B.ax,A.ib(B.a4G,new A.aFi(),n)],i),B.m,B.i,B.e,0,n)],i),B.m,B.a3,B.e,0,n),n),n,n),B.l,n,n,B.EN,n,n,n,n,B.Kw,n,n,1/0)],i),B.m,B.i,B.e),n,B.a9,n,n,B.ac))},
+return A.Hy(j,B.di,A.o4(A.aK(A.b([m,r,q,B.jP,A.aJ(n,A.e7(new A.fl(B.EI,A.au(A.b([A.au(A.b([s,B.ax,B.a3u,B.ax,A.fo(!1,n,!0,A.aJ(n,B.a4J,B.l,n,n,new A.aO(B.Y,n,A.cn(B.aq,1),k,n,n,B.r),n,n,n,n,B.q3,n,n,n),n,!0,n,n,n,n,n,n,n,n,n,new A.aFp(),n,n,n,n,n,n)],i),B.m,B.i,B.e,0,n),A.au(A.b([A.ib(B.a5A,new A.aFq(),n),B.ax,A.ib(B.a5w,new A.aFh(),n),B.ax,A.ib(B.a4G,new A.aFi(),n)],i),B.m,B.i,B.e,0,n)],i),B.m,B.a3,B.e,0,n),n),n,n),B.l,n,n,B.EN,n,n,n,n,B.Kw,n,n,1/0)],i),B.m,B.i,B.e),n,B.a9,n,n,B.ac))},
 A5(a,b,c){var s=null,r=this.d===a,q=A.aB(8),p=r?B.B.b9(0.15):B.v,o=A.aB(8),n=A.cn(r?B.B:B.v,1),m=A.hT(c,r?B.ey:B.ar,s,16),l=r?B.A:B.ad
 return A.cb(A.fo(!1,q,!0,A.aJ(s,A.au(A.b([m,B.ax,A.a3(b,s,s,s,s,A.dE(s,s,r?B.b9:B.aL,s,s,s,s,s,s,s,s,13,s,s,l,s,s,!0,s,s,s,s,s,s,s,s),s,s)],t.p),B.m,B.bm,B.e,0,s),B.l,s,s,new A.aO(p,s,n,o,s,s,B.r),s,s,s,s,B.Kd,s,s,s),s,!0,s,s,s,s,s,s,s,s,s,new A.aFc(this,a),s,s,s,s,s,s),1)},
 aiT(){switch(this.d){case 0:return"VS Code Continue Extension (~/.continue/config.json)"
@@ -102173,14 +102173,14 @@ s=c.b9(0.15)
 r=A.aB(6)
 q=t.p
 r=A.b([A.aJ(m,A.a3(g.toUpperCase(),m,m,m,m,A.dE(m,m,c,m,m,m,m,m,m,m,m,11,m,m,B.A,m,m,!0,m,m,m,m,m,m,m,m),m,m),B.l,m,m,new A.aO(s,m,m,r,m,m,B.r),m,m,m,m,B.dN,m,m,m)],q)
-if(d)r.push(A.aJ(m,B.a5f,B.l,m,m,new A.aO(B.B,m,m,A.aB(12),m,m,B.r),m,m,m,m,B.q4,m,m,m))
+if(d)r.push(A.aJ(m,B.a5g,B.l,m,m,new A.aO(B.B,m,m,A.aB(12),m,m,B.r),m,m,m,m,B.q4,m,m,m))
 s=A.au(r,B.m,B.a3,B.e,0,m)
 r=A.a3(a,m,m,m,m,B.cq,m,m)
 p=A.a3(b,m,m,m,m,A.dE(m,m,c,m,m,m,m,m,m,m,m,20,m,m,B.A,m,m,!0,m,m,m,m,m,m,m,m),m,m)
 o=A.a3(e,m,m,m,m,B.cp,m,m)
 n=A.Y(f).h("Z<1,b0>")
 n=A.X(new A.Z(f,new A.aFd(),n),n.h("al.E"))
-return A.dD(A.dq(A.aJ(m,A.aK(A.b([s,B.bB,r,B.bC,p,B.aM,o,B.Js,B.a5B,B.bC,A.aK(n,B.q,B.i,B.e)],q),B.q,B.i,B.e),B.l,m,m,new A.aO(m,m,k,l,m,m,B.r),m,m,m,m,B.bW,m,m,m)),m,h)},
+return A.dD(A.dq(A.aJ(m,A.aK(A.b([s,B.bB,r,B.bC,p,B.aM,o,B.Js,B.a5C,B.bC,A.aK(n,B.q,B.i,B.e)],q),B.q,B.i,B.e),B.l,m,m,new A.aO(m,m,k,l,m,m,B.r),m,m,m,m,B.bW,m,m,m)),m,h)},
 T2(a,b,c,d,e,f,g){return this.T3(a,b,c,!1,d,e,f,g)}}
 A.aFe.prototype={
 $3(a,b,c){return B.My},
@@ -102479,10 +102479,10 @@ if(j)i.a8(h).f.f6(A.vp(null,null,null,B.am,null,B.I,null,A.a3('\ud83d\ude80 Node
 else i.a8(h).f.f6(B.Yx)}case 1:return A.L(q,r)}})
 return A.M($async$Bf,r)},
 K(a){var s=null,r=this.geo().eB($.Pj(),t.Q_),q=A.T(a).ok.e,p=t.p
-return A.o4(A.aK(A.b([A.au(A.b([A.aK(A.b([A.a3("Compute Nodes & Dynamic Orchestration",s,s,s,s,q==null?s:q.tV(B.b9,B.A),s,s),B.bP,A.a3("Register upstream Ollama / vLLM inference nodes dynamically with zero downtime. Persisted in PostgreSQL.",s,s,s,s,A.T(a).ok.z,s,s)],p),B.q,B.i,B.e),A.i_(B.mp,B.a62,new A.aGK(this),s)],p),B.m,B.a3,B.e,0,s),B.cM,A.m_(new A.aGL(this,r))],p),B.q,B.i,B.e),s,B.a9,B.cA,s,B.ac)},
+return A.o4(A.aK(A.b([A.au(A.b([A.aK(A.b([A.a3("Compute Nodes & Dynamic Orchestration",s,s,s,s,q==null?s:q.tV(B.b9,B.A),s,s),B.bP,A.a3("Register upstream Ollama / vLLM inference nodes dynamically with zero downtime. Persisted in PostgreSQL.",s,s,s,s,A.T(a).ok.z,s,s)],p),B.q,B.i,B.e),A.i_(B.mp,B.a63,new A.aGK(this),s)],p),B.m,B.a3,B.e,0,s),B.cM,A.m_(new A.aGL(this,r))],p),B.q,B.i,B.e),s,B.a9,B.cA,s,B.ac)},
 SX(a){return A.dq(new A.b0(B.bj,A.aK(A.b([A.au(B.Pv,B.m,B.a3,B.e,0,null),B.aS,A.D0(a,new A.aGD(this),new A.aGE(),new A.aGF())],t.p),B.q,B.i,B.e),null))},
 SY(){var s=this,r=null,q=A.fU(s.w,B.Nr,r,!1,r,r),p=A.fU(s.x,B.NF,r,!1,r,r),o=s.at,n=o?B.Yd:B.Mb,m=t.p
-n=A.b([B.a3T,B.aM,B.a4V,B.cn,q,B.bB,p,B.bB,A.fU(s.y,A.aWT(r,r,r,r,r,r,r,r,!0,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,"Node API Host Address",!0,!0,!1,r,r,r,r,r,r,r,r,A.hd(r,r,n,r,r,o?r:s.gaq1(),r,r,"Ping Node Connectivity"),r,r,r,r,r),r,!1,r,r)],m)
+n=A.b([B.a3T,B.aM,B.a4W,B.cn,q,B.bB,p,B.bB,A.fU(s.y,A.aWT(r,r,r,r,r,r,r,r,!0,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,"Node API Host Address",!0,!0,!1,r,r,r,r,r,r,r,r,A.hd(r,r,n,r,r,o?r:s.gaq1(),r,r,"Ping Node Connectivity"),r,r,r,r,r),r,!1,r,r)],m)
 q=s.ax
 if(q!=null)B.b.P(n,A.b([B.bP,A.a3(q,r,r,r,r,B.a2C,r,r)],m))
 n.push(B.bB)
@@ -102490,7 +102490,7 @@ n.push(A.au(A.b([A.cb(A.fU(s.z,B.Nq,B.hz,!1,r,r),1),B.aY,A.cb(A.fU(s.Q,B.NK,B.hz
 n.push(B.cn)
 q=s.as
 p=q?r:s.gaqA()
-n.push(A.dD(A.k3(q?B.Yc:B.a5r,p,r),r,1/0))
+n.push(A.dD(A.k3(q?B.Yc:B.a5s,p,r),r,1/0))
 return A.dq(new A.b0(B.bW,A.aK(n,B.q,B.i,B.e),r))}}
 A.aGG.prototype={
 $0(){var s=this.a
@@ -102545,7 +102545,7 @@ $0(){return this.a.geo().bI(0,$.Pj().gec(),t.jZ).lK(J.b4R(this.b))},
 $S:0}
 A.wW.prototype={
 lC(a,b){var s,r,q,p=null,o=A.b8b(a).c,n=b.eB($.j5(),t.FB),m=A.QN(A.aB(10),A.yg("assets/sarrera-icon.png",new A.aaC(),38,38),B.cg),l=A.aB(4),k=B.B.b9(0.15),j=A.aB(4),i=t.p
-j=A.au(A.b([m,B.aY,A.aK(A.b([A.au(A.b([B.a5Z,B.f9,A.fo(!1,l,!0,A.aJ(p,B.nU,B.l,p,p,new A.aO(k,p,A.cn(B.B.b9(0.3),1),j,p,p,B.r),p,p,p,p,B.lv,p,p,p),p,!0,p,p,p,p,p,p,p,p,p,new A.aaD(),p,p,p,p,p,p)],i),B.m,B.i,B.e,0,p),B.a3n],i),B.q,B.i,B.e)],i),B.m,B.i,B.e,0,p)
+j=A.au(A.b([m,B.aY,A.aK(A.b([A.au(A.b([B.a6_,B.f9,A.fo(!1,l,!0,A.aJ(p,B.nU,B.l,p,p,new A.aO(k,p,A.cn(B.B.b9(0.3),1),j,p,p,B.r),p,p,p,p,B.lv,p,p,p),p,!0,p,p,p,p,p,p,p,p,p,new A.aaD(),p,p,p,p,p,p)],i),B.m,B.i,B.e,0,p),B.a3n],i),B.q,B.i,B.e)],i),B.m,B.i,B.e,0,p)
 m=o==="/admin"||o==="/admin/"
 m=A.cb(A.aXl(A.b([new A.oB("Overview",B.LG,B.Lm,m,new A.aaE(a),p),new A.oB("Tiers & Quotas",B.mm,B.Lq,B.c.bj(o,"/tiers"),new A.aaH(a),p),new A.oB("Users & Keys",B.mk,B.Lv,B.c.bj(o,"/users"),new A.aaI(a),p),new A.oB("Telemetry & Spend",B.LL,B.qA,B.c.bj(o,"/telemetry"),new A.aaJ(a),p),new A.oB("Compute Nodes",B.LM,B.mj,B.c.bj(o,"/nodes"),new A.aaK(a),p),new A.oB("TLS & Certificates",B.qC,B.qB,B.c.bj(o,"/certificates"),new A.aaL(a),p),B.as,B.Ux,new A.AJ("Open WebUI (Chat)",B.LE,A.aat(),p),new A.AJ("Langfuse Audit Suite",B.qJ,A.aQE(),p),new A.AJ("Documentation",B.mn,"https://sarrera.github.io/sarrera/",p)],i),B.lr,p,!1),1)
 l=n.a
@@ -102625,7 +102625,7 @@ return B.bt.hT(s,this.a.e,"_blank")},
 $S:0}
 A.zW.prototype={
 lC(a,b){var s=null,r=b.eB($.Pk(),t.Ow),q=b.eB($.mN(),t.Ul),p=b.eB($.aUI(),t.eM),o=A.T(a).ok.e,n=t.p
-return A.o4(A.aK(A.b([A.au(A.b([A.aK(A.b([A.a3("Telemetry & Consumption Observability",s,s,s,s,o==null?s:o.tV(B.b9,B.A),s,s),B.bP,A.a3("Real-time token metering, cost attribution, and trace performance aggregated from LiteLLM & Langfuse.",s,s,s,s,A.T(a).ok.z,s,s)],n),B.q,B.i,B.e),A.tr(B.N0,B.a57,new A.ax3(),s)],n),B.m,B.a3,B.e,0,s),B.cM,A.m_(new A.ax4(p)),B.cM,A.m_(new A.ax5(r)),B.cM,A.dq(new A.b0(B.bW,A.aK(A.b([A.au(A.b([B.a5j,A.axd(B.MV,B.a5i,new A.ax6(b))],n),B.m,B.a3,B.e,0,s),B.aS,A.D0(q,new A.ax7(),new A.ax8(),new A.ax9())],n),B.q,B.i,B.e),s))],n),B.q,B.i,B.e),s,B.a9,B.cA,s,B.ac)}}
+return A.o4(A.aK(A.b([A.au(A.b([A.aK(A.b([A.a3("Telemetry & Consumption Observability",s,s,s,s,o==null?s:o.tV(B.b9,B.A),s,s),B.bP,A.a3("Real-time token metering, cost attribution, and trace performance aggregated from LiteLLM & Langfuse.",s,s,s,s,A.T(a).ok.z,s,s)],n),B.q,B.i,B.e),A.tr(B.N0,B.a58,new A.ax3(),s)],n),B.m,B.a3,B.e,0,s),B.cM,A.m_(new A.ax4(p)),B.cM,A.m_(new A.ax5(r)),B.cM,A.dq(new A.b0(B.bW,A.aK(A.b([A.au(A.b([B.a5k,A.axd(B.MV,B.a5j,new A.ax6(b))],n),B.m,B.a3,B.e,0,s),B.aS,A.D0(q,new A.ax7(),new A.ax8(),new A.ax9())],n),B.q,B.i,B.e),s))],n),B.q,B.i,B.e),s,B.a9,B.cA,s,B.ac)}}
 A.ax3.prototype={
 $0(){var s=window
 s.toString
@@ -102682,10 +102682,10 @@ return A.dD(A.dq(new A.b0(B.bj,A.aK(A.b([A.au(A.b([q,A.aJ(r,A.hT(s.f,p,r,18),B.l
 A.Np.prototype={
 K(a){var s=null,r=A.aVd(s,!0,s,s,s,s,s,s),q=A.aWo(s,!1),p=t.UA
 q=A.aQJ(B.Ec,s,A.b([A.Q_(A.b([A.abw(s,s,A.aB(4),s,B.T,s,s,B.kL,s,15,s,28)],p),s,s,s,0),A.Q_(A.b([A.abw(s,s,A.aB(4),s,B.B,s,s,B.kL,s,50,s,28)],p),s,s,s,1),A.Q_(A.b([A.abw(s,s,A.aB(4),s,B.bK,s,s,B.kL,s,100,s,28)],p),s,s,s,2)],t.hn),r,s,q,B.KP,s,B.KQ,s,120,s,s,0,new A.EM(!0,new A.rP(16,s,new A.vm(!0,new A.aLN(),32,s,!0,!0),!0,B.np),B.oA,B.oA,new A.rP(16,s,new A.vm(!0,new A.aLO(),22,s,!0,!0),!0,B.np)))
-return A.dq(new A.b0(B.bW,A.aK(A.b([B.a53,B.aM,B.a44,B.as,A.dD(new A.D5(q,B.aj,B.c4,s,s),200,s)],t.p),B.q,B.i,B.e),s))}}
+return A.dq(new A.b0(B.bW,A.aK(A.b([B.a54,B.aM,B.a44,B.as,A.dD(new A.D5(q,B.aj,B.c4,s,s),200,s)],t.p),B.q,B.i,B.e),s))}}
 A.aLO.prototype={
-$2(a,b){switch(B.d.eA(a)){case 0:return B.a5m
-case 1:return B.a5I
+$2(a,b){switch(B.d.eA(a)){case 0:return B.a5n
+case 1:return B.a5J
 case 2:return B.a3W
 default:return B.jQ}},
 $S:244}
@@ -102802,7 +102802,7 @@ $S:55}
 A.ay6.prototype={
 $2(a,b){var s=null,r=B.O.b9(0.1),q=A.aB(12),p=A.cn(B.O.b9(0.3),1),o=t.p
 o=A.b([B.N2,B.bO,A.cb(A.aK(A.b([B.a4f,B.aM,A.a3(J.bX(a),s,s,s,s,B.ZW,s,s)],o),B.q,B.i,B.e),1)],o)
-if(!this.a.a)o.push(A.k3(B.a55,new A.ay2(this.b),s))
+if(!this.a.a)o.push(A.k3(B.a56,new A.ay2(this.b),s))
 return A.aJ(s,A.au(o,B.m,B.i,B.e,0,s),B.l,s,s,new A.aO(r,s,p,q,s,s,B.r),s,s,s,s,B.bj,s,s,s)},
 $S:651}
 A.ay2.prototype={
@@ -102848,7 +102848,7 @@ q=A.au(A.b([q,B.aY,A.cb(A.aJ(n,A.aK(A.b([B.a49,B.aM,A.a3(""+B.d.aG((o==null?3e4:
 l=l.r
 if(l.length===0)l=A.b([B.H2],i)
 else{p=A.Y(l).h("Z<1,kO>")
-l=A.X(new A.Z(l,new A.aLL(),p),p.h("al.E"))}return A.dq(new A.b0(B.bW,A.aK(A.b([g,B.aS,h,B.aS,r,B.bC,s,B.cn,q,B.ea,B.a3K,B.bC,A.ms(B.bE,l,6,6),B.as,A.dD(A.i_(B.qO,B.a59,new A.aLM(this,j,a,b),n),n,1/0)],i),B.q,B.i,B.e),n))},
+l=A.X(new A.Z(l,new A.aLL(),p),p.h("al.E"))}return A.dq(new A.b0(B.bW,A.aK(A.b([g,B.aS,h,B.aS,r,B.bC,s,B.cn,q,B.ea,B.a3K,B.bC,A.ms(B.bE,l,6,6),B.as,A.dD(A.i_(B.qO,B.a5a,new A.aLM(this,j,a,b),n),n,1/0)],i),B.q,B.i,B.e),n))},
 asf(a,b,c){A.ly(!0,new A.aLK(c),a,t.z)}}
 A.aLL.prototype={
 $1(a){var s=null,r=A.aB(6),q=A.cn(B.aq,1)
@@ -102903,7 +102903,7 @@ q.c.a8(p).f.f6(A.vp(null,null,null,B.am,null,B.I,null,A.a3("\u2705 Quotas update
 return A.M($async$Bo,r)},
 K(a){var s,r,q,p,o,n,m,l,k,j=this,i=null,h=A.aB(16),g=t.p,f=A.au(A.b([A.aK(A.b([A.a3("Tune Tier Quotas: "+j.a.d.a,i,i,i,i,B.ed,i,i),B.eb,A.a3("Adjust limits for all users bound to this tier",i,i,i,i,A.T(a).ok.Q,i,i)],g),B.q,B.i,B.e),A.hd(i,i,B.Mi,i,i,new A.aDe(a),i,i,i)],g),B.m,B.a3,B.e,0,i),e=j.w
 e===$&&A.a()
-e=A.au(A.b([B.a4L,A.a3(""+B.d.aG(e)+" \u20ac / month",i,i,i,i,B.a1C,i,i)],g),B.m,B.a3,B.e,0,i)
+e=A.au(A.b([B.a4M,A.a3(""+B.d.aG(e)+" \u20ac / month",i,i,i,i,B.a1C,i,i)],g),B.m,B.a3,B.e,0,i)
 s=A.aSn(B.B,99,500,5,new A.aDf(j),j.w)
 r=j.x
 r===$&&A.a()
@@ -102919,7 +102919,7 @@ n=A.ms(B.bE,n,0,8)
 m=A.ib(B.du,new A.aDj(a),i)
 l=j.Q
 k=l?i:j.gar8()
-return A.xJ(i,B.aO,A.aJ(i,A.aK(A.b([f,B.as,e,s,B.c0,r,q,B.c0,p,o,B.ea,B.a66,B.bC,n,B.cM,A.au(A.b([m,B.aY,A.k3(l?B.ec:B.a6a,k,i)],g),B.m,B.cI,B.e,0,i)],g),B.q,B.i,B.aF),B.l,i,i,i,i,i,i,i,B.eE,i,i,520),i,i,i,i,B.f4,i,new A.cV(h,B.bV),i)}}
+return A.xJ(i,B.aO,A.aJ(i,A.aK(A.b([f,B.as,e,s,B.c0,r,q,B.c0,p,o,B.ea,B.a67,B.bC,n,B.cM,A.au(A.b([m,B.aY,A.k3(l?B.ec:B.a6a,k,i)],g),B.m,B.cI,B.e,0,i)],g),B.q,B.i,B.aF),B.l,i,i,i,i,i,i,i,B.eE,i,i,520),i,i,i,i,B.f4,i,new A.cV(h,B.bV),i)}}
 A.aD7.prototype={
 $0(){return this.a.Q=!0},
 $S:0}
@@ -103484,7 +103484,7 @@ this.adf()},
 K(a){var s,r,q,p,o=this,n=null,m=o.geo(),l=m.eB($.mN(),t.Ul),k=m.eB($.mM(),t.LE),j=m.eB($.j5(),t.FB)
 m=A.T(a).ok.e
 s=t.p
-m=A.au(A.b([A.aK(A.b([A.a3("Tenancy, Groups & User Directory",n,n,n,n,m==null?n:m.tV(B.b9,B.A),n,n),B.bP,A.a3("Manage B2B corporate client groups with pooled quotas, onboard solo developers, and audit dual-level consumption.",n,n,n,n,A.T(a).ok.z,n,n)],s),B.q,B.i,B.e),A.au(A.b([A.i_(B.mp,B.a4Y,new A.aN5(o),n),B.aY,A.i_(B.qQ,B.a5Q,new A.aN6(o,j,a),n),B.aY,A.tr(B.Mk,B.a5X,new A.aN7(o,j,a),n)],s),B.m,B.i,B.e,0,n)],s),B.q,B.a3,B.e,0,n)
+m=A.au(A.b([A.aK(A.b([A.a3("Tenancy, Groups & User Directory",n,n,n,n,m==null?n:m.tV(B.b9,B.A),n,n),B.bP,A.a3("Manage B2B corporate client groups with pooled quotas, onboard solo developers, and audit dual-level consumption.",n,n,n,n,A.T(a).ok.z,n,n)],s),B.q,B.i,B.e),A.au(A.b([A.i_(B.mp,B.a4Z,new A.aN5(o),n),B.aY,A.i_(B.qQ,B.a5R,new A.aN6(o,j,a),n),B.aY,A.tr(B.Mk,B.a5Y,new A.aN7(o,j,a),n)],s),B.m,B.i,B.e,0,n)],s),B.q,B.a3,B.e,0,n)
 r=A.aB(10)
 q=A.cn(B.aq,1)
 p=o.w
@@ -103505,12 +103505,12 @@ r=o==null?"Not specified":o
 q=a.f
 if(q==null)q=120
 o=a.r
-s=A.au(A.b([A.au(A.b([s,B.bO,A.aK(A.b([p,B.aM,A.a3("Contact: "+r+" \xb7 Pooled Throughput: "+q+" RPM / "+B.j.e6(o==null?6e4:o,1000)+"k TPM",j,j,j,j,B.cQ,j,j)],n),B.q,B.i,B.e)],n),B.m,B.i,B.e,0,j),A.au(A.b([A.i_(B.MB,B.a5U,new A.aMA(k,c,a,b),j),B.ax,A.i_(B.qS,B.a52,new A.aMB(k,c,a),j),B.ax,A.hd(j,j,B.MJ,j,j,new A.aMC(k,c,a),j,j,"Delete Client Group")],n),B.m,B.i,B.e,0,j)],n),B.m,B.a3,B.e,0,j)
+s=A.au(A.b([A.au(A.b([s,B.bO,A.aK(A.b([p,B.aM,A.a3("Contact: "+r+" \xb7 Pooled Throughput: "+q+" RPM / "+B.j.e6(o==null?6e4:o,1000)+"k TPM",j,j,j,j,B.cQ,j,j)],n),B.q,B.i,B.e)],n),B.m,B.i,B.e,0,j),A.au(A.b([A.i_(B.MB,B.a5V,new A.aMA(k,c,a,b),j),B.ax,A.i_(B.qS,B.a53,new A.aMB(k,c,a),j),B.ax,A.hd(j,j,B.MJ,j,j,new A.aMC(k,c,a),j,j,"Delete Client Group")],n),B.m,B.i,B.e,0,j)],n),B.m,B.a3,B.e,0,j)
 r=A.aB(8)
 q=A.cn(B.aq,1)
 p=B.d.U(a.glB(),1)
 o=i>0.9
-p=A.au(A.b([B.a4X,B.ax,A.a3("("+p+"% used)",j,j,j,j,A.dE(j,j,o?B.O:B.T,j,j,j,j,j,j,j,j,11,j,j,B.A,j,j,!0,j,j,j,j,j,j,j,j),j,j)],n),B.m,B.i,B.e,0,j)
+p=A.au(A.b([B.a4Y,B.ax,A.a3("("+p+"% used)",j,j,j,j,A.dE(j,j,o?B.O:B.T,j,j,j,j,j,j,j,j,11,j,j,B.A,j,j,!0,j,j,j,j,j,j,j,j),j,j)],n),B.m,B.i,B.e,0,j)
 m=B.d.U(a.x,2)
 l=h>0?B.d.U(h,2)+" \u20ac":"Unlimited"
 l=A.au(A.b([p,A.a3(m+" \u20ac / "+l,j,j,j,j,B.co,j,j)],n),B.m,B.a3,B.e,0,j)
@@ -103732,7 +103732,7 @@ $2(a,b){return this.a.Hx("Error loading client groups: "+A.k(a))},
 $S:152}
 A.aMH.prototype={
 $1(a){var s,r,q,p,o,n,m,l,k,j,i=this,h=null,g=J.as(a)
-if(g.gab(a))return A.dq(new A.b0(B.lu,A.e7(A.aK(A.b([B.LY,B.aS,B.a5F,B.bC,B.a46,B.cn,A.tr(B.Mu,B.a3z,new A.aME(i.a,i.b),h)],t.p),B.m,B.i,B.e),h,h),h))
+if(g.gab(a))return A.dq(new A.b0(B.lu,A.e7(A.aK(A.b([B.LY,B.aS,B.a5G,B.bC,B.a46,B.cn,A.tr(B.Mu,B.a3z,new A.aME(i.a,i.b),h)],t.p),B.m,B.i,B.e),h,h),h))
 for(s=g.gag(a),r=0,q=0,p=0;s.t();){o=s.gL(s)
 n=o.d
 r+=n==null?0:n
@@ -103824,7 +103824,7 @@ $2(a,b){return this.a.Hx("Error loading solo users: "+A.k(a))},
 $S:152}
 A.aMO.prototype={
 $1(a){var s=null,r=J.rH(a,new A.aMM()),q=A.X(r,r.$ti.h("q.E"))
-if(q.length===0)return A.dq(new A.b0(B.lu,A.e7(A.aK(A.b([B.MK,B.aS,B.a63,B.bC,B.a4g],t.p),B.m,B.i,B.e),s,s),s))
+if(q.length===0)return A.dq(new A.b0(B.lu,A.e7(A.aK(A.b([B.MK,B.aS,B.a64,B.bC,B.a4g],t.p),B.m,B.i,B.e),s,s),s))
 r=A.Y(q).h("Z<1,h9>")
 r=A.X(new A.Z(q,new A.aMN(this.a,this.b),r),r.h("al.E"))
 return A.dq(new A.b0(B.c5,A.Rn(24,B.Ps,16,r),s))},
@@ -104033,7 +104033,7 @@ return A.dQ(s,!1).nd(!0)},
 $S:0}
 A.aMW.prototype={
 $1(a){var s=null,r=A.a3('Are you sure you want to delete user "'+this.b.a+'"? This will invalidate all their virtual keys.',s,s,s,s,s,s,s),q=this.a
-return A.aQz(A.b([A.ib(B.du,new A.aMU(q),s),A.k3(B.a4e,new A.aMV(q),A.xT(s,s,B.O,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s))],t.p),B.aO,r,B.a4U)},
+return A.aQz(A.b([A.ib(B.du,new A.aMU(q),s),A.k3(B.a4e,new A.aMV(q),A.xT(s,s,B.O,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s))],t.p),B.aO,r,B.a4V)},
 $S:137}
 A.aMU.prototype={
 $0(){var s=this.a.c
@@ -104082,7 +104082,7 @@ A.dQ(n,!1).dd()
 p.c.a8(t.J).f.f6(A.vp(null,null,null,B.am,null,B.I,null,A.a3('Client Group "'+j+'" created successfully!',null,null,null,null,null,null,null),null,B.aP,null,null,null,null,null,null,null,null,null,null))}}case 1:return A.L(q,r)}})
 return A.M($async$i3,r)},
 K(a){var s=this,r=null,q=A.aB(16),p=t.p,o=A.au(A.b([A.aJ(r,B.Mo,B.l,r,r,new A.aO(B.T.b9(0.15),r,r,A.aB(8),r,r,B.r),r,r,r,r,B.c5,r,r,r),B.aY,B.Il],p),B.m,B.i,B.e,0,r),n=A.fU(s.w,B.Nu,r,!1,r,r),m=A.fU(s.x,B.NB,r,!1,r,r),l=A.fU(s.z,B.Nv,r,!1,r,r),k=A.au(A.b([A.cb(A.RZ(B.NG,B.Y,s.Q,B.QP,new A.aBJ(s),t.N),1),B.ds,A.cb(A.fU(s.y,B.Nz,B.hz,!1,r,r),1)],p),B.m,B.i,B.e,0,r),j=A.ib(B.du,new A.aBK(a),r),i=s.as,h=i?r:s.gwR()
-return A.xJ(r,B.aO,A.aJ(r,A.aK(A.b([o,B.cn,n,B.c0,m,B.c0,l,B.c0,k,B.as,A.au(A.b([j,B.aY,A.k3(i?B.ec:B.a5T,h,r)],p),B.m,B.cI,B.e,0,r)],p),B.q,B.i,B.aF),B.l,r,r,r,r,r,r,r,B.eE,r,r,500),r,r,r,r,B.f4,r,new A.cV(q,B.bV),r)}}
+return A.xJ(r,B.aO,A.aJ(r,A.aK(A.b([o,B.cn,n,B.c0,m,B.c0,l,B.c0,k,B.as,A.au(A.b([j,B.aY,A.k3(i?B.ec:B.a5U,h,r)],p),B.m,B.cI,B.e,0,r)],p),B.q,B.i,B.aF),B.l,r,r,r,r,r,r,r,B.eE,r,r,500),r,r,r,r,B.f4,r,new A.cV(q,B.bV),r)}}
 A.aBG.prototype={
 $0(){return this.a.as=!0},
 $S:0}
@@ -104270,7 +104270,7 @@ l=l==null?o:B.d.U(l,2)
 if(l==null)l="unlimited"
 s=t.p
 l=A.b([k,B.aM,A.a3("Enrolled members share the pooled monthly budget of "+l+" \u20ac.",o,o,o,o,A.T(a).ok.Q,o,o),B.cn],s)
-if(n.length===0)l.push(A.aJ(o,B.a5b,B.l,o,o,new A.aO(B.Y,o,o,A.aB(8),o,o,B.r),o,o,o,o,B.dM,o,o,o))
+if(n.length===0)l.push(A.aJ(o,B.a5c,B.l,o,o,new A.aO(B.Y,o,o,A.aB(8),o,o,B.r),o,o,o,o,B.dM,o,o,o))
 else{k=p.w
 r=A.Y(n).h("Z<1,dn<l>>")
 r=A.X(new A.Z(n,new A.azu(),r),r.h("al.E"))
@@ -104323,7 +104323,7 @@ s=A.cn(B.aq,1)
 q=A.aJ(r,A.au(A.b([A.cb(A.a3(o,r,r,r,r,B.D7,r,r),1),A.hd(r,r,B.qT,r,r,new A.aF8(this,a),r,r,r)],l),B.m,B.i,B.e,0,r),B.l,r,r,new A.aO(B.Y,r,s,q,r,r,B.r),r,r,r,r,B.lt,r,r,r)
 s=A.aB(8)
 o=A.cn(B.aq,1)
-return A.xJ(r,B.aO,A.aJ(r,A.aK(A.b([p,B.cn,B.a3q,B.bP,q,B.ea,B.a51,B.bP,A.aJ(r,A.o4(A.a3(n,r,r,r,r,B.a_4,r,r),r,B.a9,r,r,B.ac),B.l,r,r,new A.aO(B.fA,r,o,s,r,r,B.r),r,140,r,r,B.d0,r,r,r),B.cn,A.au(A.b([A.i_(B.mq,B.a5t,new A.aF9(n,a),r),B.aY,A.k3(B.a5M,new A.aFa(a),r)],l),B.m,B.cI,B.e,0,r)],l),B.q,B.i,B.aF),B.l,r,r,r,r,r,r,r,B.eE,r,r,600),r,r,r,r,B.f4,r,new A.cV(m,B.bV),r)}}
+return A.xJ(r,B.aO,A.aJ(r,A.aK(A.b([p,B.cn,B.a3q,B.bP,q,B.ea,B.a52,B.bP,A.aJ(r,A.o4(A.a3(n,r,r,r,r,B.a_4,r,r),r,B.a9,r,r,B.ac),B.l,r,r,new A.aO(B.fA,r,o,s,r,r,B.r),r,140,r,r,B.d0,r,r,r),B.cn,A.au(A.b([A.i_(B.mq,B.a5u,new A.aF9(n,a),r),B.aY,A.k3(B.a5N,new A.aFa(a),r)],l),B.m,B.cI,B.e,0,r)],l),B.q,B.i,B.aF),B.l,r,r,r,r,r,r,r,B.eE,r,r,600),r,r,r,r,B.f4,r,new A.cV(m,B.bV),r)}}
 A.aF8.prototype={
 $0(){A.lK(new A.jZ(this.a.c.a))
 this.b.a8(t.J).f.f6(B.Yq)},
@@ -104966,7 +104966,7 @@ A.a5e.prototype={}
 A.xZ.prototype={
 K(a){var s=null,r=this.c
 r=r==null?s:"GoException: "+r.a
-return A.Ws(!0,A.e7(A.aK(A.b([B.a4W,B.aS,A.a3(r==null?"page not found":r,s,s,s,s,s,s,s),B.aS,new A.JU(new A.ahj(a),B.a43,s)],t.p),B.m,B.bm,B.e),s,s),!0)}}
+return A.Ws(!0,A.e7(A.aK(A.b([B.a4X,B.aS,A.a3(r==null?"page not found":r,s,s,s,s,s,s,s),B.aS,new A.JU(new A.ahj(a),B.a43,s)],t.p),B.m,B.bm,B.e),s,s),!0)}}
 A.ahj.prototype={
 $0(){return A.eS(this.a).eD(0,"/",null)},
 $S:0}
@@ -105014,10 +105014,10 @@ return A.bI(s,s,this.$ti.h("hN<1>").a(this.c).x,!1,s,s,!1,s,!0,s,s,s,s,s,s,s,s,s
 ob(a,b,c,d){return this.$ti.h("hN<1>").a(this.c).CW.$4(a,b,c,d)}}
 A.us.prototype={}
 A.yE.prototype={
-K(a){var s=null,r=A.PC(s,!0,s,s,s,s,B.a60),q=this.c
+K(a){var s=null,r=A.PC(s,!0,s,s,s,s,B.a61),q=this.c
 q=q==null?s:"GoException: "+q.a
 if(q==null)q="page not found"
-return A.Hy(r,s,A.e7(A.aK(A.b([new A.HO(q,s),A.ib(B.a4O,new A.anG(a),s)],t.p),B.m,B.bm,B.e),s,s))}}
+return A.Hy(r,s,A.e7(A.aK(A.b([new A.HO(q,s),A.ib(B.a4P,new A.anG(a),s)],t.p),B.m,B.bm,B.e),s,s))}}
 A.anG.prototype={
 $0(){return A.eS(this.a).eD(0,"/",null)},
 $S:0}
@@ -112334,13 +112334,13 @@ B.GW=new A.h6(B.a2,null,null,B.Uz,null)
 B.KB=new A.aj(60,60,60,60)
 B.UB=new A.b0(B.KB,B.kS,null)
 B.hZ=new A.h6(B.a2,null,null,B.UB,null)
-B.a5c=new A.U("No nodes registered.",null,null,null,null,null,null,null,null,null)
-B.UA=new A.b0(B.bW,B.a5c,null)
+B.a5d=new A.U("No nodes registered.",null,null,null,null,null,null,null,null,null)
+B.UA=new A.b0(B.bW,B.a5d,null)
 B.GX=new A.h6(B.a2,null,null,B.UA,null)
 B.a41=new A.U("No users recorded.",null,null,null,null,null,null,null,null,null)
 B.GY=new A.h6(B.a2,null,null,B.a41,null)
-B.a5D=new A.U("No tiers provisioned yet.",null,null,null,null,null,null,null,null,null)
-B.GZ=new A.h6(B.a2,null,null,B.a5D,null)
+B.a5E=new A.U("No tiers provisioned yet.",null,null,null,null,null,null,null,null,null)
+B.GZ=new A.h6(B.a2,null,null,B.a5E,null)
 B.H_=new A.t0(null)
 B.H0=new A.xd(null,null,null,null,null,null,null,null,null)
 B.ev=new A.xe(0,"none")
@@ -112349,7 +112349,7 @@ B.i_=new A.xe(2,"isFalse")
 B.ew=new A.xe(3,"mixed")
 B.H1=new A.xg(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
 B.nS=new A.o(!0,null,null,null,null,null,11,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.a5h=new A.U("All Models Allowed",null,B.nS,null,null,null,null,null,null,null)
+B.a5i=new A.U("All Models Allowed",null,B.nS,null,null,null,null,null,null,null)
 B.l=new A.xq(0,"none")
 B.Y=new A.J(1,0.12156862745098039,0.1607843137254902,0.21568627450980393,B.h)
 B.H2=new A.Qt(null)
@@ -113163,11 +113163,11 @@ B.r9=new A.U_(4,"multi")
 B.Oi=new A.U_(5,"multiCompatible")
 B.Oj=new A.FI(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
 B.jV=new A.o(!0,B.b9,null,null,null,null,null,B.A,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.a50=new A.U("Sub-Millisecond Policy Enforcement Active",null,B.jV,null,null,null,null,null,null,null)
+B.a51=new A.U("Sub-Millisecond Policy Enforcement Active",null,B.jV,null,null,null,null,null,null,null)
 B.aM=new A.cd(null,4,null,null)
 B.fe=new A.o(!0,B.aL,null,null,null,null,13,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.a5W=new A.U("When an IDE client queries a model outside their assigned tier whitelist, LiteLLM rejects the call with HTTP 403 Forbidden in <10ms without routing to GPU clusters.",null,B.fe,null,null,null,null,null,null,null)
-B.Om=s([B.a50,B.aM,B.a5W],t.p)
+B.a5X=new A.U("When an IDE client queries a model outside their assigned tier whitelist, LiteLLM rejects the call with HTTP 403 Forbidden in <10ms without routing to GPU clusters.",null,B.fe,null,null,null,null,null,null,null)
+B.Om=s([B.a51,B.aM,B.a5X],t.p)
 B.On=s([110,117,108,108],t.t)
 B.Q9=s([1373.2198709594231,-1100.4251190754821,-7.278681089101213],t.n)
 B.PN=s([-271.815969077903,559.6580465940733,-32.46047482791194],t.n)
@@ -113205,14 +113205,14 @@ B.rb=s([0,4,12,1,5,13,3,7,15],t.t)
 B.aU=new A.o(!0,null,null,null,null,null,11,B.A,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
 B.a6c=new A.U("DEVELOPER",null,B.aU,null,null,null,null,null,null,null)
 B.IJ=new A.ek(B.a6c)
-B.a58=new A.U("TIER",null,B.aU,null,null,null,null,null,null,null)
-B.pI=new A.ek(B.a58)
+B.a59=new A.U("TIER",null,B.aU,null,null,null,null,null,null,null)
+B.pI=new A.ek(B.a59)
 B.a4m=new A.U("CONSUMED / CAP",null,B.aU,null,null,null,null,null,null,null)
 B.pH=new A.ek(B.a4m)
-B.a4P=new A.U("UTILIZATION",null,B.aU,null,null,null,null,null,null,null)
-B.pF=new A.ek(B.a4P)
-B.a4S=new A.U("STATUS",null,B.aU,null,null,null,null,null,null,null)
-B.pG=new A.ek(B.a4S)
+B.a4Q=new A.U("UTILIZATION",null,B.aU,null,null,null,null,null,null,null)
+B.pF=new A.ek(B.a4Q)
+B.a4T=new A.U("STATUS",null,B.aU,null,null,null,null,null,null,null)
+B.pG=new A.ek(B.a4T)
 B.Pa=s([B.IJ,B.pI,B.pH,B.pF,B.pG],t.UR)
 B.a8l=new A.iY(0,1)
 B.a8q=new A.iY(0.5,1)
@@ -113253,19 +113253,19 @@ B.MG=new A.aQ(B.iS,18,B.T,null,null)
 B.Pl=s([B.a4s,B.MG],t.p)
 B.a4A=new A.U("CLIENT ORGANIZATION",null,B.aU,null,null,null,null,null,null,null)
 B.IQ=new A.ek(B.a4A)
-B.a5o=new A.U("SEATS",null,B.aU,null,null,null,null,null,null,null)
-B.IO=new A.ek(B.a5o)
+B.a5p=new A.U("SEATS",null,B.aU,null,null,null,null,null,null,null)
+B.IO=new A.ek(B.a5p)
 B.Pq=s([B.IQ,B.pI,B.IO,B.pH,B.pF,B.pG],t.UR)
-B.a65=new A.U("DEVELOPER IDENTIFIER",null,B.aU,null,null,null,null,null,null,null)
-B.IU=new A.ek(B.a65)
+B.a66=new A.U("DEVELOPER IDENTIFIER",null,B.aU,null,null,null,null,null,null,null)
+B.IU=new A.ek(B.a66)
 B.a4D=new A.U("SUBSCRIPTION TIER",null,B.aU,null,null,null,null,null,null,null)
 B.IT=new A.ek(B.a4D)
 B.a4a=new A.U("PERSONAL MONTHLY SPEND",null,B.aU,null,null,null,null,null,null,null)
 B.IS=new A.ek(B.a4a)
-B.a4K=new A.U("ACTIVE KEYS",null,B.aU,null,null,null,null,null,null,null)
-B.II=new A.ek(B.a4K)
-B.a4M=new A.U("ACTIONS",null,B.aU,null,null,null,null,null,null,null)
-B.lf=new A.ek(B.a4M)
+B.a4L=new A.U("ACTIVE KEYS",null,B.aU,null,null,null,null,null,null,null)
+B.II=new A.ek(B.a4L)
+B.a4N=new A.U("ACTIONS",null,B.aU,null,null,null,null,null,null,null)
+B.lf=new A.ek(B.a4N)
 B.Ps=s([B.IU,B.IT,B.IS,B.II,B.lf],t.UR)
 B.bT=new A.mv(0,"label")
 B.bu=new A.mv(1,"avatar")
@@ -113286,10 +113286,10 @@ B.Ms=new A.aQ(B.LR,18,null,null,null)
 B.Z1=new A.vu("Billing & Rollup",B.Ms,null)
 B.Px=s([B.Z2,B.Z4,B.Z3,B.Z1],t.p)
 B.a2d=new A.o(!0,null,null,null,null,null,20,B.A,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.a5Y=new A.U("Developer Quickstart Guide",null,B.a2d,null,null,null,null,null,null,null)
+B.a5Z=new A.U("Developer Quickstart Guide",null,B.a2d,null,null,null,null,null,null,null)
 B.nT=new A.o(!0,B.ar,null,null,null,null,13,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.a5u=new A.U("Connect your IDE to Sarrera in 30 seconds",null,B.nT,null,null,null,null,null,null,null)
-B.PB=s([B.a5Y,B.a5u],t.p)
+B.a5v=new A.U("Connect your IDE to Sarrera in 30 seconds",null,B.nT,null,null,null,null,null,null,null)
+B.PB=s([B.a5Z,B.a5v],t.p)
 B.bc=new A.fW(0,"icon")
 B.bv=new A.fW(1,"input")
 B.aA=new A.fW(2,"label")
@@ -113302,12 +113302,12 @@ B.cs=new A.fW(8,"helperError")
 B.ct=new A.fW(9,"counter")
 B.dw=new A.fW(10,"container")
 B.PD=s([B.bc,B.bv,B.aA,B.bF,B.bG,B.bH,B.au,B.bh,B.cs,B.ct,B.dw],A.aq("x<fW>"))
-B.a5L=new A.U("MEMBER",null,B.aU,null,null,null,null,null,null,null)
-B.IV=new A.ek(B.a5L)
+B.a5M=new A.U("MEMBER",null,B.aU,null,null,null,null,null,null,null)
+B.IV=new A.ek(B.a5M)
 B.a4j=new A.U("ROLE",null,B.aU,null,null,null,null,null,null,null)
 B.IL=new A.ek(B.a4j)
-B.a64=new A.U("INDIVIDUAL SPEND",null,B.aU,null,null,null,null,null,null,null)
-B.IW=new A.ek(B.a64)
+B.a65=new A.U("INDIVIDUAL SPEND",null,B.aU,null,null,null,null,null,null,null)
+B.IW=new A.ek(B.a65)
 B.PE=s([B.IV,B.IL,B.IW,B.lf],t.UR)
 B.Rg=new A.u8("en",null,"US")
 B.rd=s([B.Rg],t.ss)
@@ -113329,14 +113329,14 @@ B.PP=s([B.F2],t.E)
 B.Md=new A.aQ(B.mo,14,B.T,null,null)
 B.ax=new A.cd(8,null,null,null)
 B.a_G=new A.o(!0,B.ey,null,null,null,null,12,B.A,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.a67=new A.U("Air-Gapped Privacy \xb7 Multi-Tier Quotas \xb7 Zero GPU Saturation",null,B.a_G,null,null,null,null,null,null,null)
-B.PS=s([B.Md,B.ax,B.a67],t.p)
+B.a68=new A.U("Air-Gapped Privacy \xb7 Multi-Tier Quotas \xb7 Zero GPU Saturation",null,B.a_G,null,null,null,null,null,null,null)
+B.PS=s([B.Md,B.ax,B.a68],t.p)
 B.PT=s(["basic-coder","premium-coder","premium-reasoning"],t.s)
 B.CH=new A.Io(0,"left")
 B.CI=new A.Io(1,"right")
 B.PU=s([B.CH,B.CI],A.aq("x<Io>"))
-B.a5_=new A.U("All Accounts",null,null,null,null,null,null,null,null,null)
-B.JH=new A.dn("all",B.a5_,B.aB,null,t.R)
+B.a50=new A.U("All Accounts",null,null,null,null,null,null,null,null,null)
+B.JH=new A.dn("all",B.a50,B.aB,null,t.R)
 B.a3V=new A.U("\ud83d\udc64 Solo Developers",null,null,null,null,null,null,null,null,null)
 B.Jw=new A.dn("solo",B.a3V,B.aB,null,t.R)
 B.a3N=new A.U("\ud83c\udfe2 Group Members",null,null,null,null,null,null,null,null,null)
@@ -113361,8 +113361,8 @@ B.Dz=new A.Ax(2,"bottomLeft")
 B.a86=new A.ot(B.Dy,B.Dz)
 B.a87=new A.ot(B.Dz,B.Dy)
 B.Q6=s([B.a85,B.a88,B.a86,B.a87],A.aq("x<ot>"))
-B.a4N=new A.U("Basic Tier (15 \u20ac)",null,null,null,null,null,null,null,null,null)
-B.JB=new A.dn("tier-basic",B.a4N,B.aB,null,t.R)
+B.a4O=new A.U("Basic Tier (15 \u20ac)",null,null,null,null,null,null,null,null,null)
+B.JB=new A.dn("tier-basic",B.a4O,B.aB,null,t.R)
 B.a4b=new A.U("Standard Tier (50 \u20ac)",null,null,null,null,null,null,null,null,null)
 B.JF=new A.dn("tier-standard",B.a4b,B.aB,null,t.R)
 B.a4h=new A.U("Premium Tier (100 \u20ac)",null,null,null,null,null,null,null,null,null)
@@ -113417,15 +113417,15 @@ B.QK=s([B.a48,B.Mf],t.p)
 B.je=new A.h(0,2)
 B.F0=new A.bT(0.75,B.a1,B.pk,B.je,1.5)
 B.QN=s([B.F0],t.E)
-B.a5k=new A.U("Basic (7B)",null,null,null,null,null,null,null,null,null)
-B.Jy=new A.dn("tier-basic",B.a5k,B.aB,null,t.R)
-B.a4T=new A.U("Standard (7B + 32B)",null,null,null,null,null,null,null,null,null)
-B.JD=new A.dn("tier-standard",B.a4T,B.aB,null,t.R)
-B.a5a=new A.U("Premium (+ R1 Reasoning)",null,null,null,null,null,null,null,null,null)
-B.Jz=new A.dn("tier-premium",B.a5a,B.aB,null,t.R)
+B.a5l=new A.U("Basic (7B)",null,null,null,null,null,null,null,null,null)
+B.Jy=new A.dn("tier-basic",B.a5l,B.aB,null,t.R)
+B.a4U=new A.U("Standard (7B + 32B)",null,null,null,null,null,null,null,null,null)
+B.JD=new A.dn("tier-standard",B.a4U,B.aB,null,t.R)
+B.a5b=new A.U("Premium (+ R1 Reasoning)",null,null,null,null,null,null,null,null,null)
+B.Jz=new A.dn("tier-premium",B.a5b,B.aB,null,t.R)
 B.QP=s([B.Jy,B.JD,B.Jz],t.FG)
-B.a5V=new A.U("Member (User)",null,null,null,null,null,null,null,null,null)
-B.JE=new A.dn("user",B.a5V,B.aB,null,t.R)
+B.a5W=new A.U("Member (User)",null,null,null,null,null,null,null,null,null)
+B.JE=new A.dn("user",B.a5W,B.aB,null,t.R)
 B.a3B=new A.U("Group Admin",null,null,null,null,null,null,null,null,null)
 B.JJ=new A.dn("admin",B.a3B,B.aB,null,t.R)
 B.QU=s([B.JE,B.JJ],t.FG)
@@ -113433,14 +113433,14 @@ B.h1=s([B.dx,B.cW,B.hQ,B.hR,B.kI],t.QP)
 B.LZ=new A.aQ(B.qB,12,B.am,null,null)
 B.f9=new A.cd(6,null,null,null)
 B.a05=new A.o(!0,B.am,null,null,null,null,11,B.A,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.a4J=new A.U("HTTPS \xb7 Caddy Reverse Proxy Active",null,B.a05,null,null,null,null,null,null,null)
-B.QV=s([B.LZ,B.f9,B.a4J],t.p)
+B.a4K=new A.U("HTTPS \xb7 Caddy Reverse Proxy Active",null,B.a05,null,null,null,null,null,null,null)
+B.QV=s([B.LZ,B.f9,B.a4K],t.p)
 B.jY=new A.o(!0,null,null,null,null,null,15,B.A,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.a5A=new A.U("Personalized VS Code Continue Config",null,B.jY,null,null,null,null,null,null,null)
+B.a5B=new A.U("Personalized VS Code Continue Config",null,B.jY,null,null,null,null,null,null,null)
 B.eb=new A.cd(null,2,null,null)
 B.cp=new A.o(!0,B.ar,null,null,null,null,12,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.a5N=new A.U("Ready to paste into ~/.continue/config.json with your key prefilled",null,B.cp,null,null,null,null,null,null,null)
-B.QW=s([B.a5A,B.eb,B.a5N],t.p)
+B.a5O=new A.U("Ready to paste into ~/.continue/config.json with your key prefilled",null,B.cp,null,null,null,null,null,null,null)
+B.QW=s([B.a5B,B.eb,B.a5O],t.p)
 B.MC=new A.aQ(B.mk,48,B.ar,null,null)
 B.bB=new A.cd(null,12,null,null)
 B.hD=new A.o(!0,B.aL,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
@@ -113463,14 +113463,14 @@ B.mW=new A.jo(7,"functionModifier")
 B.xs=new A.jo(8,"symbolModifier")
 B.rn=s([B.eQ,B.eR,B.eS,B.eT,B.mT,B.mU,B.mV,B.mW,B.xs],A.aq("x<jo>"))
 B.mD=s([!0,!1],t.HZ)
-B.a5w=new A.U("USER IDENTIFIER",null,B.aU,null,null,null,null,null,null,null)
-B.IN=new A.ek(B.a5w)
+B.a5x=new A.U("USER IDENTIFIER",null,B.aU,null,null,null,null,null,null,null)
+B.IN=new A.ek(B.a5x)
 B.a4p=new A.U("ACCOUNT CLASSIFICATION",null,B.aU,null,null,null,null,null,null,null)
 B.IM=new A.ek(B.a4p)
-B.a56=new A.U("ASSIGNED TIER",null,B.aU,null,null,null,null,null,null,null)
-B.IP=new A.ek(B.a56)
-B.a5G=new A.U("MONTHLY SPEND",null,B.aU,null,null,null,null,null,null,null)
-B.IR=new A.ek(B.a5G)
+B.a57=new A.U("ASSIGNED TIER",null,B.aU,null,null,null,null,null,null,null)
+B.IP=new A.ek(B.a57)
+B.a5H=new A.U("MONTHLY SPEND",null,B.aU,null,null,null,null,null,null,null)
+B.IR=new A.ek(B.a5H)
 B.a3C=new A.U("KEYS",null,B.aU,null,null,null,null,null,null,null)
 B.IK=new A.ek(B.a3C)
 B.R8=s([B.IN,B.IM,B.IP,B.IR,B.IK,B.lf],t.UR)
@@ -113485,8 +113485,8 @@ B.a3G=new A.U("All Tiers",null,null,null,null,null,null,null,null,null)
 B.Jv=new A.dn("all",B.a3G,B.aB,null,t.R)
 B.a4_=new A.U("Basic Tier",null,null,null,null,null,null,null,null,null)
 B.JG=new A.dn("tier-basic",B.a4_,B.aB,null,t.R)
-B.a5K=new A.U("Standard Tier",null,null,null,null,null,null,null,null,null)
-B.JI=new A.dn("tier-standard",B.a5K,B.aB,null,t.R)
+B.a5L=new A.U("Standard Tier",null,null,null,null,null,null,null,null,null)
+B.JI=new A.dn("tier-standard",B.a5L,B.aB,null,t.R)
 B.a4i=new A.U("Premium Tier",null,null,null,null,null,null,null,null,null)
 B.JC=new A.dn("tier-premium",B.a4i,B.aB,null,t.R)
 B.Re=s([B.Jv,B.JG,B.JI,B.JC],t.FG)
@@ -114936,26 +114936,26 @@ B.Yl=new A.mj(5,"timeout")
 B.Ym=new A.zG(null,null,null,null,null,null,null,null,null,null,null,null,null,null)
 B.a3m=new A.U("Please fill in Model Alias, Backend Model and Host Address",null,null,null,null,null,null,null,null,null)
 B.Yn=new A.fS(B.a3m,B.O,null,null,null,null,null,null,null,null,null,null,null,B.aP,!1,null,null,null,B.I,null)
-B.a6_=new A.U("Please select an existing Client Group",null,null,null,null,null,null,null,null,null)
-B.Yo=new A.fS(B.a6_,B.O,null,null,null,null,null,null,null,null,null,null,null,B.aP,!1,null,null,null,B.I,null)
+B.a60=new A.U("Please select an existing Client Group",null,null,null,null,null,null,null,null,null)
+B.Yo=new A.fS(B.a60,B.O,null,null,null,null,null,null,null,null,null,null,null,B.aP,!1,null,null,null,B.I,null)
 B.a47=new A.U("\u274c Failed to update tier quota in LiteLLM",null,null,null,null,null,null,null,null,null)
 B.Yp=new A.fS(B.a47,B.O,null,null,null,null,null,null,null,null,null,null,null,B.aP,!1,null,null,null,B.I,null)
 B.a3L=new A.U("Key copied to clipboard!",null,null,null,null,null,null,null,null,null)
 B.Yq=new A.fS(B.a3L,null,null,null,null,null,null,null,null,null,null,null,null,B.aP,!1,null,null,null,B.I,null)
 B.a3y=new A.U("Please enter a User ID",null,null,null,null,null,null,null,null,null)
 B.Yr=new A.fS(B.a3y,B.O,null,null,null,null,null,null,null,null,null,null,null,B.aP,!1,null,null,null,B.I,null)
-B.a61=new A.U("Caddyfile snippet copied!",null,null,null,null,null,null,null,null,null)
-B.Ys=new A.fS(B.a61,null,null,null,null,null,null,null,null,null,null,null,null,B.aP,!1,null,null,null,B.I,null)
-B.a5J=new A.U("Continue config copied to clipboard!",null,null,null,null,null,null,null,null,null)
-B.Cy=new A.fS(B.a5J,null,null,null,null,null,null,null,null,null,null,null,null,B.aP,!1,null,null,null,B.I,null)
-B.a5R=new A.U("Configuration copied to clipboard!",null,null,null,null,null,null,null,null,null)
-B.Yt=new A.fS(B.a5R,null,null,null,null,null,null,null,null,null,null,null,null,B.aP,!1,null,null,null,B.I,null)
+B.a62=new A.U("Caddyfile snippet copied!",null,null,null,null,null,null,null,null,null)
+B.Ys=new A.fS(B.a62,null,null,null,null,null,null,null,null,null,null,null,null,B.aP,!1,null,null,null,B.I,null)
+B.a5K=new A.U("Continue config copied to clipboard!",null,null,null,null,null,null,null,null,null)
+B.Cy=new A.fS(B.a5K,null,null,null,null,null,null,null,null,null,null,null,null,B.aP,!1,null,null,null,B.I,null)
+B.a5S=new A.U("Configuration copied to clipboard!",null,null,null,null,null,null,null,null,null)
+B.Yt=new A.fS(B.a5S,null,null,null,null,null,null,null,null,null,null,null,null,B.aP,!1,null,null,null,B.I,null)
 B.a3o=new A.U("Please enter both Group ID and Company Name",null,null,null,null,null,null,null,null,null)
 B.Yu=new A.fS(B.a3o,B.O,null,null,null,null,null,null,null,null,null,null,null,B.aP,!1,null,null,null,B.I,null)
 B.a4C=new A.U("API Key copied to clipboard!",null,null,null,null,null,null,null,null,null)
 B.Yv=new A.fS(B.a4C,null,null,null,null,null,null,null,null,null,null,null,null,B.aP,!1,null,null,null,B.I,null)
-B.a5S=new A.U("\u2705 Successfully authenticated as Administrator",null,null,null,null,null,null,null,null,null)
-B.Yw=new A.fS(B.a5S,B.am,null,null,null,null,null,null,null,null,null,null,null,B.aP,!1,null,null,null,B.I,null)
+B.a5T=new A.U("\u2705 Successfully authenticated as Administrator",null,null,null,null,null,null,null,null,null)
+B.Yw=new A.fS(B.a5T,B.am,null,null,null,null,null,null,null,null,null,null,null,B.aP,!1,null,null,null,B.I,null)
 B.a3I=new A.U("\u274c Error registering node",null,null,null,null,null,null,null,null,null)
 B.Yx=new A.fS(B.a3I,B.O,null,null,null,null,null,null,null,null,null,null,null,B.aP,!1,null,null,null,B.I,null)
 B.Cz=new A.Id(0,"permissive")
@@ -115409,7 +115409,7 @@ B.a_R=new A.o(!0,B.n,null,null,null,null,null,null,null,null,null,null,null,null
 B.a43=new A.U("Go to home page",null,B.a_R,null,null,null,null,null,null,null)
 B.a44=new A.U("Relative distribution of monthly token limits across tiers",null,B.cp,null,null,null,null,null,null,null)
 B.a0M=new A.o(!0,B.ey,null,null,null,null,11,B.A,null,0.05,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.a45=new A.U("SARRERA EDGE GATEWAY v1.1.0",null,B.a0M,null,null,null,null,null,null,null)
+B.a45=new A.U("SARRERA EDGE GATEWAY v1.2.0",null,B.a0M,null,null,null,null,null,null,null)
 B.a46=new A.U("Client groups allow you to sell to enterprise accounts with pooled monthly token budgets and multi-seat access.",null,B.hD,B.cP,null,null,null,null,null,null)
 B.a49=new A.U("Token Limit",null,B.bg,null,null,null,null,null,null,null)
 B.a4c=new A.U("Landing Page",null,B.cQ,null,null,null,null,null,null,null)
@@ -115438,71 +115438,71 @@ B.a4F=new A.U("No client groups exist yet. Create a client group first or regist
 B.a4G=new A.U("GitHub Repo",null,B.cp,null,null,null,null,null,null,null)
 B.a4H=new A.U("Remove Group Member",null,null,null,null,null,null,null,null,null)
 B.a4I=new A.U("Predefined hardware access tiers for engineering departments",null,B.nT,null,null,null,null,null,null,null)
-B.a4L=new A.U("Monthly Budget Cap (EUR)",null,B.jW,null,null,null,null,null,null,null)
-B.a4O=new A.U("Home",null,null,null,null,null,null,null,null,null)
-B.a4Q=new A.U("Fill Test Key (Sarah Chen / Standard)",null,B.ff,null,null,null,null,null,null,null)
-B.a4R=new A.U("Onboard Developer",null,null,null,null,null,null,null,null,null)
-B.a4U=new A.U("Delete User",null,null,null,null,null,null,null,null,null)
-B.a4V=new A.U("Registers upstream model without container restart",null,B.cp,null,null,null,null,null,null,null)
-B.a4W=new A.U("Page Not Found",null,B.fb,null,null,null,null,null,null,null)
-B.a4X=new A.U("CONSOLIDATED GROUP BUDGET CONSUMPTION",null,B.fd,null,null,null,null,null,null,null)
-B.a4Y=new A.U("Refresh",null,null,null,null,null,null,null,null,null)
+B.a4J=new A.U("v1.2.0",null,B.nR,null,null,null,null,null,null,null)
+B.a4M=new A.U("Monthly Budget Cap (EUR)",null,B.jW,null,null,null,null,null,null,null)
+B.a4P=new A.U("Home",null,null,null,null,null,null,null,null,null)
+B.a4R=new A.U("Fill Test Key (Sarah Chen / Standard)",null,B.ff,null,null,null,null,null,null,null)
+B.a4S=new A.U("Onboard Developer",null,null,null,null,null,null,null,null,null)
+B.a4V=new A.U("Delete User",null,null,null,null,null,null,null,null,null)
+B.a4W=new A.U("Registers upstream model without container restart",null,B.cp,null,null,null,null,null,null,null)
+B.a4X=new A.U("Page Not Found",null,B.fb,null,null,null,null,null,null,null)
+B.a4Y=new A.U("CONSOLIDATED GROUP BUDGET CONSUMPTION",null,B.fd,null,null,null,null,null,null,null)
+B.a4Z=new A.U("Refresh",null,null,null,null,null,null,null,null,null)
 B.a2M=new A.o(!0,null,null,null,null,null,22,B.A,null,-0.5,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.a4Z=new A.U("Authenticate with Sarrera",null,B.a2M,null,null,null,null,null,null,null)
-B.a51=new A.U("VS Code Continue Configuration (~/.continue/config.json):",null,B.jX,null,null,null,null,null,null,null)
-B.a52=new A.U("Issue Group Key",null,null,null,null,null,null,null,null,null)
-B.a53=new A.U("Budget Allocation by Subscription Tier",null,B.cq,null,null,null,null,null,null,null)
-B.a54=new A.U("GROUP POOLED BUDGET",null,B.fd,null,null,null,null,null,null,null)
-B.a55=new A.U("Sign in as Admin",null,null,null,null,null,null,null,null,null)
-B.a57=new A.U("Open Langfuse Audit Suite",null,null,null,null,null,null,null,null,null)
-B.a59=new A.U("Adjust Quotas & Models",null,null,null,null,null,null,null,null,null)
-B.a5b=new A.U("All existing registered users are already members of this group.",null,null,null,null,null,null,null,null,null)
-B.a5d=new A.U("Copy Config",null,B.ff,null,null,null,null,null,null,null)
+B.a5_=new A.U("Authenticate with Sarrera",null,B.a2M,null,null,null,null,null,null,null)
+B.a52=new A.U("VS Code Continue Configuration (~/.continue/config.json):",null,B.jX,null,null,null,null,null,null,null)
+B.a53=new A.U("Issue Group Key",null,null,null,null,null,null,null,null,null)
+B.a54=new A.U("Budget Allocation by Subscription Tier",null,B.cq,null,null,null,null,null,null,null)
+B.a55=new A.U("GROUP POOLED BUDGET",null,B.fd,null,null,null,null,null,null,null)
+B.a56=new A.U("Sign in as Admin",null,null,null,null,null,null,null,null,null)
+B.a58=new A.U("Open Langfuse Audit Suite",null,null,null,null,null,null,null,null,null)
+B.a5a=new A.U("Adjust Quotas & Models",null,null,null,null,null,null,null,null,null)
+B.a5c=new A.U("All existing registered users are already members of this group.",null,null,null,null,null,null,null,null,null)
+B.a5e=new A.U("Copy Config",null,B.ff,null,null,null,null,null,null,null)
 B.Db=new A.U("Access Developer Workspace",null,null,null,null,null,null,null,null,null)
-B.a5e=new A.U("Launch Chat WebUI",null,null,null,null,null,null,null,null,null)
+B.a5f=new A.U("Launch Chat WebUI",null,null,null,null,null,null,null,null,null)
 B.a_Q=new A.o(!0,B.n,null,null,null,null,10,B.A,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.a5f=new A.U("POPULAR",null,B.a_Q,null,null,null,null,null,null,null)
-B.a5g=new A.U("Copy Snippet",null,null,null,null,null,null,null,null,null)
-B.a5i=new A.U("Update",null,null,null,null,null,null,null,null,null)
-B.a5j=new A.U("Developer Token Consumption Leaderboard",null,B.cq,null,null,null,null,null,null,null)
-B.a5l=new A.U("LiteLLM enforces sub-millisecond throttle to protect shared GPUs",null,B.bg,null,null,null,null,null,null,null)
-B.a5m=new A.U("Basic",null,B.k_,null,null,null,null,null,null,null)
-B.a5n=new A.U("Sign In as Administrator",null,null,null,null,null,null,null,null,null)
+B.a5g=new A.U("POPULAR",null,B.a_Q,null,null,null,null,null,null,null)
+B.a5h=new A.U("Copy Snippet",null,null,null,null,null,null,null,null,null)
+B.a5j=new A.U("Update",null,null,null,null,null,null,null,null,null)
+B.a5k=new A.U("Developer Token Consumption Leaderboard",null,B.cq,null,null,null,null,null,null,null)
+B.a5m=new A.U("LiteLLM enforces sub-millisecond throttle to protect shared GPUs",null,B.bg,null,null,null,null,null,null,null)
+B.a5n=new A.U("Basic",null,B.k_,null,null,null,null,null,null,null)
+B.a5o=new A.U("Sign In as Administrator",null,null,null,null,null,null,null,null,null)
 B.a1R=new A.o(!0,null,null,null,null,null,16,B.A,null,-0.5,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.a5p=new A.U("Sarrera",null,B.a1R,null,null,null,null,null,null,null)
+B.a5q=new A.U("Sarrera",null,B.a1R,null,null,null,null,null,null,null)
 B.a1M=new A.o(!0,B.am,null,null,null,null,12,B.bX,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.a5q=new A.U("All Microservices Healthy",null,B.a1M,null,null,null,null,null,null,null)
-B.a5r=new A.U("Save Node to Cluster",null,null,null,null,null,null,null,null,null)
-B.a5s=new A.U("Sign In",null,null,null,null,null,null,null,null,null)
-B.a5t=new A.U("Copy JSON Config",null,null,null,null,null,null,null,null,null)
-B.a5v=new A.U("Changelog (SemVer)",null,B.cp,null,null,null,null,null,null,null)
-B.a5x=new A.U("Personal Quotas & Virtual Key Hub",null,B.bg,null,null,null,null,null,null,null)
-B.a5y=new A.U("Sarrera AI Platform",null,B.jY,null,null,null,null,null,null,null)
-B.a5z=new A.U("GitHub Pages Docs",null,B.cp,null,null,null,null,null,null,null)
+B.a5r=new A.U("All Microservices Healthy",null,B.a1M,null,null,null,null,null,null,null)
+B.a5s=new A.U("Save Node to Cluster",null,null,null,null,null,null,null,null,null)
+B.a5t=new A.U("Sign In",null,null,null,null,null,null,null,null,null)
+B.a5u=new A.U("Copy JSON Config",null,null,null,null,null,null,null,null,null)
+B.a5w=new A.U("Changelog (SemVer)",null,B.cp,null,null,null,null,null,null,null)
+B.a5y=new A.U("Personal Quotas & Virtual Key Hub",null,B.bg,null,null,null,null,null,null,null)
+B.a5z=new A.U("Sarrera AI Platform",null,B.jY,null,null,null,null,null,null,null)
+B.a5A=new A.U("GitHub Pages Docs",null,B.cp,null,null,null,null,null,null,null)
 B.ZF=new A.o(!0,B.aL,null,null,null,null,11,B.A,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.a5B=new A.U("Models Whitelist:",null,B.ZF,null,null,null,null,null,null,null)
-B.a5C=new A.U("Copy Config",null,null,null,null,null,null,null,null,null)
-B.a5E=new A.U("Manage Tiers & Quotas",null,null,null,null,null,null,null,null,null)
-B.a5F=new A.U("No Client Groups Provisioned Yet",null,B.cq,null,null,null,null,null,null,null)
-B.a5H=new A.U("Full platform control: Tune subscription tiers, onboard engineering staff, and register dynamic GPU/CPU nodes. Configured via ADMIN_PASSWORD / LITELLM_MASTER_KEY in your .env.",null,B.cp,null,null,null,null,null,null,null)
-B.a5I=new A.U("Standard",null,B.k_,null,null,null,null,null,null,null)
-B.a5M=new A.U("Done",null,null,null,null,null,null,null,null,null)
-B.a5O=new A.U("Your virtual API key authenticates your personal quota, whitelisted models, and logs all telemetry to Langfuse.",null,B.cp,null,null,null,null,null,null,null)
-B.a5P=new A.U("Documentation",null,B.fe,null,null,null,null,null,null,null)
+B.a5C=new A.U("Models Whitelist:",null,B.ZF,null,null,null,null,null,null,null)
+B.a5D=new A.U("Copy Config",null,null,null,null,null,null,null,null,null)
+B.a5F=new A.U("Manage Tiers & Quotas",null,null,null,null,null,null,null,null,null)
+B.a5G=new A.U("No Client Groups Provisioned Yet",null,B.cq,null,null,null,null,null,null,null)
+B.a5I=new A.U("Full platform control: Tune subscription tiers, onboard engineering staff, and register dynamic GPU/CPU nodes. Configured via ADMIN_PASSWORD / LITELLM_MASTER_KEY in your .env.",null,B.cp,null,null,null,null,null,null,null)
+B.a5J=new A.U("Standard",null,B.k_,null,null,null,null,null,null,null)
+B.a5N=new A.U("Done",null,null,null,null,null,null,null,null,null)
+B.a5P=new A.U("Your virtual API key authenticates your personal quota, whitelisted models, and logs all telemetry to Langfuse.",null,B.cp,null,null,null,null,null,null,null)
+B.a5Q=new A.U("Documentation",null,B.fe,null,null,null,null,null,null,null)
+B.a5R=new A.U("+ Create Client Group",null,null,null,null,null,null,null,null,null)
+B.a5U=new A.U("Create Group",null,null,null,null,null,null,null,null,null)
+B.a5V=new A.U("Add Member",null,null,null,null,null,null,null,null,null)
 B.a1S=new A.o(!0,B.bK,null,null,null,null,9,B.A,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.nU=new A.U("v1.1.0",null,B.a1S,null,null,null,null,null,null,null)
-B.a5Q=new A.U("+ Create Client Group",null,null,null,null,null,null,null,null,null)
-B.a5T=new A.U("Create Group",null,null,null,null,null,null,null,null,null)
-B.a5U=new A.U("Add Member",null,null,null,null,null,null,null,null,null)
-B.a5X=new A.U("+ Onboard User",null,null,null,null,null,null,null,null,null)
+B.nU=new A.U("v1.2.0",null,B.a1S,null,null,null,null,null,null,null)
+B.a5Y=new A.U("+ Onboard User",null,null,null,null,null,null,null,null,null)
 B.a2K=new A.o(!0,B.b9,null,null,null,null,18,B.A,null,-0.5,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.a5Z=new A.U("Sarrera",null,B.a2K,null,null,null,null,null,null,null)
-B.a60=new A.U("Page Not Found",null,null,null,null,null,null,null,null,null)
-B.a62=new A.U("Refresh Nodes",null,null,null,null,null,null,null,null,null)
-B.a63=new A.U("No Solo Developers Found",null,B.cq,null,null,null,null,null,null,null)
-B.a66=new A.U("Authorized Models Whitelist",null,B.jW,null,null,null,null,null,null,null)
-B.a68=new A.U("Virtual API Key",null,B.fc,null,null,null,null,null,null,null)
-B.a69=new A.U("v1.1.0",null,B.nR,null,null,null,null,null,null,null)
+B.a6_=new A.U("Sarrera",null,B.a2K,null,null,null,null,null,null,null)
+B.a61=new A.U("Page Not Found",null,null,null,null,null,null,null,null,null)
+B.a63=new A.U("Refresh Nodes",null,null,null,null,null,null,null,null,null)
+B.a64=new A.U("No Solo Developers Found",null,B.cq,null,null,null,null,null,null,null)
+B.a67=new A.U("Authorized Models Whitelist",null,B.jW,null,null,null,null,null,null,null)
+B.a69=new A.U("Virtual API Key",null,B.fc,null,null,null,null,null,null,null)
 B.a6a=new A.U("Save & Apply Limits",null,null,null,null,null,null,null,null,null)
 B.a6b=new A.U("Remove",null,null,null,null,null,null,null,null,null)
 B.aa4=new A.axW(0,"system")

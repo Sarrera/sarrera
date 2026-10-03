@@ -42,7 +42,7 @@ class ApiConstants {
   static const String langfuseTraces = '$langfuseBase/api/public/traces';
 
   // Platform Versioning (SemVer: MAJOR.MINOR.PATCH)
-  static const String appVersion = 'v1.1.0';
+  static const String appVersion = 'v1.2.0';
 
   // Navigation Links & URLs
   static const String docsUrl = 'https://sarrera.github.io/sarrera/';
