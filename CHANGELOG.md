@@ -7,10 +7,18 @@ This document mirrors the official [Sarrera Documentation Changelog](docs/operat
 ## [v1.2.0] — 2026-10-03
 
 ### 🚀 Enhancements & New Features (MINOR)
+* **All 6 Platform Services Integrated in Sarrera Governance Portal**:
+  * Added quick-launch console cards and sidebar drawer navigation for all 6 core platform services: Sarrera Governance Portal, Open WebUI Chat Portal, LiteLLM Gateway & Key Proxy, Langfuse v2 Audit Suite, Ollama Local Compute Engine & Inspector, and MinIO S3 Object Storage Console.
+* **Ollama Local Compute Engine & Model Inspector (`ollama.localhost`)**:
+  * Direct integration of containerized `ai-ollama-local` node into Caddy perimeter routing (`https://ollama.localhost/` and `/admin/ollama/*`).
+  * Interactive HTML dashboard (`assets/ollama-dashboard.html`) inspecting model weights (`deepseek-r1:14b`, `qwen2.5-coder:32b`, `qwen2.5-coder:7b`, `qwen2.5-coder:0.5b`), quantization format (`Q4_K_M`), parameter count, and storage sizes.
+  * Content-negotiated dual-mode routing in Caddy matching `Accept: text/html` for browser inspection while transparently proxying raw REST API (`/api/tags`, `/api/generate`, `/api/chat`) and OpenAI compatibility layer (`/v1/*`) to `ollama-local:11434`.
+* **Automated NextAuth SSO Bridge for Langfuse (`audit.localhost/sso`)**:
+  * Automated identity handshake bridge (`assets/sso-langfuse.html`) performing real-time CSRF token negotiation, NextAuth credentials exchange with bootstrapped platform credentials, setting `__Secure-next-auth.session-token`, and auto-navigating straight into `/project/proj_sarrera_default`.
 * **Caddy Single Sign-On (SSO) & Trusted Header Authentication**:
   * Unified SSO perimeter via Caddy reverse proxy: Injects verified identity headers (`X-User-Email`, `X-User-Name`, `X-User-Role`, `X-User-Groups`) to Open WebUI.
   * Automatic session synchronization across Sarrera Portal, Open WebUI, and Langfuse with zero-friction sign-in and direct platform admin console access.
-  * Resolved single-page app (SPA) asset collisions on apex domain by routing to dedicated subdomains (`chat.localhost`, `audit.localhost`, `storage.localhost`) with clean HTTP 302 redirects.
+  * Resolved single-page app (SPA) asset collisions on apex domain by routing to dedicated subdomains (`chat.localhost`, `audit.localhost`, `storage.localhost`, `ollama.localhost`) with clean HTTP 302 redirects.
   * Fixed Langfuse NextAuth reverse proxy integration (`AUTH_TRUST_HOST=true`, `NEXTAUTH_URL=https://audit.${DOMAIN}`) and bootstrapped initial platform administrator (`admin@sarrera.local`) and default organization/project in PostgreSQL.
 * **Client Groups, Solo Tenancy & Dual-Level Billing Rollup**:
   * Added Client Group (`group-*`) governance to LiteLLM with dedicated organizational budget ceilings, aliases, and isolated member key allocations.

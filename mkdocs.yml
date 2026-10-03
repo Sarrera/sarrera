@@ -49,6 +49,7 @@ nav:
       - Caddy TLS Proxy: configuration/caddy.md
       - Environment Variables: configuration/environment-variables.md
   - Governance & RBAC:
+      - Groups & Tenancy: governance-rbac/groups-and-tenancy.md
       - Tiers & Quotas: governance-rbac/tiers-and-quotas.md
       - Key Management: governance-rbac/key-management.md
       - LiteLLM Dashboard: governance-rbac/litellm-dashboard.md
@@ -68,3 +69,6 @@ nav:
       - CLI Scripts: operations/scripts-reference.md
       - Maintenance & Backup: operations/maintenance.md
       - Troubleshooting: operations/troubleshooting.md
+  - Release & Versioning:
+      - Versioning Policy: operations/versioning.md
+      - Changelog: operations/changelog.md
