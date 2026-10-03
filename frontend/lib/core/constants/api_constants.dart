@@ -62,15 +62,37 @@ class ApiConstants {
     return '/chat';
   }
 
-  /// Dynamically computes the dedicated subdomain URL for Langfuse Audit Suite
+  /// Dynamically computes the dedicated subdomain URL for Langfuse Audit Suite with Single Sign-On (SSO)
   static String getAuditUrl() {
     if (kIsWeb) {
       final host = html.window.location.hostname ?? 'localhost';
       final port = html.window.location.port;
       final portSuffix = (port.isNotEmpty && port != '80' && port != '443') ? ':$port' : '';
-      return 'https://audit.$host$portSuffix/';
+      return 'https://audit.$host$portSuffix/sso';
     }
     return '/admin/audit/';
+  }
+
+  /// Dynamically computes the dedicated subdomain URL for Ollama Inference Engine & Model Inspector
+  static String getOllamaUrl() {
+    if (kIsWeb) {
+      final host = html.window.location.hostname ?? 'localhost';
+      final port = html.window.location.port;
+      final portSuffix = (port.isNotEmpty && port != '80' && port != '443') ? ':$port' : '';
+      return 'https://ollama.$host$portSuffix/';
+    }
+    return '/admin/ollama/';
+  }
+
+  /// Dynamically computes the dedicated subdomain URL for LiteLLM Gateway & Proxy UI
+  static String getGatewayUrl() {
+    if (kIsWeb) {
+      final host = html.window.location.hostname ?? 'localhost';
+      final port = html.window.location.port;
+      final portSuffix = (port.isNotEmpty && port != '80' && port != '443') ? ':$port' : '';
+      return 'https://gateway.$host$portSuffix/';
+    }
+    return '/admin/litellm/';
   }
 
   /// Dynamically computes the dedicated subdomain URL for MinIO Object Storage

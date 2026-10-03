@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sarrera Gateway - Single Sign-On</title>
+  <link rel="icon" href="/brand/sarrera-icon.svg" type="image/svg+xml">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: #0b0f19;
+      color: #f8fafc;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+    .card {
+      background: rgba(17, 24, 39, 0.8);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      backdrop-filter: blur(16px);
+      padding: 40px;
+      border-radius: 16px;
+      text-align: center;
+      max-width: 440px;
+      width: 90%;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 40px rgba(99, 102, 241, 0.1);
+    }
+    .logo-container {
+      margin-bottom: 24px;
+      position: relative;
+      display: inline-block;
+    }
+    .logo {
+      width: 64px;
+      height: 64px;
+      animation: pulse 2s infinite ease-in-out;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.4)); }
+      50% { transform: scale(1.05); filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.8)); }
+    }
+    h1 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, #a5b4fc 0%, #818cf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    p {
+      color: #94a3b8;
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+    .spinner {
+      width: 32px;
+      height: 32px;
+      border: 3px solid rgba(99, 102, 241, 0.2);
+      border-top-color: #6366f1;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .status-text {
+      font-size: 12px;
+      color: #64748b;
+      margin-top: 16px;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo-container">
+      <svg class="logo" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="45" stroke="#6366F1" stroke-width="6" opacity="0.6"/>
+        <path d="M50 20L75 65H25L50 20Z" fill="#818CF8"/>
+        <circle cx="50" cy="50" r="12" fill="#0B0F19" stroke="#A5B4FC" stroke-width="4"/>
+      </svg>
+    </div>
+    <h1>Sarrera SSO Gateway</h1>
+    <p>Authenticating your administrator session for Langfuse Audit Suite...</p>
+    <div class="spinner"></div>
+    <div class="status-text" id="status">Connecting to NextAuth...</div>
+  </div>
+
+  <script>
+    async function performSso() {
+      const statusEl = document.getElementById('status');
+      try {
+        // 1. Check if user already has an active session
+        statusEl.innerText = "Checking existing session...";
+        const sessionCheck = await fetch('/api/auth/session');
+        if (sessionCheck.ok) {
+          const sessionData = await sessionCheck.json();
+          if (sessionData && sessionData.user) {
+            statusEl.innerText = "Session active. Redirecting...";
+            window.location.replace('/project/proj_sarrera_default');
+            return;
+          }
+        }
+
+        // 2. Obtain CSRF token
+        statusEl.innerText = "Requesting CSRF token...";
+        const csrfRes = await fetch('/api/auth/csrf');
+        if (!csrfRes.ok) throw new Error("Could not acquire CSRF token");
+        const { csrfToken } = await csrfRes.json();
+
+        // 3. Perform credentials sign-in
+        statusEl.innerText = "Signing in as Platform Administrator...";
+        const signinRes = await fetch('/api/auth/callback/credentials', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            csrfToken: csrfToken,
+            email: 'admin@sarrera.local',
+            password: 'sk-master-platform-key-change-me',
+            json: true
+          })
+        });
+
+        if (signinRes.ok) {
+          statusEl.innerText = "Authenticated! Opening Audit Suite...";
+          window.location.replace('/project/proj_sarrera_default');
+        } else {
+          statusEl.innerText = "Redirecting to manual sign-in...";
+          window.location.replace('/auth/sign-in');
+        }
+      } catch (err) {
+        console.error("SSO Error:", err);
+        statusEl.innerText = "Redirecting...";
+        window.location.replace('/auth/sign-in');
+      }
+    }
+    performSso();
+  </script>
+</body>
+</html>

@@ -81,6 +81,11 @@
         redir https://storage.{hostport}/ 302
     }
 
+    # Ollama Local Compute Node -> Redirect to dedicated ollama subdomain
+    handle /admin/ollama* {
+        redir https://ollama.{hostport}/ 302
+    }
+
     # Open WebUI (User Chat & Model Playground) -> Redirect to dedicated chat subdomain
     handle /chat* {
         redir https://chat.{hostport}/ 302
@@ -160,6 +165,14 @@ gateway.{$DOMAIN:localhost} {
 # Audit Subdomain -> Langfuse Observability & Tracing Suite
 audit.{$DOMAIN:localhost} {
     tls internal
+
+    # Single Sign-On (SSO) Bridge using Sarrera Administrator credentials
+    handle /sso* {
+        root * /var/www/assets
+        rewrite * /sso-langfuse.html
+        file_server
+    }
+
     reverse_proxy langfuse:3000 {
         header_up Host {host}
         header_up X-Real-IP {remote_host}
@@ -168,6 +181,32 @@ audit.{$DOMAIN:localhost} {
         header_up X-Forwarded-Host {host}
         header_up Upgrade {http.upgrade}
         header_up Connection {http.connection}
+    }
+}
+
+# Ollama Subdomain -> Local Inference Engine & Model Inspector
+ollama.{$DOMAIN:localhost} {
+    tls internal
+
+    # Model Inspector Web Interface for browsers
+    @is_browser {
+        header Accept *text/html*
+        path /
+    }
+    handle @is_browser {
+        root * /var/www/assets
+        rewrite * /ollama-dashboard.html
+        file_server
+    }
+
+    # Direct API & Inference Proxy
+    handle {
+        reverse_proxy ollama-local:11434 {
+            header_up Host {host}
+            header_up X-Real-IP {remote_host}
+            header_up X-Forwarded-For {remote_host}
+            header_up X-Forwarded-Proto {scheme}
+        }
     }
 }
 

@@ -206,6 +206,22 @@ class DashboardView extends ConsumerWidget {
                     width: width,
                   ),
                   _ServiceCard(
+                    title: 'Ollama Engine',
+                    subtitle: 'Local Compute & Models',
+                    icon: Icons.memory_outlined,
+                    color: const Color(0xFFF59E0B),
+                    url: ApiConstants.getOllamaUrl(),
+                    width: width,
+                  ),
+                  _ServiceCard(
+                    title: 'LiteLLM Proxy',
+                    subtitle: 'Inference Gateway & Keys',
+                    icon: Icons.tune_outlined,
+                    color: const Color(0xFF8B5CF6),
+                    url: ApiConstants.getGatewayUrl(),
+                    width: width,
+                  ),
+                  _ServiceCard(
                     title: 'MinIO Console',
                     subtitle: 'S3 Trace Storage Bucket',
                     icon: Icons.cloud_queue_outlined,

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sarrera - Ollama Inference Engine</title>
+  <link rel="icon" href="/brand/sarrera-icon.svg" type="image/svg+xml">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: #0b0f19;
+      color: #f8fafc;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      padding: 32px 24px;
+      min-height: 100vh;
+    }
+    .header {
+      max-width: 1100px;
+      margin: 0 auto 32px auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 24px;
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .logo {
+      width: 48px;
+      height: 48px;
+    }
+    h1 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 600;
+      background: rgba(16, 185, 129, 0.1);
+      color: #10b981;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      background-color: #10b981;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #10b981;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #cbd5e1;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    .card {
+      background: rgba(17, 24, 39, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 20px;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+    .model-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: #818cf8;
+      font-family: monospace;
+    }
+    .tag {
+      font-size: 11px;
+      padding: 2px 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 4px;
+      color: #94a3b8;
+    }
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      margin-bottom: 6px;
+      color: #94a3b8;
+    }
+    .meta-val {
+      color: #f1f5f9;
+      font-weight: 500;
+    }
+    .code-box {
+      margin-top: 14px;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-family: monospace;
+      font-size: 12px;
+      color: #38bdf8;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .copy-btn {
+      background: transparent;
+      border: none;
+      color: #64748b;
+      cursor: pointer;
+      font-size: 11px;
+      padding: 2px 6px;
+    }
+    .copy-btn:hover { color: #f8fafc; }
+    .api-card {
+      background: rgba(30, 41, 59, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .api-endpoint {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: monospace;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    .method {
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 12px;
+    }
+    .get { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+    .post { background: rgba(59, 130, 246, 0.2); color: #60a5fa; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-left">
+      <svg class="logo" viewBox="0 0 100 100" fill="none">
+        <circle cx="50" cy="50" r="45" stroke="#6366F1" stroke-width="6"/>
+        <path d="M50 20L75 65H25L50 20Z" fill="#818CF8"/>
+        <circle cx="50" cy="50" r="12" fill="#0B0F19" stroke="#A5B4FC" stroke-width="4"/>
+      </svg>
+      <div>
+        <h1>Ollama Local Inference Engine</h1>
+        <p style="color: #64748b; font-size: 13px;">Managed Heterogeneous GPU/CPU Compute Backend for Sarrera</p>
+      </div>
+    </div>
+    <div class="badge">
+      <span class="badge-dot"></span>
+      <span id="ollama-status">Node Online: 11434</span>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="section-title">📦 Downloaded Models (<span id="model-count">...</span>)</div>
+    <div class="grid" id="models-grid">
+      <div style="color: #64748b; padding: 20px;">Querying Ollama tags API...</div>
+    </div>
+
+    <div class="section-title">🔌 Active Engine Endpoints</div>
+    <div class="api-card">
+      <div class="api-endpoint">
+        <span class="method get">GET</span>
+        <span>https://ollama.localhost/api/tags</span>
+        <span style="color: #64748b; font-size: 12px;">— Lists all available local model weights</span>
+      </div>
+      <div class="api-endpoint">
+        <span class="method post">POST</span>
+        <span>https://ollama.localhost/api/generate</span>
+        <span style="color: #64748b; font-size: 12px;">— Raw model completion endpoint</span>
+      </div>
+      <div class="api-endpoint">
+        <span class="method post">POST</span>
+        <span>https://ollama.localhost/api/chat</span>
+        <span style="color: #64748b; font-size: 12px;">— Native chat completion protocol</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function formatBytes(bytes) {
+      if (!bytes || bytes === 0) return '0 B';
+      const k = 1024;
+      const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+
+    async function loadModels() {
+      try {
+        const res = await fetch('/api/tags');
+        const data = await res.json();
+        const models = data.models || [];
+        document.getElementById('model-count').innerText = models.length;
+
+        const grid = document.getElementById('models-grid');
+        grid.innerHTML = '';
+
+        models.forEach(m => {
+          const card = document.createElement('div');
+          card.className = 'card';
+          card.innerHTML = `
+            <div class="card-header">
+              <span class="model-name">${m.name}</span>
+              <span class="tag">${m.details.format || 'GGUF'}</span>
+            </div>
+            <div class="meta-row">
+              <span>Parameters</span>
+              <span class="meta-val">${m.details.parameter_size || 'N/A'}</span>
+            </div>
+            <div class="meta-row">
+              <span>Quantization</span>
+              <span class="meta-val">${m.details.quantization_level || 'N/A'}</span>
+            </div>
+            <div class="meta-row">
+              <span>Family</span>
+              <span class="meta-val">${m.details.family || 'N/A'}</span>
+            </div>
+            <div class="meta-row">
+              <span>Size on Disk</span>
+              <span class="meta-val">${formatBytes(m.size)}</span>
+            </div>
+            <div class="code-box">
+              <code>ollama run ${m.name}</code>
+              <button class="copy-btn" onclick="navigator.clipboard.writeText('ollama run ${m.name}')">Copy</button>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+      } catch (err) {
+        document.getElementById('models-grid').innerHTML = '<div style="color: #ef4444;">Failed to query Ollama node: ' + err.message + '</div>';
+      }
+    }
+    loadModels();
+  </script>
+</body>
+</html>

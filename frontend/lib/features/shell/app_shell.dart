@@ -171,6 +171,21 @@ class AppShell extends ConsumerWidget {
                         url: ApiConstants.getAuditUrl(),
                       ),
                       _ExternalLinkItem(
+                        title: 'Ollama Model Engine',
+                        icon: Icons.memory_outlined,
+                        url: ApiConstants.getOllamaUrl(),
+                      ),
+                      _ExternalLinkItem(
+                        title: 'LiteLLM Gateway Proxy',
+                        icon: Icons.tune_outlined,
+                        url: ApiConstants.getGatewayUrl(),
+                      ),
+                      _ExternalLinkItem(
+                        title: 'MinIO Storage Console',
+                        icon: Icons.cloud_queue_outlined,
+                        url: ApiConstants.getStorageUrl(),
+                      ),
+                      _ExternalLinkItem(
                         title: 'Documentation',
                         icon: Icons.menu_book_outlined,
                         url: ApiConstants.docsUrl,

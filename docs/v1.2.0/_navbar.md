@@ -1,8 +1,9 @@
 <!-- docs/_navbar.md -->
 
-* **Version: v1.1.0**
-  * [v1.1.0 (Current Release)](/ #/)
-  * [v1.0.0 (Initial Release)](/v1.0.0/ #/)
+* **Version: v1.2.0**
+  * [v1.2.0 (Current Release)](/ #/)
+  * [v1.1.0](/v1.1.0/ #/)
+  * [v1.0.0](/v1.0.0/ #/)
   * [Versioning Policy](operations/versioning.md)
   * [Changelog & History](operations/changelog.md)
 
