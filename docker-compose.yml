@@ -23,6 +23,8 @@ services:
       - "443:443"
     environment:
       - DOMAIN=${DOMAIN:-localhost}
+      - ADMIN_EMAIL=${ADMIN_EMAIL:-admin@sarrera.local}
+      - ADMIN_NAME=${ADMIN_NAME:-Platform Administrator}
     volumes:
       - ./config/Caddyfile:/etc/caddy/Caddyfile:ro
       - ./config/portal:/var/www/portal:ro
@@ -90,7 +92,9 @@ services:
     environment:
       - DATABASE_URL=postgresql://${POSTGRES_USER:-platform_admin}:${POSTGRES_PASSWORD:-DBMasterPass2026}@postgres:5432/langfuse
       - NEXTAUTH_SECRET=${NEXTAUTH_SECRET:-super_secret_salt_32_characters_long_min}
-      - NEXTAUTH_URL=${NEXTAUTH_URL:-http://localhost:3000}
+      - NEXTAUTH_URL=https://audit.${DOMAIN:-localhost}
+      - AUTH_TRUST_HOST=true
+      - NEXTAUTH_URL_INTERNAL=http://localhost:3000
       - SALT=${SALT:-local_salt_for_keys}
       - TELEMETRY_ENABLED=${TELEMETRY_ENABLED:-false}
       - LANGFUSE_S3_EVENT_UPLOAD_BUCKET=langfuse-events
@@ -155,6 +159,10 @@ services:
       - WEBUI_ADMIN_EMAIL=${ADMIN_EMAIL:-admin@sarrera.local}
       - WEBUI_ADMIN_PASSWORD=${ADMIN_PASSWORD:-sk-master-platform-key-change-me}
       - WEBUI_ADMIN_NAME=${ADMIN_NAME:-Platform Administrator}
+      - WEBUI_AUTH_TRUSTED_EMAIL_HEADER=X-User-Email
+      - WEBUI_AUTH_TRUSTED_NAME_HEADER=X-User-Name
+      - WEBUI_AUTH_TRUSTED_ROLE_HEADER=X-User-Role
+      - WEBUI_AUTH_TRUSTED_GROUPS_HEADER=X-User-Groups
       - ENABLE_LDAP=${ENABLE_LDAP:-false}
       - LDAP_SERVER_HOST=${LDAP_SERVER_HOST:-ldap://dc.company.local}
       - LDAP_SERVER_PORT=${LDAP_SERVER_PORT:-389}

@@ -163,12 +163,12 @@ class AppShell extends ConsumerWidget {
                       _ExternalLinkItem(
                         title: 'Open WebUI (Chat)',
                         icon: Icons.chat_outlined,
-                        url: '/chat',
+                        url: ApiConstants.getChatUrl(),
                       ),
                       _ExternalLinkItem(
                         title: 'Langfuse Audit Suite',
                         icon: Icons.analytics_outlined,
-                        url: '/admin/audit/',
+                        url: ApiConstants.getAuditUrl(),
                       ),
                       _ExternalLinkItem(
                         title: 'Documentation',

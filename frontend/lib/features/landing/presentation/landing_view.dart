@@ -116,7 +116,7 @@ print(response.choices[0].message.content)''';
         ),
         actions: [
           TextButton(
-            onPressed: () => html.window.open('/chat', '_blank'),
+            onPressed: () => html.window.open(ApiConstants.getChatUrl(), '_blank'),
             child: const Text('Open WebUI (Chat)', style: TextStyle(fontSize: 13, color: AppTheme.textSecondary)),
           ),
           TextButton(

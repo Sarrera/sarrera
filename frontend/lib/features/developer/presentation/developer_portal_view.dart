@@ -104,7 +104,7 @@ class DeveloperPortalView extends ConsumerWidget {
           ),
           const SizedBox(width: 8),
           TextButton.icon(
-            onPressed: () => html.window.open('/chat', '_blank'),
+            onPressed: () => html.window.open(ApiConstants.getChatUrl(), '_blank'),
             icon: const Icon(Icons.chat_bubble_outline, size: 16),
             label: const Text('Launch Chat WebUI'),
           ),

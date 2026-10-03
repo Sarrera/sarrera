@@ -1,3 +1,7 @@
+import 'package:flutter/foundation.dart';
+// ignore: avoid_web_libraries_in_flutter
+import 'dart:html' as html;
+
 class ApiConstants {
   // Base URLs (relative to Caddy reverse proxy on same host)
   static const String litellmBase = '/admin/litellm';
@@ -40,10 +44,43 @@ class ApiConstants {
   // Platform Versioning (SemVer: MAJOR.MINOR.PATCH)
   static const String appVersion = 'v1.1.0';
 
-  // Navigation Links
-  static const String chatUrl = '/chat';
+  // Navigation Links & URLs
   static const String docsUrl = 'https://sarrera.github.io/sarrera/';
   static const String changelogUrl = 'https://sarrera.github.io/sarrera/#/operations/changelog';
+  static const String chatUrl = '/chat';
   static const String auditUrl = '/admin/audit/';
   static const String storageUrl = '/admin/storage/';
+
+  /// Dynamically computes the dedicated subdomain URL for Open WebUI Chat
+  static String getChatUrl() {
+    if (kIsWeb) {
+      final host = html.window.location.hostname ?? 'localhost';
+      final port = html.window.location.port;
+      final portSuffix = (port.isNotEmpty && port != '80' && port != '443') ? ':$port' : '';
+      return 'https://chat.$host$portSuffix/';
+    }
+    return '/chat';
+  }
+
+  /// Dynamically computes the dedicated subdomain URL for Langfuse Audit Suite
+  static String getAuditUrl() {
+    if (kIsWeb) {
+      final host = html.window.location.hostname ?? 'localhost';
+      final port = html.window.location.port;
+      final portSuffix = (port.isNotEmpty && port != '80' && port != '443') ? ':$port' : '';
+      return 'https://audit.$host$portSuffix/';
+    }
+    return '/admin/audit/';
+  }
+
+  /// Dynamically computes the dedicated subdomain URL for MinIO Object Storage
+  static String getStorageUrl() {
+    if (kIsWeb) {
+      final host = html.window.location.hostname ?? 'localhost';
+      final port = html.window.location.port;
+      final portSuffix = (port.isNotEmpty && port != '80' && port != '443') ? ':$port' : '';
+      return 'https://storage.$host$portSuffix/';
+    }
+    return '/admin/storage/';
+  }
 }

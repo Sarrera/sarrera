@@ -29,6 +29,13 @@ class ApiClient {
       try {
         _adminToken = html.window.sessionStorage[_tokenStorageKey] ??
             html.window.localStorage[_tokenStorageKey];
+        if (_adminToken != null && _adminToken!.isNotEmpty) {
+          syncSsoCookies(
+            email: 'admin@sarrera.local',
+            name: 'Platform Administrator',
+            role: 'admin',
+          );
+        }
       } catch (_) {}
     }
 
@@ -57,6 +64,11 @@ class ApiClient {
     if (kIsWeb && persist) {
       try {
         html.window.sessionStorage[_tokenStorageKey] = _adminToken!;
+        syncSsoCookies(
+          email: 'admin@sarrera.local',
+          name: 'Platform Administrator',
+          role: 'admin',
+        );
       } catch (_) {}
     }
   }
@@ -67,6 +79,47 @@ class ApiClient {
       try {
         html.window.sessionStorage.remove(_tokenStorageKey);
         html.window.localStorage.remove(_tokenStorageKey);
+        clearSsoCookies();
+      } catch (_) {}
+    }
+  }
+
+  /// Sets cross-subdomain SSO cookies so Open WebUI and Caddy pick up user identity
+  void syncSsoCookies({
+    required String email,
+    required String name,
+    required String role,
+  }) {
+    if (kIsWeb) {
+      try {
+        html.document.cookie = 'sarrera_user_email=$email; path=/; SameSite=Lax';
+        html.document.cookie = 'sarrera_user_name=$name; path=/; SameSite=Lax';
+        html.document.cookie = 'sarrera_user_role=$role; path=/; SameSite=Lax';
+
+        final host = html.window.location.hostname ?? '';
+        if (host.isNotEmpty && host != 'localhost') {
+          html.document.cookie = 'sarrera_user_email=$email; path=/; domain=.$host; SameSite=Lax';
+          html.document.cookie = 'sarrera_user_name=$name; path=/; domain=.$host; SameSite=Lax';
+          html.document.cookie = 'sarrera_user_role=$role; path=/; domain=.$host; SameSite=Lax';
+        }
+      } catch (_) {}
+    }
+  }
+
+  /// Clears cross-subdomain SSO cookies on logout
+  void clearSsoCookies() {
+    if (kIsWeb) {
+      try {
+        html.document.cookie = 'sarrera_user_email=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+        html.document.cookie = 'sarrera_user_name=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+        html.document.cookie = 'sarrera_user_role=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+
+        final host = html.window.location.hostname ?? '';
+        if (host.isNotEmpty && host != 'localhost') {
+          html.document.cookie = 'sarrera_user_email=; path=/; domain=.$host; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+          html.document.cookie = 'sarrera_user_name=; path=/; domain=.$host; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+          html.document.cookie = 'sarrera_user_role=; path=/; domain=.$host; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+        }
       } catch (_) {}
     }
   }

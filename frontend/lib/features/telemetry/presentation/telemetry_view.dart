@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../../../core/providers/app_providers.dart';
+import '../../../core/constants/api_constants.dart';
 import '../../../core/theme/app_theme.dart';
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:html' as html;
@@ -42,7 +43,7 @@ class TelemetryView extends ConsumerWidget {
               ),
               ElevatedButton.icon(
                 onPressed: () {
-                  html.window.open('/admin/audit/', '_blank');
+                  html.window.open(ApiConstants.getAuditUrl(), '_blank');
                 },
                 icon: const Icon(Icons.open_in_new, size: 16),
                 label: const Text('Open Langfuse Audit Suite'),

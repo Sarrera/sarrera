@@ -135,6 +135,27 @@ To prevent asset collisions across different Single Page Applications (SPAs), Ca
 
 ---
 
+---
+
+## 🔑 Single Sign-On (SSO) & Trusted Header Authentication
+
+Caddy serves as the unified identity gateway and SSO coordinator for the entire platform:
+
+### Open WebUI Unified SSO
+- **Reverse Proxy Header Injection**: When an authenticated administrator or developer navigates to Open WebUI (`https://chat.localhost/` or `https://chat.{$DOMAIN}/`), Caddy intercepts the request and injects trusted identity headers:
+  - `X-User-Email`: Injected from `sarrera_user_email` session cookie or the bootstrapped `${ADMIN_EMAIL}`.
+  - `X-User-Name`: Injected from `sarrera_user_name` or `${ADMIN_NAME}`.
+  - `X-User-Role`: Injected from `sarrera_user_role` (`admin` or `user`).
+- **Zero-Friction Login**: Open WebUI automatically signs the user in via its trusted header auth adapter (`WEBUI_AUTH_TRUSTED_EMAIL_HEADER`), assigns the correct role, issues a persistent JWT session, and displays the chat UI without prompting for separate credentials.
+- **Spoofing Protection**: Caddy automatically strips untrusted inbound `X-User-*` headers from external clients before setting verified values.
+
+### Langfuse Audit Suite Single Sign-On & Access Control
+- **NextAuth Reverse Proxy Alignment**: Configured with `AUTH_TRUST_HOST=true` and `NEXTAUTH_URL=https://audit.${DOMAIN:-localhost}`.
+- **Bootstrapped Platform Admin**: The platform administrator (`${ADMIN_EMAIL}`, default `admin@sarrera.local`) is seeded in PostgreSQL as a global `admin=true` user and assigned as `OWNER` of the default `Sarrera Platform` organization and `Production Gateway` project.
+- **Subdomain Routing & CSRF Safety**: Requests sent to `/admin/audit/` on the apex domain are 302-redirected to `https://audit.localhost/` (or `https://audit.{$DOMAIN}/`) to ensure proper NextAuth CSRF protection and eliminate SPA asset collisions with Flutter.
+
+---
+
 ## 🛡️ Perimeter Isolation Guarantee
 
 In [`docker-compose.yml`](file:///Users/mario/repositorios/sarrera/docker-compose.yml):

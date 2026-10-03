@@ -194,7 +194,7 @@ class DashboardView extends ConsumerWidget {
                     subtitle: 'Chat & Model Playground',
                     icon: Icons.chat_bubble_outline,
                     color: const Color(0xFF10B981),
-                    url: '/chat',
+                    url: ApiConstants.getChatUrl(),
                     width: width,
                   ),
                   _ServiceCard(
@@ -202,7 +202,7 @@ class DashboardView extends ConsumerWidget {
                     subtitle: 'Audit & Telemetry Traces',
                     icon: Icons.analytics_outlined,
                     color: const Color(0xFF6366F1),
-                    url: '/admin/audit/',
+                    url: ApiConstants.getAuditUrl(),
                     width: width,
                   ),
                   _ServiceCard(
@@ -210,7 +210,7 @@ class DashboardView extends ConsumerWidget {
                     subtitle: 'S3 Trace Storage Bucket',
                     icon: Icons.cloud_queue_outlined,
                     color: const Color(0xFFEC4899),
-                    url: '/admin/storage/',
+                    url: ApiConstants.getStorageUrl(),
                     width: width,
                   ),
                   _ServiceCard(

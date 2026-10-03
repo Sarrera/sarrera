@@ -52,6 +52,8 @@ services:
 - **Pinning Rationale**: Langfuse v3 requires ClickHouse. Pinning to major version `2` keeps the infrastructure lightweight and operational on PostgreSQL and MinIO without requiring a heavy ClickHouse cluster.
 - **Environment**:
   - `DATABASE_URL`: `postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/langfuse`
+  - `NEXTAUTH_URL`: `https://audit.${DOMAIN:-localhost}` (Configured for reverse proxy access)
+  - `AUTH_TRUST_HOST`: `true` (Enables NextAuth behind Caddy reverse proxy)
   - S3 configuration (`LANGFUSE_S3_EVENT_UPLOAD_BUCKET`, `LANGFUSE_S3_EVENT_UPLOAD_ENDPOINT`, etc.)
 - **Depends On**:
   - `postgres` (condition: `service_healthy`)
@@ -66,6 +68,10 @@ services:
   - `WEBUI_ADMIN_EMAIL`: `${ADMIN_EMAIL:-admin@sarrera.local}` (Auto-provisions the primary admin user on first launch).
   - `WEBUI_ADMIN_PASSWORD`: `${ADMIN_PASSWORD:-sk-master-platform-key-change-me}` (Admin password for chat UI login).
   - `WEBUI_ADMIN_NAME`: `${ADMIN_NAME:-Platform Administrator}`
+  - `WEBUI_AUTH_TRUSTED_EMAIL_HEADER`: `X-User-Email` (Single Sign-On header injected by Caddy)
+  - `WEBUI_AUTH_TRUSTED_NAME_HEADER`: `X-User-Name`
+  - `WEBUI_AUTH_TRUSTED_ROLE_HEADER`: `X-User-Role` (`admin` or `user` role assignment)
+  - `WEBUI_AUTH_TRUSTED_GROUPS_HEADER`: `X-User-Groups`
   - `ENABLE_LDAP`: `${ENABLE_LDAP:-false}`
 - **Volumes**:
   - `openwebui_data:/app/backend/data`

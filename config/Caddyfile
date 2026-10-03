@@ -71,41 +71,27 @@
         reverse_proxy litellm:4000
     }
 
-    # Langfuse Observability & Trace Auditing
-    handle_path /admin/audit/* {
-        reverse_proxy langfuse:3000 {
-            header_up Host {upstream_hostport}
-            header_up X-Real-IP {remote_host}
-            header_up X-Forwarded-For {remote_host}
-            header_up X-Forwarded-Proto {scheme}
-        }
+    # Langfuse Observability & Trace Auditing -> Redirect to dedicated audit subdomain
+    handle /admin/audit* {
+        redir https://audit.{hostport}/ 302
     }
 
-    # MinIO S3 Object Storage Console
-    handle_path /admin/storage/* {
-        reverse_proxy minio:9001 {
-            header_up Host {upstream_hostport}
-            header_up X-Real-IP {remote_host}
-            header_up X-Forwarded-For {remote_host}
-            header_up X-Forwarded-Proto {scheme}
-            header_up Upgrade {http.upgrade}
-            header_up Connection {http.connection}
-        }
+    # MinIO S3 Object Storage Console -> Redirect to dedicated storage subdomain
+    handle /admin/storage* {
+        redir https://storage.{hostport}/ 302
     }
 
-    # Open WebUI (User Chat & Model Playground) Subpath Fallback
-    handle /chat/* {
-        reverse_proxy open-webui:8080 {
-            header_up Host {upstream_hostport}
-            header_up X-Real-IP {remote_host}
-            header_up X-Forwarded-For {remote_host}
-            header_up X-Forwarded-Proto {scheme}
-            header_up Upgrade {http.upgrade}
-            header_up Connection {http.connection}
-        }
+    # Open WebUI (User Chat & Model Playground) -> Redirect to dedicated chat subdomain
+    handle /chat* {
+        redir https://chat.{hostport}/ 302
     }
-    handle /chat {
-        redir /chat/ 301
+
+    # Static Asset Fallbacks for SPAs accessed via subpaths
+    handle /_app/* {
+        reverse_proxy open-webui:8080
+    }
+    handle /_next/* {
+        reverse_proxy langfuse:3000
     }
 
     # Central Portal Landing Screen ("Pantalla de Caddy")
@@ -127,16 +113,36 @@
 # Works automatically with *.localhost or corporate wildcard DNS
 # ==============================================================================
 
-# Chat Subdomain -> Open WebUI
+# Chat Subdomain -> Open WebUI with Single Sign-On (SSO) Header Injection
 chat.{$DOMAIN:localhost} {
     tls internal
-    reverse_proxy open-webui:8080 {
-        header_up Host {upstream_hostport}
-        header_up X-Real-IP {remote_host}
-        header_up X-Forwarded-For {remote_host}
-        header_up X-Forwarded-Proto {scheme}
-        header_up Upgrade {http.upgrade}
-        header_up Connection {http.connection}
+
+    @has_sso_cookie {
+        header Cookie *sarrera_user_email=*
+    }
+
+    handle @has_sso_cookie {
+        reverse_proxy open-webui:8080 {
+            header_up Host {host}
+            header_up X-Real-IP {remote_host}
+            header_up Upgrade {http.upgrade}
+            header_up Connection {http.connection}
+            header_up X-User-Email {http.request.cookie.sarrera_user_email}
+            header_up X-User-Name {http.request.cookie.sarrera_user_name}
+            header_up X-User-Role {http.request.cookie.sarrera_user_role}
+        }
+    }
+
+    handle {
+        reverse_proxy open-webui:8080 {
+            header_up Host {host}
+            header_up X-Real-IP {remote_host}
+            header_up Upgrade {http.upgrade}
+            header_up Connection {http.connection}
+            header_up X-User-Email "{$ADMIN_EMAIL:admin@sarrera.local}"
+            header_up X-User-Name "{$ADMIN_NAME:Platform Administrator}"
+            header_up X-User-Role "admin"
+        }
     }
 }
 
@@ -144,21 +150,24 @@ chat.{$DOMAIN:localhost} {
 gateway.{$DOMAIN:localhost} {
     tls internal
     reverse_proxy litellm:4000 {
-        header_up Host {upstream_hostport}
+        header_up Host {host}
         header_up X-Real-IP {remote_host}
         header_up X-Forwarded-For {remote_host}
         header_up X-Forwarded-Proto {scheme}
     }
 }
 
-# Audit Subdomain -> Langfuse Observability
+# Audit Subdomain -> Langfuse Observability & Tracing Suite
 audit.{$DOMAIN:localhost} {
     tls internal
     reverse_proxy langfuse:3000 {
-        header_up Host {upstream_hostport}
+        header_up Host {host}
         header_up X-Real-IP {remote_host}
         header_up X-Forwarded-For {remote_host}
         header_up X-Forwarded-Proto {scheme}
+        header_up X-Forwarded-Host {host}
+        header_up Upgrade {http.upgrade}
+        header_up Connection {http.connection}
     }
 }
 
@@ -166,7 +175,7 @@ audit.{$DOMAIN:localhost} {
 storage.{$DOMAIN:localhost} {
     tls internal
     reverse_proxy minio:9001 {
-        header_up Host {upstream_hostport}
+        header_up Host {host}
         header_up X-Real-IP {remote_host}
         header_up X-Forwarded-For {remote_host}
         header_up X-Forwarded-Proto {scheme}

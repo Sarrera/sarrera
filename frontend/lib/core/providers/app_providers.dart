@@ -232,6 +232,12 @@ class AuthNotifier extends Notifier<AuthState> {
         }
 
         _client.setToken(key);
+        final devEmail = userId.contains('@') ? userId : '$userId@sarrera.local';
+        _client.syncSsoCookies(
+          email: devEmail,
+          name: keyAlias,
+          role: 'user',
+        );
 
         state = AuthState(
           isAuthenticated: true,
@@ -264,6 +270,7 @@ class AuthNotifier extends Notifier<AuthState> {
 
   void logout() {
     _client.clearToken();
+    _client.clearSsoCookies();
     state = const AuthState(isAuthenticated: false, role: UserRole.guest);
   }
 }
