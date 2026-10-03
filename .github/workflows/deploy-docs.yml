@@ -35,6 +35,25 @@ jobs:
         with:
           enablement: true
 
+      - name: Prepare Documentation & Version Artifacts
+        run: |
+          # 1. Guarantee .nojekyll to prevent Jekyll 404s
+          touch docs/.nojekyll
+          find docs -type d -name "v*" -exec touch {}/.nojekyll \;
+          
+          # 2. Guarantee README.md exists for Docsify default route
+          cp -f docs/index.md docs/README.md
+          if [ -d "docs/v1.0.0" ]; then
+            cp -f docs/v1.0.0/index.md docs/v1.0.0/README.md 2>/dev/null || true
+          fi
+          if [ -d "docs/v1.1.0" ]; then
+            cp -f docs/v1.1.0/index.md docs/v1.1.0/README.md 2>/dev/null || true
+          fi
+          
+          # 3. Ensure brand assets are bundled in docs/assets
+          mkdir -p docs/assets
+          cp -rn assets/* docs/assets/ 2>/dev/null || true
+
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
         with:
