@@ -58,34 +58,3 @@ To prevent version skew between documentation, client configurations, and runnin
 1. **Advance Notice**: Any feature or API route slated for removal will be marked as deprecated for at least one minor release cycle (`MINOR`) before being removed in the next `MAJOR` release.
 2. **Telemetry Warnings**: Deprecated API routes emit audit warnings in Langfuse to alert administrators before enforcement.
 3. **Documentation Runbooks**: Migration guides are published in the official GitHub Pages documentation under `Operations & Runbooks`.
-
----
-
-## 4. Documentation Versioning Rules
-
-Every release that changes behavior **must ship with its documentation in the same release**.
-
-1. **Document first, snapshot last**: update the feature pages under `docs/` (architecture, configuration, governance, infrastructure, observability…), then create the `docs/vX.Y.Z/` snapshot. A snapshot taken before the docs are written is incomplete and must be regenerated.
-2. **Version markers**: new or changed capabilities are tagged in the page with the release that introduced them:
-   ```markdown
-   > [!NOTE]
-   > **Available since v1.3.0.**
-   ```
-   For inline items (table rows, list entries, compose services) use `*(since v1.3.0)*` or `*(v1.3.0+)*`.
-3. **Breaking changes / deprecations**: mark with `> [!WARNING]` stating `Changed in vX.Y.Z` or `Deprecated in vX.Y.Z — removed in vX+1.0.0`, plus a migration note.
-4. **Never edit frozen snapshots** (`docs/v1.0.0/`, `docs/v1.1.0/`, …) once a newer release exists, except to fix broken links. The current release snapshot may be regenerated until it is tagged.
-5. **Navigation**: new pages must be added to `docs/_sidebar.md` and the Documentation Map in `docs/README.md`.
-6. **Changelog** entries in `docs/operations/changelog.md` and `CHANGELOG.md` link to the relevant doc pages.
-
-### Release checklist
-
-| # | Step | Location |
-| :--- | :--- | :--- |
-| 1 | Classify change (PATCH / MINOR / MAJOR) | [SemVer rules](#_1-semver-format-majorminorpatch) |
-| 2 | Update / create feature docs with version markers | `docs/**` |
-| 3 | Sidebar & Documentation Map | `docs/_sidebar.md`, `docs/README.md` |
-| 4 | Changelog | `CHANGELOG.md`, `docs/operations/changelog.md` |
-| 5 | Version manifests | `api_constants.dart`, `pubspec.yaml` |
-| 6 | Version selector & navbar | `docs/index.html`, `docs/_navbar.md` |
-| 7 | Snapshot (last!) | `docs/vX.Y.Z/` |
-| 8 | Rebuild portal, commit, tag | `./scripts/build-portal.sh`, `git tag vX.Y.Z` |

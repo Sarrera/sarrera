@@ -93,6 +93,20 @@ Sarrera is structured around a decoupled microservice architecture orchestrated 
   - High-performance, S3-compatible object storage used by Langfuse to store large trace payloads, media, and audit attachments in the `langfuse-traces` bucket.
   - Web console served at `https://storage.localhost/`.
 
+### 8. Hardware Telemetry (`ai-prometheus`) — *since v1.3.0*
+- **Technology**: Prometheus v2.51.0
+- **Role**: Scrapes LiteLLM plus `node-exporter` (:9100), `cadvisor` (:8080) and `dcgm-exporter` (:9400, GPU) on every compute node. Feeds live CPU/RAM/disk/GPU gauges to the portal's Compute Nodes view.
+- **Access**: `https://prometheus.localhost/` · `/admin/prometheus/*`
+
+### 9. Dynamic Node Discovery (`ai-discovery`) — *since v1.3.0*
+- **Technology**: Python 3.12 stdlib HTTP service (:8001)
+- **Role**: Translates nodes registered in LiteLLM into Prometheus HTTP SD targets — nodes added/removed in the portal are scraped/unscraped automatically, without hardcoded IPs.
+- **Access**: `/admin/discovery/targets/all`
+
+```text
+LiteLLM (/model/info) ──► ai-discovery (:8001) ──HTTP SD──► ai-prometheus (:9090) ──scrape──► nodes :9100 / :8080 / :9400
+```
+
 ---
 
 ## Network Isolation

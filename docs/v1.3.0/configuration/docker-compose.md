@@ -15,6 +15,8 @@ services:
   postgres:       # Shared relational database (postgres:16-alpine)
   minio:          # S3-compatible trace blob storage (chainguard/minio)
   ollama-local:   # Stand-in local inference engine (ollama/ollama:latest)
+  discovery:      # Prometheus HTTP SD from LiteLLM nodes (python:3.12-alpine)  [since v1.3.0]
+  prometheus:     # Hardware & GPU metrics aggregation (prom/prometheus:v2.51.0) [since v1.3.0]
 ```
 
 ---
@@ -86,6 +88,20 @@ services:
 - **Command**: `server /data --console-address ":9001"`
 - **Healthcheck**: Performs an HTTP check on `http://localhost:9000/minio/health/live`.
 
+### 7. `discovery` (Service: `ai-discovery`) — *since v1.3.0*
+- **Image**: `python:3.12-alpine` running [`services/discovery/app.py`](https://github.com/Sarrera/sarrera/blob/main/services/discovery/app.py)
+- **Role**: Reads registered nodes from LiteLLM (`/model/info`) and serves Prometheus HTTP SD target lists (`/targets/node-exporter`, `/targets/cadvisor`, `/targets/dcgm-exporter`, `/targets/all`).
+- **Environment**: `LITELLM_HOST=http://litellm:4000`, `LITELLM_MASTER_KEY`, `PORT=8001`
+- **Exposure**: Internal only; proxied by Caddy at `/admin/discovery/*`.
+
+### 8. `prometheus` (Service: `ai-prometheus`) — *since v1.3.0*
+- **Image**: `prom/prometheus:v2.51.0`
+- **Command**: `--config.file=/etc/prometheus/prometheus.yml --storage.tsdb.retention.time=15d --web.enable-lifecycle`
+- **Volumes**: `./config/prometheus.yml` (read-only), `prometheus_data:/prometheus`
+- **Ports**: `127.0.0.1:9090:9090`; public via `https://prometheus.localhost/` and `/admin/prometheus/*`.
+- **Depends On**: `discovery`
+- See [Hardware Telemetry with Prometheus](observability/prometheus-telemetry.md).
+
 ---
 
 ## Volume Management
@@ -100,3 +116,4 @@ The stack uses named volumes to ensure data persistence across container updates
 | `caddy_data` | `/data` | SSL/TLS certificates and ACME account keys |
 | `caddy_config` | `/config` | Caddy runtime configuration cache |
 | `ollama_data` | `/root/.ollama` | Local quantized LLM weights (`.gguf`) |
+| `prometheus_data` | `/prometheus` | Hardware/GPU time series, 15-day retention *(since v1.3.0)* |

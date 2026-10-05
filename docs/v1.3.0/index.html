@@ -87,7 +87,7 @@
               const isV10 = path.includes('/v1.0.0');
               const isV11 = path.includes('/v1.1.0');
               const isV12 = path.includes('/v1.2.0');
-              const isLatest = !isV10 && !isV11 && !isV12;
+              const isLatest = !isV12 && !isV11 && !isV10;
               container.innerHTML = `
                 <label style="font-size: 11px; text-transform: uppercase; color: #94A3B8; font-weight: bold; letter-spacing: 0.05em; display: block; margin-bottom: 4px;">Platform Version</label>
                 <select class="version-select" onchange="window.location.href=this.value" style="width: 100%; margin: 0; padding: 6px 10px; border-radius: 6px; font-weight: 600; border: 1px solid rgba(75, 50, 195, 0.3); background: rgba(75, 50, 195, 0.06); color: #7c3aed; cursor: pointer;">

@@ -43,3 +43,14 @@ Al incrementar la versión de la plataforma o de las skills:
 6. **Recompilación y Despliegue**:
    * Ejecutar `./scripts/build-portal.sh` para refrescar los artefactos web de Caddy.
    * Verificar el workflow de GitHub Actions (`.github/workflows/deploy-docs.yml`).
+
+---
+
+## 3. Documentación obligatoria por versión (skill v1.1.0)
+
+* **Sin funcionalidad sin versión y documentación**: cada cambio funcional se documenta en `docs/` en la misma tarea, sin esperar a que lo pida el usuario.
+* **Marcadores de versión**: `> [!NOTE] **Available since vX.Y.Z.**` en secciones nuevas; `*(since vX.Y.Z)*` en filas/listas; `> [!WARNING] Changed/Deprecated in vX.Y.Z` en cambios incompatibles.
+* **Release pendiente**: si `appVersion` > último tag git, los cambios nuevos se acumulan en esa versión (no se vuelve a subir versión por cada cambio).
+* **Snapshot al final**: `docs/vX.Y.Z/` se genera después de escribir la documentación y se regenera (`rsync --delete`) mientras no exista el tag. Los snapshots de versiones ya superadas no se tocan.
+* **Navegación**: páginas nuevas en `docs/_sidebar.md`, mapa de `docs/README.md` y enlaces del `README.md` raíz.
+* **Versionado de la propia skill**: cualquier cambio en `SKILL.md`, `references/` o `scripts/` sube la versión de la skill y se registra en su Skill Changelog.

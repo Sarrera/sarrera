@@ -36,6 +36,8 @@ It centralizes access to Large Language Models (hosted locally on Ollama, vLLM, 
 4. **Zero-Latency Exhaustive Auditing**: Native, asynchronous integration with **Langfuse** logging complete prompts, completions, exact token counts, latencies (TTFT), and department cost attribution without degrading developer response times.
 5. **Collaborative Web Portal**: **Open WebUI** providing chat, agent management, local authentication, and optional integration with **Active Directory / LDAP**.
 6. **Perimeter Security & Networking**: Hardened reverse proxy via **Caddy** with automated TLS/mTLS, hiding internal container networks and unifying routing endpoints.
+7. **Hardware Telemetry & Node Operations** *(v1.3.0+)*: **Prometheus** with dynamic service discovery shows live CPU, RAM, disk and GPU usage per compute node, plus drain/reboot/terminal runbooks.
+8. **Identity Hardening** *(v1.3.0+)*: TOTP **MFA** with QR enrolment and per-user choice between individual quota and group budget pool.
 
 ---
 
@@ -176,6 +178,9 @@ The complete enterprise operations manual, API reference, governance guides, and
 - [🏗️ System Architecture](docs/getting-started/architecture.md)
 - [🛡️ Subscription Tiers & Quotas](docs/governance-rbac/tiers-and-quotas.md)
 - [📊 Langfuse Observability & Telemetry](docs/observability/langfuse.md)
+- [📈 Prometheus Hardware Telemetry](docs/observability/prometheus-telemetry.md) *(v1.3.0+)*
+- [🔐 Multi-Factor Authentication](docs/governance-rbac/mfa.md) *(v1.3.0+)*
+- [🏷️ Versioning Policy](docs/operations/versioning.md)
 - [💻 VS Code Continue Integration](docs/clients/vscode-continue.md)
 - [🛠️ CLI Scripts Reference](docs/operations/scripts-reference.md)
 - [🔧 Troubleshooting Guide](docs/operations/troubleshooting.md)
