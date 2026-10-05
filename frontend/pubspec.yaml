@@ -40,6 +40,8 @@ dependencies:
   fl_chart: ^1.2.0
   intl: ^0.20.3
   google_fonts: ^8.2.1
+  qr_flutter: ^4.1.0
+  crypto: ^3.0.7
 
 dev_dependencies:
   flutter_test:

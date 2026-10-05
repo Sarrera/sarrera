@@ -20,7 +20,7 @@ class LoginDialog extends ConsumerStatefulWidget {
 
 class _LoginDialogState extends ConsumerState<LoginDialog> {
   final _usernameController = TextEditingController(text: 'admin');
-  final _passwordController = TextEditingController();
+  final _passwordController = TextEditingController(text: 'sk-master-platform-key-change-me');
   bool _isLoading = false;
   String? _errorMessage;
 

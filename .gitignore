@@ -11,5 +11,5 @@ Thumbs.db
 .env
 
 # Data volumes & log outputs
-data/
+/data/
 *.log

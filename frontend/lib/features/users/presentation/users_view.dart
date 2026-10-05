@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import '../../../core/providers/app_providers.dart';
+import '../../../core/services/totp_service.dart';
 import '../../../core/theme/app_theme.dart';
 import '../domain/user_model.dart';
 import '../domain/group_model.dart';
@@ -473,6 +475,7 @@ class _UsersViewState extends ConsumerState<UsersView> with SingleTickerProvider
                   DataColumn(label: Text('MEMBER', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
                   DataColumn(label: Text('ROLE', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
                   DataColumn(label: Text('INDIVIDUAL SPEND', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                  DataColumn(label: Text('QUOTA MODE', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
                   DataColumn(label: Text('ACTIONS', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
                 ],
                 rows: group.members.map((member) {
@@ -520,6 +523,15 @@ class _UsersViewState extends ConsumerState<UsersView> with SingleTickerProvider
                         ),
                       ),
                       DataCell(
+                        Builder(builder: (context) {
+                          final u = (usersAsync.value ?? []).firstWhere(
+                            (user) => user.userId == member.userId,
+                            orElse: () => UserModel(userId: member.userId, userEmail: member.userEmail, userAlias: member.userAlias),
+                          );
+                          return _buildQuotaSourceSwitch(u, auth);
+                        }),
+                      ),
+                      DataCell(
                         Row(
                           children: [
                             IconButton(
@@ -531,6 +543,21 @@ class _UsersViewState extends ConsumerState<UsersView> with SingleTickerProvider
                                   return;
                                 }
                                 _issueKeyForGroupMember(group, member);
+                              },
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.shield_outlined, size: 16, color: AppTheme.secondary),
+                              tooltip: 'Configure MFA (Authenticator QR)',
+                              onPressed: () {
+                                if (!auth.isAuthenticated) {
+                                  LoginDialog.show(context);
+                                  return;
+                                }
+                                final u = (usersAsync.value ?? []).firstWhere(
+                                  (user) => user.userId == member.userId,
+                                  orElse: () => UserModel(userId: member.userId, userEmail: member.userEmail, userAlias: member.userAlias),
+                                );
+                                _showMfaDialog(u);
                               },
                             ),
                             IconButton(
@@ -602,6 +629,8 @@ class _UsersViewState extends ConsumerState<UsersView> with SingleTickerProvider
                 DataColumn(label: Text('SUBSCRIPTION TIER', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
                 DataColumn(label: Text('PERSONAL MONTHLY SPEND', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
                 DataColumn(label: Text('ACTIVE KEYS', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                DataColumn(label: Text('QUOTA SOURCE', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                DataColumn(label: Text('MFA SECURITY', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
                 DataColumn(label: Text('ACTIONS', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
               ],
               rows: soloUsers.map((u) {
@@ -659,6 +688,8 @@ class _UsersViewState extends ConsumerState<UsersView> with SingleTickerProvider
                       ),
                     ),
                     DataCell(Text('${u.keyCount} active', style: const TextStyle(fontSize: 12))),
+                    DataCell(_buildQuotaSourceSwitch(u, auth)),
+                    DataCell(_buildMfaStatusBadge(u)),
                     DataCell(
                       Row(
                         children: [
@@ -671,6 +702,21 @@ class _UsersViewState extends ConsumerState<UsersView> with SingleTickerProvider
                                 return;
                               }
                               _issueKeyForUser(u);
+                            },
+                          ),
+                          IconButton(
+                            icon: Icon(
+                              u.isMfaEnabled ? Icons.shield : Icons.shield_outlined,
+                              size: 18,
+                              color: u.isMfaEnabled ? AppTheme.success : AppTheme.secondary,
+                            ),
+                            tooltip: u.isMfaEnabled ? 'MFA Configured (View/Change)' : 'Setup MFA (Authenticator QR)',
+                            onPressed: () {
+                              if (!auth.isAuthenticated) {
+                                LoginDialog.show(context);
+                                return;
+                              }
+                              _showMfaDialog(u);
                             },
                           ),
                           IconButton(
@@ -826,6 +872,8 @@ class _UsersViewState extends ConsumerState<UsersView> with SingleTickerProvider
                     DataColumn(label: Text('ASSIGNED TIER', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
                     DataColumn(label: Text('MONTHLY SPEND', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
                     DataColumn(label: Text('KEYS', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                    DataColumn(label: Text('QUOTA SOURCE', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                    DataColumn(label: Text('MFA SECURITY', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
                     DataColumn(label: Text('ACTIONS', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
                   ],
                   rows: filtered.map((u) {
@@ -905,6 +953,8 @@ class _UsersViewState extends ConsumerState<UsersView> with SingleTickerProvider
                           ),
                         ),
                         DataCell(Text('${u.keyCount} active', style: const TextStyle(fontSize: 12))),
+                        DataCell(_buildQuotaSourceSwitch(u, auth)),
+                        DataCell(_buildMfaStatusBadge(u)),
                         DataCell(
                           Row(
                             children: [
@@ -917,6 +967,21 @@ class _UsersViewState extends ConsumerState<UsersView> with SingleTickerProvider
                                     return;
                                   }
                                   _issueKeyForUser(u);
+                                },
+                              ),
+                              IconButton(
+                                icon: Icon(
+                                  u.isMfaEnabled ? Icons.shield : Icons.shield_outlined,
+                                  size: 18,
+                                  color: u.isMfaEnabled ? AppTheme.success : AppTheme.secondary,
+                                ),
+                                tooltip: u.isMfaEnabled ? 'MFA Configured (View/Change)' : 'Setup MFA (Authenticator QR)',
+                                onPressed: () {
+                                  if (!auth.isAuthenticated) {
+                                    LoginDialog.show(context);
+                                    return;
+                                  }
+                                  _showMfaDialog(u);
                                 },
                               ),
                               IconButton(
@@ -1267,6 +1332,173 @@ class _UsersViewState extends ConsumerState<UsersView> with SingleTickerProvider
     );
   }
 
+  Widget _buildMfaStatusBadge(UserModel u) {
+    if (u.isMfaEnabled) {
+      return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        decoration: BoxDecoration(
+          color: AppTheme.success.withValues(alpha: 0.15),
+          borderRadius: BorderRadius.circular(6),
+          border: Border.all(color: AppTheme.success.withValues(alpha: 0.4)),
+        ),
+        child: const Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.verified_user, size: 13, color: AppTheme.success),
+            SizedBox(width: 4),
+            Text(
+              'Active',
+              style: TextStyle(
+                color: AppTheme.success,
+                fontSize: 11,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      decoration: BoxDecoration(
+        color: AppTheme.surfaceElevated,
+        borderRadius: BorderRadius.circular(6),
+        border: Border.all(color: AppTheme.surfaceBorder),
+      ),
+      child: const Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Icons.gpp_maybe_outlined, size: 13, color: AppTheme.textMuted),
+          SizedBox(width: 4),
+          Text(
+            'Disabled',
+            style: TextStyle(
+              color: AppTheme.textMuted,
+              fontSize: 11,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showMfaDialog(UserModel user) {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (_) => _MfaConfigDialog(user: user),
+    );
+  }
+
+  Widget _buildQuotaSourceSwitch(UserModel u, AuthState auth) {
+    if (!u.isGroupMember) {
+      return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        decoration: BoxDecoration(
+          color: AppTheme.surfaceElevated,
+          borderRadius: BorderRadius.circular(6),
+          border: Border.all(color: AppTheme.surfaceBorder),
+        ),
+        child: const Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.person, size: 12, color: AppTheme.textMuted),
+            SizedBox(width: 4),
+            Text('Solo (Personal)', style: TextStyle(color: AppTheme.textMuted, fontSize: 11)),
+          ],
+        ),
+      );
+    }
+
+    final isGroupQuota = u.usesGroupQuota;
+
+    return Tooltip(
+      message: isGroupQuota
+          ? '🏢 Consumiendo de la Bolsa de Grupo (${u.assignedGroupId}). Pulsa para cambiar a Cuota Personal.'
+          : '👤 Consumiendo de su Cuota Personal (${u.maxBudget != null ? '${u.maxBudget!.toStringAsFixed(0)} €' : 'Fija'}). Pulsa para pasar a Bolsa de Grupo.',
+      child: InkWell(
+        borderRadius: BorderRadius.circular(16),
+        onTap: () async {
+          if (!auth.isAuthenticated) {
+            LoginDialog.show(context);
+            return;
+          }
+          final newVal = !isGroupQuota;
+          await ref.read(usersProvider.notifier).toggleUserQuotaSource(
+                userId: u.userId,
+                useGroupQuota: newVal,
+                existingMetadata: u.metadata,
+              );
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  newVal
+                      ? '🏢 ${u.userId} ahora consume directamente de la bolsa común del grupo (${u.assignedGroupId})'
+                      : '👤 ${u.userId} ahora consume de su cuota individual fija',
+                ),
+                duration: const Duration(seconds: 2),
+                backgroundColor: newVal ? AppTheme.primary : AppTheme.secondary,
+              ),
+            );
+          }
+        },
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          decoration: BoxDecoration(
+            color: isGroupQuota
+                ? AppTheme.primary.withValues(alpha: 0.15)
+                : AppTheme.secondary.withValues(alpha: 0.15),
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: isGroupQuota
+                  ? AppTheme.primary.withValues(alpha: 0.5)
+                  : AppTheme.secondary.withValues(alpha: 0.5),
+            ),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                isGroupQuota ? Icons.groups_2_outlined : Icons.person_outline,
+                size: 13,
+                color: isGroupQuota ? AppTheme.primary : AppTheme.secondary,
+              ),
+              const SizedBox(width: 5),
+              Text(
+                isGroupQuota ? 'Bolsa Grupo' : 'Personal',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.bold,
+                  color: isGroupQuota ? AppTheme.primary : AppTheme.secondary,
+                ),
+              ),
+              const SizedBox(width: 6),
+              Container(
+                width: 26,
+                height: 14,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(7),
+                  color: isGroupQuota ? AppTheme.primary : AppTheme.surfaceBorder,
+                ),
+                alignment: isGroupQuota ? Alignment.centerRight : Alignment.centerLeft,
+                padding: const EdgeInsets.all(2),
+                child: Container(
+                  width: 10,
+                  height: 10,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   // ===========================================================================
   // ACTION HANDLERS & MODALS
   // ===========================================================================
@@ -1293,9 +1525,11 @@ class _UsersViewState extends ConsumerState<UsersView> with SingleTickerProvider
 
   Future<void> _issueKeyForUser(UserModel user) async {
     try {
+      final double? effectiveBudget = user.usesGroupQuota ? null : user.maxBudget;
       final res = await ref.read(userRepositoryProvider).generateKeyForUser(
             userId: user.userId,
             tier: user.assignedGroupId ?? user.primaryTier,
+            maxBudget: effectiveBudget,
           );
       if (mounted) {
         showDialog(
@@ -1336,9 +1570,16 @@ class _UsersViewState extends ConsumerState<UsersView> with SingleTickerProvider
 
   Future<void> _issueKeyForGroupMember(GroupModel group, GroupMember member) async {
     try {
+      final users = ref.read(usersProvider).value ?? [];
+      final u = users.firstWhere(
+        (user) => user.userId == member.userId,
+        orElse: () => UserModel(userId: member.userId),
+      );
+      final double? effectiveBudget = u.usesGroupQuota ? null : (member.maxBudget ?? u.maxBudget);
       final res = await ref.read(userRepositoryProvider).generateKeyForUser(
             userId: member.userId,
             tier: group.groupId,
+            maxBudget: effectiveBudget,
             keyAlias: '${member.userAlias ?? member.userId} (${group.groupAlias})',
           );
       if (mounted) {
@@ -1638,6 +1879,7 @@ class _OnboardUserDialogState extends ConsumerState<_OnboardUserDialog> {
   bool _isGroupMember = false;
   String? _selectedGroupId;
   String _selectedTier = 'tier-standard';
+  bool _useGroupQuota = true;
   bool _isCreating = false;
 
   @override
@@ -1666,33 +1908,49 @@ class _OnboardUserDialogState extends ConsumerState<_OnboardUserDialog> {
     }
 
     setState(() => _isCreating = true);
-    final budgetVal = double.tryParse(_budgetController.text.trim());
+    final double? budgetVal = (_isGroupMember && _useGroupQuota)
+        ? null
+        : double.tryParse(_budgetController.text.trim());
 
-    final success = await ref.read(usersProvider.notifier).createUser(
-          userId: userId,
-          email: _emailController.text.trim(),
-          alias: _aliasController.text.trim(),
-          tier: _selectedTier,
-          groupId: _isGroupMember ? _selectedGroupId : null,
-          isGroupAccount: _isGroupMember,
-          maxBudget: budgetVal,
-        );
-
-    if (mounted) {
-      setState(() => _isCreating = false);
-      if (success) {
-        Navigator.of(context).pop();
-        // Automatically issue initial key
-        final keyRes = await ref.read(userRepositoryProvider).generateKeyForUser(
-              userId: userId,
-              tier: _isGroupMember ? _selectedGroupId! : _selectedTier,
-            );
-        if (mounted) {
-          showDialog(
-            context: context,
-            builder: (_) => _KeyIssuedDialog(keyResult: keyRes),
+    try {
+      final success = await ref.read(usersProvider.notifier).createUser(
+            userId: userId,
+            email: _emailController.text.trim(),
+            alias: _aliasController.text.trim(),
+            tier: _selectedTier,
+            groupId: _isGroupMember ? _selectedGroupId : null,
+            isGroupAccount: _isGroupMember,
+            maxBudget: budgetVal,
+            quotaSource: _isGroupMember ? (_useGroupQuota ? 'group' : 'personal') : 'personal',
           );
+
+      if (mounted) {
+        setState(() => _isCreating = false);
+        if (success) {
+          Navigator.of(context).pop();
+          // Automatically issue initial key
+          final keyRes = await ref.read(userRepositoryProvider).generateKeyForUser(
+                userId: userId,
+                tier: _isGroupMember ? _selectedGroupId! : _selectedTier,
+                maxBudget: budgetVal,
+              );
+          if (mounted) {
+            showDialog(
+              context: context,
+              builder: (_) => _KeyIssuedDialog(keyResult: keyRes),
+            );
+          }
         }
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() => _isCreating = false);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error al dar de alta el usuario: $e'),
+            backgroundColor: AppTheme.error,
+          ),
+        );
       }
     }
   }
@@ -1849,6 +2107,52 @@ class _OnboardUserDialogState extends ConsumerState<_OnboardUserDialog> {
                     if (val != null) setState(() => _selectedGroupId = val);
                   },
                 ),
+                const SizedBox(height: 14),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: AppTheme.surfaceElevated,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: AppTheme.surfaceBorder),
+                  ),
+                  child: SwitchListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: Row(
+                      children: [
+                        Icon(
+                          _useGroupQuota ? Icons.groups_2_outlined : Icons.person_outline,
+                          size: 18,
+                          color: _useGroupQuota ? AppTheme.primary : AppTheme.secondary,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          _useGroupQuota ? 'Consumir de la Bolsa del Grupo' : 'Cuota Individual Fija',
+                          style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    subtitle: Text(
+                      _useGroupQuota
+                          ? 'El usuario consumirá directamente de la bolsa común del grupo sin límite individual.'
+                          : 'El usuario tendrá un tope personal asignado independiente.',
+                      style: const TextStyle(fontSize: 11, color: AppTheme.textMuted),
+                    ),
+                    value: _useGroupQuota,
+                    onChanged: (val) => setState(() => _useGroupQuota = val),
+                  ),
+                ),
+                if (!_useGroupQuota) ...[
+                  const SizedBox(height: 14),
+                  TextField(
+                    controller: _budgetController,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      labelText: 'Cuota Individual del Usuario (€/mes)',
+                      hintText: 'Ej: 50.00',
+                      prefixIcon: Icon(Icons.euro_outlined, size: 20),
+                    ),
+                  ),
+                ],
             ] else ...[
               Row(
                 children: [
@@ -2235,6 +2539,467 @@ class _KeyIssuedDialog extends StatelessWidget {
               ],
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+// =============================================================================
+// DIALOG: MFA / TOTP TWO-FACTOR AUTHENTICATION CONFIGURATION
+// =============================================================================
+class _MfaConfigDialog extends ConsumerStatefulWidget {
+  final UserModel user;
+
+  const _MfaConfigDialog({required this.user});
+
+  @override
+  ConsumerState<_MfaConfigDialog> createState() => _MfaConfigDialogState();
+}
+
+class _MfaConfigDialogState extends ConsumerState<_MfaConfigDialog> {
+  late String _secret;
+  late String _uri;
+  final TextEditingController _codeController = TextEditingController();
+  bool _isLoading = false;
+  String? _errorMessage;
+  bool _isRegenerating = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _isRegenerating = !widget.user.isMfaEnabled;
+    _setupSecret(forceNew: !widget.user.isMfaEnabled);
+  }
+
+  void _setupSecret({bool forceNew = false}) {
+    if (!forceNew && widget.user.isMfaEnabled && widget.user.mfaSecret != null && widget.user.mfaSecret!.isNotEmpty) {
+      _secret = widget.user.mfaSecret!;
+    } else {
+      _secret = TotpService.generateSecret(byteLength: 20);
+    }
+
+    _uri = TotpService.getOtpAuthUri(
+      userId: widget.user.userEmail ?? widget.user.userId,
+      secret: _secret,
+      issuer: 'Sarrera Platform',
+    );
+  }
+
+  @override
+  void dispose() {
+    _codeController.dispose();
+    super.dispose();
+  }
+
+  String _formatSecret(String secret) {
+    // Add spaces every 4 characters for readability
+    final chunks = <String>[];
+    for (int i = 0; i < secret.length; i += 4) {
+      final end = (i + 4 <= secret.length) ? i + 4 : secret.length;
+      chunks.add(secret.substring(i, end));
+    }
+    return chunks.join(' ');
+  }
+
+  Future<void> _verifyAndActivate() async {
+    final code = _codeController.text.trim();
+    if (code.length != 6) {
+      setState(() => _errorMessage = 'Introduce el código numérico de 6 dígitos.');
+      return;
+    }
+
+    final isValid = TotpService.verifyCode(secret: _secret, code: code);
+    if (!isValid) {
+      setState(() {
+        _errorMessage = 'Código incorrecto o caducado. Comprueba tu hora de sistema y vuelve a intentarlo.';
+      });
+      return;
+    }
+
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+    });
+
+    try {
+      final success = await ref.read(usersProvider.notifier).updateUserMfa(
+            userId: widget.user.userId,
+            enabled: true,
+            secret: _secret,
+            existingMetadata: widget.user.metadata,
+          );
+
+      if (mounted) {
+        setState(() => _isLoading = false);
+        if (success) {
+          Navigator.of(context).pop();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('✅ MFA (2FA) activado correctamente para ${widget.user.userId}'),
+              backgroundColor: AppTheme.success,
+            ),
+          );
+        } else {
+          setState(() => _errorMessage = 'No se pudo actualizar el estado de MFA en el servidor.');
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+          _errorMessage = 'Error al activar MFA: $e';
+        });
+      }
+    }
+  }
+
+  Future<void> _disableMfa() async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (_) => AlertDialog(
+        backgroundColor: AppTheme.surface,
+        title: const Text('Desactivar MFA'),
+        content: Text(
+          '¿Estás seguro de desactivar la autenticación multifactor (MFA) para el usuario "${widget.user.userId}"?',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('Cancelar'),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: AppTheme.error),
+            onPressed: () => Navigator.of(context).pop(true),
+            child: const Text('Sí, Desactivar'),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed == true && mounted) {
+      setState(() => _isLoading = true);
+      try {
+        final success = await ref.read(usersProvider.notifier).updateUserMfa(
+              userId: widget.user.userId,
+              enabled: false,
+              existingMetadata: widget.user.metadata,
+            );
+        if (mounted) {
+          setState(() => _isLoading = false);
+          if (success) {
+            Navigator.of(context).pop();
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('MFA desactivado para ${widget.user.userId}'),
+                backgroundColor: AppTheme.warning,
+              ),
+            );
+          }
+        }
+      } catch (e) {
+        if (mounted) {
+          setState(() {
+            _isLoading = false;
+            _errorMessage = 'Error al desactivar MFA: $e';
+          });
+        }
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final isAlreadyEnabled = widget.user.isMfaEnabled && !_isRegenerating;
+
+    return Dialog(
+      backgroundColor: AppTheme.surface,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+        side: const BorderSide(color: AppTheme.surfaceBorder),
+      ),
+      child: Container(
+        width: 540,
+        padding: const EdgeInsets.all(28),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Header
+              Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: widget.user.isMfaEnabled
+                          ? AppTheme.success.withValues(alpha: 0.15)
+                          : AppTheme.primary.withValues(alpha: 0.15),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Icon(
+                      widget.user.isMfaEnabled ? Icons.verified_user : Icons.security,
+                      color: widget.user.isMfaEnabled ? AppTheme.success : AppTheme.primary,
+                      size: 24,
+                    ),
+                  ),
+                  const SizedBox(width: 14),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Autenticación en Dos Pasos (MFA / TOTP)',
+                          style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 18),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          'Usuario: ${widget.user.userId}${widget.user.userEmail != null ? ' (${widget.user.userEmail})' : ''}',
+                          style: const TextStyle(color: AppTheme.textMuted, fontSize: 13),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+
+              // Status Banner
+              if (isAlreadyEnabled) ...[
+                Container(
+                  padding: const EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: AppTheme.success.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: AppTheme.success.withValues(alpha: 0.3)),
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.check_circle_outline, color: AppTheme.success, size: 20),
+                      const SizedBox(width: 10),
+                      const Expanded(
+                        child: Text(
+                          'MFA está actualmente ACTIVO y protegiendo esta cuenta con TOTP.',
+                          style: TextStyle(color: AppTheme.success, fontSize: 13, fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                      TextButton.icon(
+                        icon: const Icon(Icons.refresh, size: 16),
+                        label: const Text('Reconfigurar QR'),
+                        onPressed: () {
+                          setState(() {
+                            _isRegenerating = true;
+                            _setupSecret(forceNew: true);
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 20),
+              ] else ...[
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: AppTheme.primary.withValues(alpha: 0.08),
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: AppTheme.primary.withValues(alpha: 0.2)),
+                  ),
+                  child: const Row(
+                    children: [
+                      Icon(Icons.info_outline, color: AppTheme.primary, size: 18),
+                      SizedBox(width: 10),
+                      Expanded(
+                        child: Text(
+                          'Escanea el código QR con tu app de autenticación (Google Authenticator, Microsoft Authenticator, Apple Passwords o Authy).',
+                          style: TextStyle(fontSize: 12, color: AppTheme.textSecondary),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 20),
+              ],
+
+              // QR Code Card
+              Center(
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(14),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.25),
+                        blurRadius: 12,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: QrImageView(
+                    data: _uri,
+                    version: QrVersions.auto,
+                    size: 190.0,
+                    backgroundColor: Colors.white,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+
+              // Secret Key Box
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                decoration: BoxDecoration(
+                  color: AppTheme.surfaceElevated,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: AppTheme.surfaceBorder),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'CLAVE SECRETA MANUAL (BASE32)',
+                            style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: AppTheme.textMuted),
+                          ),
+                          const SizedBox(height: 3),
+                          Text(
+                            _formatSecret(_secret),
+                            style: const TextStyle(
+                              fontFamily: 'monospace',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                              color: AppTheme.accent,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.copy, size: 18, color: AppTheme.primary),
+                      tooltip: 'Copiar Clave Secreta',
+                      onPressed: () {
+                        Clipboard.setData(ClipboardData(text: _secret));
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Clave secreta Base32 copiada al portapapeles'),
+                            duration: Duration(seconds: 2),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+
+              // Verification Input (Only if activating or regenerating)
+              if (_isRegenerating || !widget.user.isMfaEnabled) ...[
+                const Text(
+                  'Validación del Código Authenticator',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+                ),
+                const SizedBox(height: 6),
+                const Text(
+                  'Introduce los 6 dígitos generados por tu aplicación para verificar la sincronización horaria:',
+                  style: TextStyle(fontSize: 12, color: AppTheme.textMuted),
+                ),
+                const SizedBox(height: 10),
+                TextField(
+                  controller: _codeController,
+                  keyboardType: TextInputType.number,
+                  maxLength: 6,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 22,
+                    letterSpacing: 10,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'monospace',
+                  ),
+                  decoration: InputDecoration(
+                    counterText: '',
+                    hintText: '000000',
+                    isDense: true,
+                    filled: true,
+                    fillColor: AppTheme.surfaceElevated,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: const BorderSide(color: AppTheme.surfaceBorder),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: const BorderSide(color: AppTheme.primary, width: 2),
+                    ),
+                  ),
+                  onSubmitted: (_) => _verifyAndActivate(),
+                ),
+                if (_errorMessage != null) ...[
+                  const SizedBox(height: 10),
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: AppTheme.error.withValues(alpha: 0.15),
+                      borderRadius: BorderRadius.circular(6),
+                      border: Border.all(color: AppTheme.error.withValues(alpha: 0.3)),
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.error_outline, size: 16, color: AppTheme.error),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            _errorMessage!,
+                            style: const TextStyle(color: AppTheme.error, fontSize: 12),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+                const SizedBox(height: 24),
+              ],
+
+              // Footer Actions
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  if (widget.user.isMfaEnabled)
+                    TextButton.icon(
+                      style: TextButton.styleFrom(foregroundColor: AppTheme.error),
+                      icon: const Icon(Icons.shield_outlined, size: 16),
+                      label: const Text('Desactivar MFA'),
+                      onPressed: _isLoading ? null : _disableMfa,
+                    )
+                  else
+                    const SizedBox.shrink(),
+                  Row(
+                    children: [
+                      TextButton(
+                        onPressed: () => Navigator.of(context).pop(),
+                        child: Text(widget.user.isMfaEnabled && !_isRegenerating ? 'Cerrar' : 'Cancelar'),
+                      ),
+                      if (_isRegenerating || !widget.user.isMfaEnabled) ...[
+                        const SizedBox(width: 12),
+                        ElevatedButton.icon(
+                          icon: _isLoading
+                              ? const SizedBox(
+                                  width: 16,
+                                  height: 16,
+                                  child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                                )
+                              : const Icon(Icons.check, size: 16),
+                          label: const Text('Verificar y Activar MFA'),
+                          onPressed: _isLoading ? null : _verifyAndActivate,
+                        ),
+                      ],
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

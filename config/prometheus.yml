@@ -1,0 +1,35 @@
+global:
+  scrape_interval: 5s
+  evaluation_interval: 5s
+
+scrape_configs:
+  # LiteLLM AI Gateway Telemetry (Static internal service)
+  - job_name: "litellm"
+    metrics_path: "/metrics/"
+    bearer_token: "sk-master-platform-key-change-me"
+    static_configs:
+      - targets: ["litellm:4000"]
+        labels:
+          role: "inference-gateway"
+
+  # Dynamic Compute Node Hardware Telemetry (Discovered dynamically via HTTP SD)
+  - job_name: "node-exporter"
+    metrics_path: "/metrics"
+    http_sd_configs:
+      - url: "http://discovery:8001/targets/node-exporter"
+        refresh_interval: 5s
+
+  # Dynamic Container Telemetry (Discovered dynamically via HTTP SD)
+  - job_name: "cadvisor"
+    metrics_path: "/metrics"
+    http_sd_configs:
+      - url: "http://discovery:8001/targets/cadvisor"
+        refresh_interval: 5s
+
+  # Dynamic NVIDIA GPU Telemetry (dcgm-exporter on port 9400, discovered when active)
+  - job_name: "dcgm-exporter"
+    metrics_path: "/metrics"
+    http_sd_configs:
+      - url: "http://discovery:8001/targets/dcgm-exporter"
+        refresh_interval: 5s
+

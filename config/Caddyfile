@@ -71,6 +71,16 @@
         reverse_proxy litellm:4000
     }
 
+    # Prometheus Hardware & Telemetry API
+    handle_path /admin/prometheus/* {
+        reverse_proxy prometheus:9090 {
+            header_up Host {upstream_hostport}
+            header_up X-Real-IP {remote_host}
+            header_up X-Forwarded-For {remote_host}
+            header_up X-Forwarded-Proto {scheme}
+        }
+    }
+
     # Langfuse Observability & Trace Auditing -> Redirect to dedicated audit subdomain
     handle /admin/audit* {
         redir https://audit.{hostport}/ 302
@@ -102,7 +112,7 @@
     # Central Portal Landing Screen ("Pantalla de Caddy")
     handle {
         root * /var/www/portal
-        @nocache path / /index.html /flutter_bootstrap.js /flutter_service_worker.js /version.json
+        @nocache path / /index.html /main.dart.js /flutter_bootstrap.js /flutter_service_worker.js /version.json
         header @nocache {
             Cache-Control "no-cache, no-store, must-revalidate"
             Pragma "no-cache"
@@ -229,3 +239,15 @@ docs.{$DOMAIN:localhost} {
     root * /var/www/docs
     file_server
 }
+
+# Prometheus Subdomain -> Metrics & Telemetry Console
+prometheus.{$DOMAIN:localhost} {
+    tls internal
+    reverse_proxy prometheus:9090 {
+        header_up Host {host}
+        header_up X-Real-IP {remote_host}
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto {scheme}
+    }
+}
+

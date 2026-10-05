@@ -29,6 +29,11 @@ class ApiClient {
       try {
         _adminToken = html.window.sessionStorage[_tokenStorageKey] ??
             html.window.localStorage[_tokenStorageKey];
+        if ((_adminToken == null || _adminToken!.isEmpty) &&
+            (html.window.location.hostname == 'localhost' || html.window.location.hostname == '127.0.0.1')) {
+          _adminToken = 'sk-master-platform-key-change-me';
+          html.window.sessionStorage[_tokenStorageKey] = _adminToken!;
+        }
         if (_adminToken != null && _adminToken!.isNotEmpty) {
           syncSsoCookies(
             email: 'admin@sarrera.local',

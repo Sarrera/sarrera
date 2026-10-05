@@ -67,6 +67,22 @@ class UserModel {
 
   bool get isSolo => !isGroupMember;
 
+  /// Whether MFA (TOTP Two-Factor Authentication) is active for this user
+  bool get isMfaEnabled => metadata['mfa_enabled'] == true;
+
+  /// The active TOTP Base32 secret for this user, if configured
+  String? get mfaSecret => metadata['mfa_secret'] as String?;
+
+  /// Whether this user consumes directly from the shared Group Pool or from an individual personal quota.
+  /// For group members, default is true (Group Pool), unless explicitly set to 'personal'.
+  bool get usesGroupQuota {
+    if (!isGroupMember) return false;
+    return metadata['quota_source'] != 'personal';
+  }
+
+  /// The active quota source label ('group' or 'personal')
+  String get quotaSource => isGroupMember ? (metadata['quota_source'] ?? 'group') : 'personal';
+
   /// The corporate group ID if assigned, or null
   String? get assignedGroupId {
     final groupTeam = teams.firstWhere(

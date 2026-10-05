@@ -32,6 +32,18 @@ cp -R "${FRONTEND_DIR}/build/web/"* "${PORTAL_DIR}/"
 # Also ensure direct asset links resolve
 cp -R "${REPO_DIR}/assets/"* "${PORTAL_DIR}/assets/" 2>/dev/null || true
 
+# Disable Flutter's deprecated Service Worker to prevent browser stale cache issues
+if [ -f "${PORTAL_DIR}/flutter_bootstrap.js" ]; then
+  python3 -c "
+with open('${PORTAL_DIR}/flutter_bootstrap.js', 'r') as f:
+    c = f.read()
+import re
+c = re.sub(r'_flutter\.loader\.load\(\{[\s\S]*?\}\);', '_flutter.loader.load();', c)
+with open('${PORTAL_DIR}/flutter_bootstrap.js', 'w') as f:
+    f.write(c)
+"
+fi
+
 echo "🔄 [3/3] Checking Caddy container..."
 if docker ps --format '{{.Names}}' | grep -q "^ai-caddy$"; then
   echo "Reloading Caddy configuration..."

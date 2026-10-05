@@ -33,6 +33,7 @@ class ApiConstants {
   static const String modelInfo = '$litellmBase/model/info';
   static const String modelNew = '$litellmBase/model/new';
   static const String modelDelete = '$litellmBase/model/delete';
+  static String modelUpdate(String modelId) => '$litellmBase/model/$modelId/update';
 
   // Telemetry & Spend Endpoints
   static const String spendReport = '$litellmBase/global/spend/report';
@@ -40,6 +41,10 @@ class ApiConstants {
   // Langfuse Telemetry
   static const String langfuseHealth = '$langfuseBase/api/public/health';
   static const String langfuseTraces = '$langfuseBase/api/public/traces';
+
+  // Prometheus Hardware & Telemetry
+  static const String prometheusBase = '/admin/prometheus';
+  static const String prometheusQuery = '$prometheusBase/api/v1/query';
 
   // Platform Versioning (SemVer: MAJOR.MINOR.PATCH)
   static const String appVersion = 'v1.2.0';
@@ -71,6 +76,17 @@ class ApiConstants {
       return 'https://audit.$host$portSuffix/sso';
     }
     return '/admin/audit/';
+  }
+
+  /// Dynamically computes the dedicated subdomain URL for Prometheus Telemetry Suite
+  static String getPrometheusUrl() {
+    if (kIsWeb) {
+      final host = html.window.location.hostname ?? 'localhost';
+      final port = html.window.location.port;
+      final portSuffix = (port.isNotEmpty && port != '80' && port != '443') ? ':$port' : '';
+      return 'https://prometheus.$host$portSuffix/';
+    }
+    return '/admin/prometheus/';
   }
 
   /// Dynamically computes the dedicated subdomain URL for Ollama Inference Engine & Model Inspector

@@ -86,16 +86,20 @@ sarrera/
 │   └── context.md                        # Autonomous execution context for Antigravity
 ├── assets/
 │   ├── sarrera-icon.svg                  # Official Sarrera vector logo
-│   ├── sarrera-icon.png                  # Rendered PNG icon with transparency
-│   ├── logo.svg
-│   └── logo.png
+│   └── sarrera-icon.png                  # Rendered PNG icon with transparency
 ├── config/
 │   ├── Caddyfile                         # Reverse proxy routing, security headers & TLS
 │   ├── litellm-config.yaml               # Upstream models, weighted routing & Langfuse callbacks
+│   ├── prometheus.yml                    # Prometheus config with dynamic HTTP service discovery
 │   ├── init-dbs.sql                      # Multi-database PostgreSQL bootstrap script
 │   └── vscode-continue-config.sample.json# Sample configuration for VS Code Continue
+├── services/
+│   └── discovery/
+│       └── app.py                        # Dynamic Prometheus HTTP Target Discovery daemon
+├── frontend/                             # Flutter Web Governance & Telemetry Portal
 ├── scripts/
 │   ├── bootstrap-tiers.sh                # CLI script to initialize tiers in LiteLLM
+│   ├── build-portal.sh                   # Compiles and deploys Flutter Web portal
 │   ├── issue-key.sh                      # CLI script to issue user virtual API keys by tier
 │   └── smoke-test.sh                     # E2E health check and RBAC isolation tests
 ├── spec/

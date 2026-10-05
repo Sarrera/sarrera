@@ -147,6 +147,7 @@ class AuthNotifier extends Notifier<AuthState> {
         userAlias: 'Platform Administrator',
         error: null,
       );
+      ref.invalidate(nodesProvider);
       return true;
     } catch (e) {
       _client.clearToken();
@@ -433,6 +434,7 @@ class UsersNotifier extends AsyncNotifier<List<UserModel>> {
     double? maxBudget,
     int? rpmLimit,
     int? tpmLimit,
+    String? quotaSource,
   }) async {
     final success = await ref.read(userRepositoryProvider).createUser(
           userId: userId,
@@ -444,12 +446,48 @@ class UsersNotifier extends AsyncNotifier<List<UserModel>> {
           maxBudget: maxBudget,
           rpmLimit: rpmLimit,
           tpmLimit: tpmLimit,
+          quotaSource: quotaSource,
         );
     if (success) {
       await refresh();
       if (isGroupAccount) {
         ref.read(groupsProvider.notifier).refresh();
       }
+    }
+    return success;
+  }
+
+  Future<bool> updateUserMfa({
+    required String userId,
+    required bool enabled,
+    String? secret,
+    Map<String, dynamic>? existingMetadata,
+  }) async {
+    final success = await ref.read(userRepositoryProvider).updateUserMfa(
+          userId: userId,
+          enabled: enabled,
+          secret: secret,
+          existingMetadata: existingMetadata,
+        );
+    if (success) {
+      await refresh();
+    }
+    return success;
+  }
+
+  Future<bool> toggleUserQuotaSource({
+    required String userId,
+    required bool useGroupQuota,
+    Map<String, dynamic>? existingMetadata,
+  }) async {
+    final success = await ref.read(userRepositoryProvider).toggleUserQuotaSource(
+          userId: userId,
+          useGroupQuota: useGroupQuota,
+          existingMetadata: existingMetadata,
+        );
+    if (success) {
+      await refresh();
+      ref.read(groupsProvider.notifier).refresh();
     }
     return success;
   }
@@ -472,6 +510,10 @@ final nodesProvider = AsyncNotifierProvider<NodesNotifier, List<NodeModel>>(() {
 class NodesNotifier extends AsyncNotifier<List<NodeModel>> {
   @override
   Future<List<NodeModel>> build() async {
+    final auth = ref.watch(authProvider);
+    if (!auth.isAuthenticated) {
+      return [];
+    }
     final repo = ref.watch(nodeRepositoryProvider);
     return repo.getNodes();
   }
@@ -503,6 +545,14 @@ class NodesNotifier extends AsyncNotifier<List<NodeModel>> {
 
   Future<bool> deleteNode(String nodeId) async {
     final success = await ref.read(nodeRepositoryProvider).deleteNode(nodeId);
+    if (success) {
+      await refresh();
+    }
+    return success;
+  }
+
+  Future<bool> toggleBlockNode(String nodeId, bool blocked) async {
+    final success = await ref.read(nodeRepositoryProvider).toggleBlockNode(nodeId, blocked);
     if (success) {
       await refresh();
     }

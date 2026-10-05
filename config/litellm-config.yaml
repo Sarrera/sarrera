@@ -38,5 +38,7 @@ general_settings:
 
 litellm_settings:
   # Non-blocking asynchronous callbacks forwarding every trace to Langfuse without added latency
-  success_callback: ["langfuse"]
-  failure_callback: ["langfuse"]
+  success_callback: ["langfuse", "prometheus"]
+  failure_callback: ["langfuse", "prometheus"]
+  service_callback: ["prometheus"]
+
