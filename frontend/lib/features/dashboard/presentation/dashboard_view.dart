@@ -230,6 +230,22 @@ class DashboardView extends ConsumerWidget {
                     width: width,
                   ),
                   _ServiceCard(
+                    title: 'Prometheus',
+                    subtitle: 'Hardware, CPU/GPU & Disk Metrics',
+                    icon: Icons.show_chart,
+                    color: const Color(0xFFE6522C),
+                    url: ApiConstants.getPrometheusUrl(),
+                    width: width,
+                  ),
+                  _ServiceCard(
+                    title: 'Node Discovery',
+                    subtitle: 'Auto-registro dinámico de nodos',
+                    icon: Icons.radar_outlined,
+                    color: const Color(0xFF14B8A6),
+                    url: ApiConstants.getDiscoveryUrl(),
+                    width: width,
+                  ),
+                  _ServiceCard(
                     title: 'Documentation',
                     subtitle: 'GitHub Pages Runbooks',
                     icon: Icons.menu_book_outlined,

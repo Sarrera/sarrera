@@ -136,8 +136,6 @@ To prevent asset collisions across different Single Page Applications (SPAs), Ca
 | **Ollama Inference Engine** | `https://ollama.localhost/api/*` | `/admin/ollama/api/*` | `ollama-local:11434` | Direct Local REST / GGUF Tags API |
 | **MinIO S3 Storage Console** | `https://storage.localhost/` | `/admin/storage/*` | `minio:9001` | Root Credentials (`MINIO_ROOT_USER`) |
 | **OpenAI Inference Gateway** | `https://gateway.localhost/v1/*` | `/v1/*` | `litellm:4000/v1/*` | Virtual API Key (`sk-sarrera-...`) |
-| **Prometheus Metrics** *(v1.3.0+)* | `https://prometheus.localhost/` | `/admin/prometheus/*` | `prometheus:9090` | Internal admin console (no auth — restrict exposure) |
-| **Node Discovery** *(v1.3.0+)* | — | `/admin/discovery/*` | `discovery:8001` | Read-only JSON (HTTP SD targets) |
 | **Documentation Portal** | `https://docs.localhost/` | `/docs/*` | Static Docsify & Markdown Engine | Public Access / Multi-version Nav |
 
 ---

@@ -47,7 +47,7 @@ class ApiConstants {
   static const String prometheusQuery = '$prometheusBase/api/v1/query';
 
   // Platform Versioning (SemVer: MAJOR.MINOR.PATCH)
-  static const String appVersion = 'v1.2.0';
+  static const String appVersion = 'v1.3.0';
 
   // Navigation Links & URLs
   static const String docsUrl = 'https://sarrera.github.io/sarrera/';
@@ -88,6 +88,12 @@ class ApiConstants {
     }
     return '/admin/prometheus/';
   }
+
+  /// Dynamic Compute Node Discovery Service (lists nodes auto-registered from LiteLLM)
+  static String getDiscoveryUrl() => '/admin/discovery/targets/all';
+
+  /// Prometheus scrape targets health view
+  static String getPrometheusTargetsUrl() => '${getPrometheusUrl()}targets';
 
   /// Dynamically computes the dedicated subdomain URL for Ollama Inference Engine & Model Inspector
   static String getOllamaUrl() {

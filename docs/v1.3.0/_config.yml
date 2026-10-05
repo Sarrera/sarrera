@@ -1,0 +1,19 @@
+title: Sarrera Documentation
+description: Enterprise Local AI Inference Gateway, Access Control (RBAC), Token Quotas, and Heterogeneous GPU/CPU Orchestration.
+theme: jekyll-theme-primer
+markdown: kramdown
+permalink: /:path/
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+header_pages:
+  - index.md
+  - getting-started/quickstart.md
+  - getting-started/architecture.md
+  - configuration/docker-compose.md
+  - governance-rbac/tiers-and-quotas.md
+  - observability/langfuse.md
+  - clients/vscode-continue.md
+  - infrastructure/inference-nodes.md
+  - operations/troubleshooting.md

@@ -4,6 +4,29 @@ This document mirrors the official [Sarrera Documentation Changelog](docs/operat
 
 ---
 
+## [v1.3.0] — 2026-10-05
+
+### 🚀 Enhancements & New Features (MINOR)
+* **Hardware Telemetry with Prometheus (`prometheus.localhost`, `/admin/prometheus/*`)**:
+  * New `ai-prometheus` service (v2.51.0, 15d retention) scraping LiteLLM, `node-exporter` (:9100), `cadvisor` (:8080) and NVIDIA `dcgm-exporter` (:9400).
+  * Compute Nodes view now shows live CPU, RAM, disk and GPU usage per node (falls back to "ACCL CPU MODE" on CPU-only nodes).
+* **Dynamic Node Discovery Service (`ai-discovery`, `/admin/discovery/*`)**:
+  * Python microservice exposing Prometheus HTTP SD endpoints (`/targets/node-exporter`, `/targets/cadvisor`, `/targets/dcgm-exporter`, `/targets/all`).
+  * Prometheus targets are derived from nodes registered in LiteLLM: adding/removing a node updates scraping automatically (no hardcoded IPs). GPU targets only when port 9400 is reachable.
+* **Compute Node Operations**:
+  * Per-node action icons: health ping, maintenance draining, reboot and terminal/CLI snippets.
+* **User MFA (TOTP / QR)**:
+  * RFC 6238 TOTP 2FA with scannable QR (Google Authenticator, Authy, etc.), manual Base32 key and 6-digit verification.
+* **Per-User Quota Source Switch**:
+  * Users can consume either their own fixed budget or the shared Client Group budget pool (toggle in onboarding dialog and user tables).
+* **Platform Services**:
+  * Added Prometheus Metrics, Prometheus Targets and Node Discovery to the portal sidebar and dashboard service cards.
+
+### 🐛 Bug Fixes & Improvements (PATCH)
+* **User Onboarding 422**: Default `user_role` set to `internal_user` with enum guard against LiteLLM's strict role validation; onboarding errors are now surfaced in the UI.
+
+---
+
 ## [v1.2.0] — 2026-10-03
 
 ### 🚀 Enhancements & New Features (MINOR)

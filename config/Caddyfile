@@ -81,6 +81,11 @@
         }
     }
 
+    # Dynamic Compute Node Discovery Service (Prometheus HTTP SD)
+    handle_path /admin/discovery/* {
+        reverse_proxy discovery:8001
+    }
+
     # Langfuse Observability & Trace Auditing -> Redirect to dedicated audit subdomain
     handle /admin/audit* {
         redir https://audit.{hostport}/ 302

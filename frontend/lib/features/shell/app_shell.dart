@@ -186,6 +186,21 @@ class AppShell extends ConsumerWidget {
                         url: ApiConstants.getStorageUrl(),
                       ),
                       _ExternalLinkItem(
+                        title: 'Prometheus Metrics',
+                        icon: Icons.show_chart,
+                        url: ApiConstants.getPrometheusUrl(),
+                      ),
+                      _ExternalLinkItem(
+                        title: 'Prometheus Targets',
+                        icon: Icons.track_changes_outlined,
+                        url: ApiConstants.getPrometheusTargetsUrl(),
+                      ),
+                      _ExternalLinkItem(
+                        title: 'Node Discovery',
+                        icon: Icons.radar_outlined,
+                        url: ApiConstants.getDiscoveryUrl(),
+                      ),
+                      _ExternalLinkItem(
                         title: 'Documentation',
                         icon: Icons.menu_book_outlined,
                         url: ApiConstants.docsUrl,

@@ -136,28 +136,6 @@ Once your inference nodes are reachable over your internal network:
 
 ---
 
-## 4.1 Registering Nodes from the Portal & Node Operations
-
-> [!NOTE]
-> **Available since v1.3.0.**
-
-Nodes can also be registered directly from **Compute Nodes** in the governance portal (stored in LiteLLM, no restart needed). Each node card provides:
-
-| Action | Effect |
-| :--- | :--- |
-| **Health ping** | Measures latency against the node's `api_base` |
-| **Drain Traffic / Restore Traffic** | Blocks the node in LiteLLM so no new requests are routed to it (maintenance); restore returns it to the pool |
-| **Terminal Access** | Copy-ready commands: `multipass shell <vm>`, `ssh ubuntu@<ip>`, `docker ps`, `ollama list` |
-| **Operations & Reboot** | Copy-ready commands to restart the Ollama container, restart the node's Compose stack, or reboot the VM (`multipass restart <vm>`). Drain traffic first. |
-| **Delete** | Removes the node from LiteLLM — and automatically from Prometheus scraping |
-
-> [!TIP]
-> Commands are displayed for copy/paste; the portal does not execute them remotely.
-
-Live **CPU / RAM / disk / GPU** gauges are shown per node once the telemetry agents are installed. See [Hardware Telemetry with Prometheus](observability/prometheus-telemetry.md).
-
----
-
 ## 5. How Developers Select Models in VS Code
 
 Developers have two integration paths depending on whether governance is required:

@@ -18,13 +18,11 @@
   * [Tiers & Quotas](governance-rbac/tiers-and-quotas.md)
   * [Key Management](governance-rbac/key-management.md)
   * [LiteLLM Dashboard](governance-rbac/litellm-dashboard.md)
-  * [Multi-Factor Auth (MFA)](governance-rbac/mfa.md)
 
 * **Observability & Auditing**
   * [Langfuse Setup](observability/langfuse.md)
   * [Tracing & Latency](observability/tracing-and-metrics.md)
   * [Department Cost Accounting](observability/cost-accounting.md)
-  * [Prometheus Hardware Telemetry](observability/prometheus-telemetry.md)
 
 * **Client Integration**
   * [VS Code (Continue)](clients/vscode-continue.md)
