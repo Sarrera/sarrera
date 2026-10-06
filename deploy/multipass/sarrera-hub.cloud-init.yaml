@@ -1,0 +1,33 @@
+#cloud-config
+# ==============================================================================
+# Sarrera Hub VM - cloud-init (Multipass / Ubuntu 24.04)
+# Runs the full Sarrera docker-compose stack + dnsmasq for *.sarrera.local
+# Since v1.4.0
+# ==============================================================================
+package_update: true
+packages:
+  - docker.io
+  - docker-compose-v2
+  - dnsmasq
+  - curl
+  - jq
+
+write_files:
+  # dnsmasq only listens on the VM's LAN IP (set by deploy script); systemd-resolved
+  # keeps 127.0.0.53 so there is no port 53 conflict.
+  - path: /etc/dnsmasq.d/00-base.conf
+    content: |
+      bind-dynamic
+      except-interface=lo
+      except-interface=docker0
+      no-hosts
+      domain-needed
+      bogus-priv
+      server=1.1.1.1
+      server=8.8.8.8
+
+runcmd:
+  - usermod -aG docker ubuntu
+  - systemctl enable --now docker
+  - mkdir -p /opt/sarrera && chown ubuntu:ubuntu /opt/sarrera
+  - systemctl enable dnsmasq
